@@ -1,0 +1,101 @@
+#shell
+alias cd..="cd .."
+alias dir="ls -AlGh"
+alias la="ls -AlGh"
+alias ll="ls -lGh"
+alias cls="clear"
+alias c="clear"
+alias d="ls -lGh"
+
+# colorls aliases
+# https://github.com/athityakumar/colorls#installation
+# https://medium.com/@caulfieldOwen/youre-missing-out-on-a-better-mac-terminal-experience-d73647abf6d7
+# alias d="colorls -Al --dark --sd --gs"
+# alias dt="colorls --dark --tree"
+
+#switcing to lsd https://github.com/Peltoche/lsd
+# alias dc="colorls -Al --dark --sd --gs"
+alias d="lsd -Alh --group-dirs first --date relative"
+alias d-s="lsd -Alh --group-dirs first --total-size --date relative"
+alias d-d="d --date '+%Y-%m-%d %H:%M:%S'" # override date formating from reltaive to numbers
+
+alias df="df -h"
+alias du="du -hc"
+
+# emacs shortcuts
+alias vi="emacsclient -f ~/.emacs.d/server/server"
+alias vim="emacsclient -f ~/.emacs.d/server/server"
+alias e="emacsclient -n"
+alias et="/usr/local/bin/emacsclient -t -f ~/.emacs.d/server/server"
+alias emacs="emacs -nw  --eval '(menu-bar-mode -1)' -Q"
+alias oe="open /Applications/Emacs.app"
+alias doom="~/.emacs.d/bin/doom"
+
+# switching from emacs to vscode
+#alias e="code-insiders"
+
+# git helpers
+alias gpp="gup && gp"
+alias gbv="git branch -avv"
+alias glog="git log --graph --pretty=format:'%C(auto)%h%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --all"
+alias gdc="git diff --cached"
+alias gdh="git diff HEAD"
+alias gba="git branch -avv"
+
+# switch on/off word wraping in terminal lines
+alias wrapon="tput rmam"
+alias wrapoff="tput smam"
+
+# rust
+# alias ct="cargo test --lib -- --nocapture"
+
+# go helpers 
+alias gogrep="grep -r --include \*.go"
+
+function replace_import_path() {
+    from=$(echo $1 | sed -e 's/[\/&]/\\&/g')
+    to=$(echo $2 | sed -e 's/[\/&]/\\&/g')
+    find . -name '*.go' -exec sed -i '' -e "s/$from/$to/g" {} \;
+}
+
+function git-who() {
+# using tool topuniq from: https://github.com/MestreLion/topuniq
+# if not available can be replaced with sort -f | uniq -ic | sort -nr
+
+  git ls-files | grep .go$ | xargs -n1 git blame --line-porcelain | sed -n 's/^author //p' | tr ć c | tr š s | tr Š S |\
+  sed 's/jsladovic/Janko Sladovic/' | \
+  sed 's/gljubojevic/Goran Ljubojevic/' | \
+  sed 's/ivlasic/Ivan Vlasic/' | \
+  sed 's/jpop32/jpop/' | \
+  sed 's/isaric/Igor Saric/' | \
+  sed 's/amarsic/Ana Marsic/' | \
+  sed 's/vedran/Vedran Vekic/' | \
+  sed 's/anababic0123/Ana Babic/' | \
+  sed 's/MSalopek/Matija Salopek/' | \
+  sed 's/zcalic/ZoranCalic/' | \
+  ~/work/ianic/topuniq/topuniq --total-last --min-perc=1 --min-perc=0.1
+
+#  sort -f | uniq -ic | sort -nr
+}
+
+function run() {
+    for dir in script scripts; do
+        for suffix in "" ".sh" ".go"; do
+            cmd=$(git rev-parse --show-toplevel)/$dir/$1$suffix
+            if test -f $cmd; then
+                if [[ "${cmd: -3}" == ".go" ]]; then
+                    go run $cmd ${@:2}
+                else
+                    $cmd ${@:2}
+                fi
+                return $?
+    	    fi
+        done
+    done
+    echo "no command $1 found"
+}
+
+function cd-git-root() {
+    cd $(git rev-parse --show-toplevel)
+}
+alias cdr="cd-git-root"
