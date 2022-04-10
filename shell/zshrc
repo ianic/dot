@@ -133,15 +133,20 @@ source $ZSH/oh-my-zsh.sh
 export PATH=~/go/bin:$PATH
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-   DEFAULT_USER=ianic
-   export EDITOR="/usr/local/bin/emacsclient -f ~/.emacs.d/server/server"
-   # set homebrew env variables
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-  # prepend go path to be before homebrew go
-  [ -f /etc/paths.d/go ] && PATH=$(cat /etc/paths.d/go):$PATH || true
+    DEFAULT_USER=ianic
+    export EDITOR="/usr/local/bin/emacsclient -f ~/.emacs.d/server/server"
+    # set homebrew env variables
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    # prepend go path to be before homebrew go
+    [ -f /etc/paths.d/go ] && PATH=$(cat /etc/paths.d/go):$PATH || true
 
-  # my aws defaults
-  export AWS_PROFILE=org5
-  export AWS_REGION=eu-central-1
-  export PATH="$PATH:/Users/ianic/.nsc/bin"
+    # my aws defaults
+    export AWS_PROFILE=org5
+    export AWS_REGION=eu-central-1
+    export PATH="$PATH:/Users/ianic/.nsc/bin"
+fi
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    DEFAULT_USER=ubuntu
+    export EDITOR=emacs
 fi
