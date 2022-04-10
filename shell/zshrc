@@ -133,7 +133,7 @@ source $ZSH/oh-my-zsh.sh
 export PATH=~/go/bin:$PATH
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    DEFAULT_USER=ianic
+    export DEFAULT_USER=ianic
     export EDITOR="/usr/local/bin/emacsclient -f ~/.emacs.d/server/server"
     # set homebrew env variables
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -147,6 +147,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    DEFAULT_USER=ubuntu
+    export DEFAULT_USER=ubuntu
     export EDITOR=emacs
 fi
