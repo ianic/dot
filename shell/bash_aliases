@@ -21,6 +21,7 @@ alias d-d="d --date '+%Y-%m-%d %H:%M:%S'" # override date formating from reltaiv
 
 alias df="df -h"
 alias du="du -hc"
+alias mp="multipass"
 
 # emacs shortcuts
 alias vi="emacsclient -f ~/.emacs.d/server/server"
@@ -82,6 +83,7 @@ function run() {
     for dir in script scripts; do
         for suffix in "" ".sh" ".go"; do
             cmd=$(git rev-parse --show-toplevel)/$dir/$1$suffix
+            export GIT_ROOT=$(git rev-parse --show-toplevel)
             if test -f $cmd; then
                 if [[ "${cmd: -3}" == ".go" ]]; then
                     go run $cmd ${@:2}

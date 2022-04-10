@@ -26,3 +26,24 @@ brew upgrade golangci-lint
 #      ! Couldn't find js-beautify. Code formatting in JS/CSS/HTML modes will not work.
 # npm install -g stylelint
 # npm -g install js-beautify
+
+
+go install github.com/motemen/gore/cmd/gore@latest
+go install github.com/stamblerre/gocode@latest
+go install golang.org/x/tools/cmd/godoc@latest
+go install golang.org/x/tools/cmd/goimports@latest
+go install golang.org/x/tools/cmd/gorename@latest
+go install golang.org/x/tools/cmd/guru@latest
+go install github.com/fatih/gomodifytags@latest
+go install github.com/x-motemen/gore/cmd/gore@latest
+go get -u github.com/cweill/gotests/...
+
+go install golang.org/x/tools/gopls@latest
+
+brew install fd
+brew install shellcheck
+brew install grip markdown
+
+# reset lsp ignored projects
+(setf (lsp-session-folders-blacklist (lsp-session)) nil)
+(lsp--persist-session (lsp-session))

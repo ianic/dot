@@ -26,9 +26,18 @@
  ;; "C-c C-;"      #'comment-or-uncomment-region
  ;;"M-x"          #'lsp-rename
  "C-x C-m"      #'counsel-M-x
+ "C-x m"        #'counsel-M-x
  "s-x"          #'kill-region
  ;;"C-z C-z"      #'counsel-M-x
  "M-s-."        #'+lookup/definition-other-window
+ ;;"C-w"          #'backward-kill-word
+ "C-x e"        #'end-of-buffer
+ "C-x t"        #'beginning-of-buffer
+ ;;"C-c C-c"      #'comment-dwim  ;; in collision with magit commit and shell ctrl-c
+ "C-c ;"        #'comment-dwim
+ "C-c C-;"      #'comment-dwim
+ "s-f"          #'forward-word
+ "s-b"          #'backward-word
 )
 
 ;; Go hooks
@@ -42,7 +51,10 @@
 ;; my private leader key
 (map! "C-z" nil)
 ;;(setq doom-localleader-alt-key "C-z")
-(setq doom-localleader-alt-key "C-z l")
+;;(setq doom-localleader-alt-key "C-z l")
+
+;;(map! "C-j" nil)
+(setq doom-localleader-alt-key "C-j")
 
 (require 'general)
 (general-create-definer my-leader-def

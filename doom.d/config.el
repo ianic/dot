@@ -87,6 +87,13 @@
   (push "[/\\\\]\\.terraform\\'" lsp-file-watch-ignored-directories)
   (push "[/\\\\]\\.state\\'" lsp-file-watch-ignored-directories)
   (push "[/\\\\]\\fork\\'" lsp-file-watch-ignored-directories)
+
+  (lsp-register-client
+    (make-lsp-client :new-connection (lsp-tramp-connection "zls")
+                     :major-modes '(zig-mode)
+                     :remote? t
+                     :server-id 'zls-remote))
+
 )
 
 (setq display-line-numbers-type nil)
@@ -107,3 +114,10 @@
             (switch-to-buffer-other-window (current-buffer))
             (goto-char pt)
             (funcall (intern (format "+lookup/%s" fn)) identifier arg)))))
+
+
+(setq lsp-zig-zls-executable "~/zls/zls")
+
+(add-hook 'zig-mode-hook #'zig-toggle-format-on-save)
+
+
