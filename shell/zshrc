@@ -128,24 +128,20 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-DEFAULT_USER=ianic
-export EDITOR="/usr/local/bin/emacsclient -f ~/.emacs.d/server/server"
-source ~/.bash_aliases
-source ~/.secrets
+[[ -f ~/.bash_aliases ]]  && source ~/.bash_aliases
+[[ -f ~/.secrets ]]  && source ~/.secrets
 export PATH=~/go/bin:$PATH
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+   DEFAULT_USER=ianic
+   export EDITOR="/usr/local/bin/emacsclient -f ~/.emacs.d/server/server"
+   # set homebrew env variables
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  # prepend go path to be before homebrew go
+  [ -f /etc/paths.d/go ] && PATH=$(cat /etc/paths.d/go):$PATH || true
 
-# my aws defaults
-export AWS_PROFILE=org5
-export AWS_REGION=eu-central-1
-export PATH="$PATH:/Users/ianic/.nsc/bin"
-
-# set homebrew env variables
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# https://golangbyexample.com/understand-etc-paths-pathsd-mac/
-# /etc/paths
-# ls -al  /etc/paths.d/
-#
-# prepend go path to be before homebrew go
-[ -f /etc/paths.d/go ] && PATH=$(cat /etc/paths.d/go):$PATH || true
+  # my aws defaults
+  export AWS_PROFILE=org5
+  export AWS_REGION=eu-central-1
+  export PATH="$PATH:/Users/ianic/.nsc/bin"
+fi
