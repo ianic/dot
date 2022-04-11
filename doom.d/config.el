@@ -118,6 +118,4 @@
 
 (setq lsp-zig-zls-executable "~/zls/zls")
 
-(add-hook 'zig-mode-hook #'zig-toggle-format-on-save)
-
-
+;;(add-hook 'zig-mode-hook #'zig-toggle-format-on-save)

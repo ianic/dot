@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -ex
 
 # nats-server install
 # releases page: https://github.com/nats-io/nats-server/releases

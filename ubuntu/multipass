@@ -1,0 +1,42 @@
+
+# start stop
+sudo launchctl load /Library/LaunchDaemons/com.canonical.multipassd.plist
+sudo launchctl unload /Library/LaunchDaemons/com.canonical.multipassd.plist
+
+# move multipass vm-s to different place
+# ref: https://github.com/canonical/multipass/issues/566#issuecomment-641581396
+
+
+sudo launchctl unload /Library/LaunchDaemons/com.canonical.multipassd.plist
+
+
+
+# On the command line switch to Super User mode.
+sudo su
+
+# Go to directory where the multipass data is located
+cd /var/root/Library/Application\ Support/
+
+# Move the multipass directory to a proper place
+mv multipassd/ /Library/Application\ Support/
+
+# create a symbolic link called multipassd (which we moved in the previous command) and have it point to the new location
+ln -s /Library/Application\ Support/multipassd/ ./multipassd
+
+# We need to do also move the the multipass image cache
+
+# Go to directory where the multipass cache is located
+cd /var/root/Library/Caches
+
+# Move the multipass cache directory to a proper place
+mkdir /Library/Application\ Support/multipassd/Caches
+mv multipassd/ /Library/Application\ Support/multipassd/Caches
+
+# create a symbolic link called multipassd (which we moved in the previous command) and have it point to the new location
+ln -s /Library/Application\ Support/multipassd/Caches/multipassd/ ./multipassd
+
+# done
+
+# In time machine I've excluded
+/Library/Application\ Support/multipassd/vault/instances/
+/Library/Application\ Support/multipassd/Caches/multipassd/

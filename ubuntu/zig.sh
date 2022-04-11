@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -ex
 
 # zig 0.9.1
 wget https://ziglang.org/download/0.9.1/zig-linux-aarch64-0.9.1.tar.xz
