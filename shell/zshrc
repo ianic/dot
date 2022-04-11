@@ -149,4 +149,8 @@ fi
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export DEFAULT_USER=ubuntu
     export EDITOR=emacs
+    # remove user from prompt on remote machine
+    export SPACESHIP_USER_SHOW=false
+    export SPACESHIP_DIR_PREFIX=
+    #export SPACESHIP_HOST_SHOW=false
 fi
