@@ -1,5 +1,5 @@
 [core]
-	excludesfile = /Users/ianic/.gitignore
+	excludesfile = ~/.gitignore
 	whitespace=nowarn
 	editor = emacs -nw  --eval '(menu-bar-mode -1)' -Q
 [user]
