@@ -13,6 +13,7 @@ sudo -E usermod --shell /usr/bin/zsh ubuntu
 cd ~
 ln -s ~/code/dot/shell/zshrc        .zshrc
 ln -s ~/code/dot/shell/bash_aliases .bash_aliases
+ln -s ~/code/dot/shell/gitignore    .gitignore
 
 # zsh
 git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
