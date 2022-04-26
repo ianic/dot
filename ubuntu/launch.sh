@@ -1,4 +1,7 @@
 #!/bin/bash -ex
+#
+# currently using 1.9.0 RC version from: https://github.com/canonical/multipass/issues/2511
+# so I can get ubuntu 22.04 image
 
 host=${1:-dev}
 

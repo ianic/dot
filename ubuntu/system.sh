@@ -38,3 +38,19 @@ rm lsd_0.21.0_arm64.deb
 
 # performance monitoring tools
 sudo -E apt-get install -y linux-tools-common linux-tools-generic linux-tools-`uname -r`
+
+# classis
+cd ~/src
+git clone git@github.com:brendangregg/FlameGraph.git
+
+
+# #  building perf from source
+# cd ~/src
+# sudo apt-get install -y flex bison
+
+# sudo apt-get source linux-image-unsigned-$(uname -r)
+# cd linux-5.15.0/tools/perf
+# make
+
+# # a onda jos za flamegraph: https://github.com/spiermar/d3-flame-graph#input-format
+# sudo apt install -y nodejs npm
