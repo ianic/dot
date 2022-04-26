@@ -13,6 +13,7 @@ sudo -E usermod --shell /usr/bin/zsh ubuntu
 cd ~
 ln -s ~/code/dot/shell/zshrc        .zshrc
 ln -s ~/code/dot/shell/bash_aliases .bash_aliases
+ln -s ~/code/dot/shell/gitconfig    .gitconfig
 ln -s ~/code/dot/shell/gitignore    .gitignore
 
 # zsh
@@ -34,3 +35,6 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 wget -q https://github.com/Peltoche/lsd/releases/download/0.21.0/lsd_0.21.0_arm64.deb
 sudo dpkg -i lsd_0.21.0_arm64.deb
 rm lsd_0.21.0_arm64.deb
+
+# performance monitoring tools
+sudo -E apt-get install -y linux-tools-common linux-tools-generic linux-tools-`uname -r`
