@@ -116,6 +116,6 @@
             (funcall (intern (format "+lookup/%s" fn)) identifier arg)))))
 
 
-(setq lsp-zig-zls-executable "~/zls/zls")
+(setq lsp-zig-zls-executable "/usr/local/bin/zls")
 
 ;;(add-hook 'zig-mode-hook #'zig-toggle-format-on-save)
