@@ -23,7 +23,7 @@ for url in "${urls[@]}"; do
       sudo mv $dir  /usr/local/zig
       sudo rm -f /usr/local/bin/zig
       sudo ln -s /usr/local/zig/$dir/zig /usr/local/bin/
-      rm $fn
+      rm -f $fn
   fi
 done
 
