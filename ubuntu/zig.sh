@@ -1,12 +1,16 @@
 #!/bin/bash -ex
 
+#installs zig into /usr/local/bin
+#works for Linux and macOS arm machines
+
 arch=linux
 if [[ "$OSTYPE" == "darwin"* ]]; then
     arch=macos
 fi
 
 stable=https://ziglang.org/download/0.9.1/zig-$arch-aarch64-0.9.1.tar.xz
-latest=https://ziglang.org/builds/zig-$arch-aarch64-0.10.0-dev.1741+d2681d253.tar.xz
+# find the latest build
+latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"aarch64-$arch\".tarball" -r)
 
 urls=( "$stable" "$latest" )
 for url in "${urls[@]}"; do
@@ -22,16 +26,6 @@ for url in "${urls[@]}"; do
       rm $fn
   fi
 done
-
-# zig master
-# https://ziglang.org/download/
-# zig_version=zig-linux-aarch64-0.10.0-dev.1740+971ef7b9c
-# wget https://ziglang.org/builds/$zig_version.tar.xz
-# tar xvf $zig_version.tar.xz
-# sudo mv $zig_version /usr/local/bin
-# sudo rm /usr/local/bin/zig
-# sudo ln -s /usr/local/bin/$zig_version/zig /usr/local/bin/
-# rm $zig_version.tar.xz
 
 # zls install from source
 cd ~ && mkdir -p src && cd src
