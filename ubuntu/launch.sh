@@ -2,7 +2,7 @@
 
 host=${1:-dev}
 
-multipass launch -n $host -m 4G -c 4 -d 16G
+multipass launch -n $host -m 4G -c 4 -d 8G 22.04
 multipass mount /Users/ianic/code $host:/home/ubuntu/code
 
 # get IP of the new host
