@@ -7,3 +7,7 @@
 	email = ianic@inet.hr
 [init]
 	defaultBranch = master
+[safe]
+	directory = /home/ubuntu/code/zig/zig-libressl/libressl
+	directory = /home/ubuntu/code/zig/zig-libressl/libressl/openbsd
+	directory = /home/ubuntu/code/zig/zig-bearssl/BearSSL

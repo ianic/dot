@@ -3,8 +3,7 @@
 sudo apt-get update -y
 sudo apt-get upgrade -y
 
-sudo -E apt-get install -y curl net-tools unzip make build-essential jq zsh
-sudo -E snap install emacs --classic
+sudo -E apt-get install -y curl net-tools unzip make build-essential jq zsh emacs-nox
 sudo -E snap install go --classic
 sudo -E snap install tree
 
@@ -39,7 +38,7 @@ rm lsd_0.21.0_arm64.deb
 # performance monitoring tools
 sudo -E apt-get install -y linux-tools-common linux-tools-generic linux-tools-`uname -r`
 
-# classis
+# classic
 cd ~/src
 git clone git@github.com:brendangregg/FlameGraph.git
 
@@ -54,3 +53,6 @@ git clone git@github.com:brendangregg/FlameGraph.git
 
 # # a onda jos za flamegraph: https://github.com/spiermar/d3-flame-graph#input-format
 # sudo apt install -y nodejs npm
+
+# ovo mi je trebalo da buildam libressl
+# sudo apt-get install -y automake libtool libtool-bin
