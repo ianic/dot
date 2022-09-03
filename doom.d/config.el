@@ -59,7 +59,8 @@
 ;; reference: https://www.youtube.com/watch?v=Ey54ovJUdQ4
 ;; and his config: https://gitlab.com/dwt1/dotfiles/-/blob/master/.doom.d/config.el
 
-(setq doom-font (font-spec :family "Source Code Pro" :size 15)
+;;(setq doom-font (font-spec :family "SauceCodePro" :size 15)
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
       ;;(setq doom-font (font-spec :family "Menlo" :size 12)
       ;;doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
       ;;doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
@@ -76,7 +77,7 @@
 ;;(toggle-frame-fullscreen)
 (load! "+bindings.el")
 
-(setq default-directory "~/mantil-io")
+(setq default-directory "~/code")
 
 ;; disable making links of all go import
 (setq lsp-enable-links nil)

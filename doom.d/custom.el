@@ -10,6 +10,7 @@
    '("a7b20039f50e839626f8d6aa96df62afebb56a5bbd1192f557cb2efb5fcfb662" "4f1d2476c290eaa5d9ab9d13b60f2c0f1c8fa7703596fa91b235db7f99a9441b" "835868dcd17131ba8b9619d14c67c127aa18b90a82438c8613586331129dda63" "246a9596178bb806c5f41e5b571546bb6e0f4bd41a9da0df5dfbca7ec6e2250c" "79278310dd6cacf2d2f491063c4ab8b129fee2a498e4c25912ddaa6c3c5b621e" default))
  '(exwm-floating-border-color "#1c1f24")
  '(fci-rule-color "#62686E")
+ '(global-so-long-mode nil)
  '(highlight-tail-colors
    ((("#2c3636" "#99bb66" "green")
      . 0)

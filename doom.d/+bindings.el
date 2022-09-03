@@ -83,3 +83,15 @@
   "p" `lsp-ui-find-prev-reference
   "n" `lsp-ui-find-next-reference
  )
+
+;; add zig build flash command, and shortcut
+(defun zig-build-flash ()
+  "Compile and flash microcontroller `zig build flash`."
+  (interactive)
+  (zig--run-cmd "build flash"))
+
+
+;; ref: https://github.com/doomemacs/doomemacs/blob/master/modules/lang/zig/config.el
+(map! :localleader
+      :map zig-mode-map
+      "m" #'zig-build-flash )
