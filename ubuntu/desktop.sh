@@ -1,6 +1,13 @@
 #!/bin/bash -ex
 
-if [[ ! -d ~/Documents ]]; then
+host_home=/media/psf/Home/
+
+# on vmware this is location
+if [[ -d /mnt/hgfs/ianic/ ]]; then
+    host_home=/mnt/hgfs/ianic/
+fi
+
+if [[ -d ~/Documents ]]; then
     echo "remove home folder clutter"
     rm -rf Desktop/ Documents/ Downloads/ Music/ Pictures/ Public/ Templates/ Videos/
 fi
@@ -8,7 +15,7 @@ fi
 if [[ ! -d ~/code ]]; then
     echo "link code to ~"
     cd ~
-    ln -s /media/psf/Home/code/ .
+    ln -s $host_home/code/ .
 fi
 
 if [[ ! -f ~/.ssh/id_rsa ]] ; then
@@ -16,9 +23,9 @@ if [[ ! -f ~/.ssh/id_rsa ]] ; then
     cd ~
     mkdir -p .ssh
     cd .ssh
-    cp /media/psf/Home/.ssh/authorized_keys2 .
-    cp /media/psf/Home/.ssh/id_rsa .
-    cp /media/psf/Home/.ssh/id_rsa.pub .
+    cp $host_home.ssh/authorized_keys2 .
+    cp $host_home.ssh/id_rsa .
+    cp $host_home.ssh/id_rsa.pub .
 fi
 
 if [[ ! -f /etc/sudoers.d/ianic ]] ; then
@@ -32,7 +39,8 @@ fi
 sudo apt-get update -y
 sudo apt-get upgrade -y
 
-sudo -E apt-get install -y curl net-tools unzip make build-essential jq zsh git ripgrep fd-find snapd i3 openssh-server
+sudo -E apt-get install -y curl net-tools unzip make build-essential jq zsh git ripgrep fd-find snapd openssh-server htop ruby-full
+sudo -E apt-get install -y i3 rofi dzen2
 sudo -E snap install go --classic
 sudo -E snap install emacs --classic
 sudo -E snap install tree
@@ -63,6 +71,12 @@ if [[ ! -f ~/.zshrc ]]; then
     ln -s ~/code/dot/shell/bash_aliases .bash_aliases
     ln -s ~/code/dot/shell/gitconfig    .gitconfig
     ln -s ~/code/dot/shell/gitignore    .gitignore
+
+    mkdir -p ~/.config/i3
+    ln -s ~/code/dot/ubuntu/i3 ~/.config/i3/config
+
+    mkdir -p ~/.config/i3status
+    ln -s /home/ianic/code/dot/ubuntu/i3status ~/.config/i3status/config
 fi
 
 if [[ ! -d ~/.fonts ]]; then
@@ -94,3 +108,19 @@ if [[ ! -d ~/.doom.d ]]; then
     ln -s code/dot/doom.d .doom.d
     ~/.emacs.d/bin/doom sync
 fi
+
+
+
+# TODO: gnome terminal preferences
+# dump:
+# dconf dump /org/gnome/terminal/ > gterminal.preferences
+# load:
+# cat gterminal.preferences | dconf load /org/gnome/terminal/legacy/profiles:/
+
+
+# vmware enable shared folders:
+#
+# sudo apt install -y open-vm-tools-desktop
+# sudo reboot now
+# sudo mkdir -p /mnt/hgfs/
+# sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs/ -o subtype=vmhgfs-fuse,allow_other
