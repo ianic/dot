@@ -39,11 +39,10 @@ fi
 sudo apt-get update -y
 sudo apt-get upgrade -y
 
-sudo -E apt-get install -y curl net-tools unzip make build-essential jq zsh git ripgrep fd-find snapd openssh-server htop ruby-full
+sudo -E apt-get install -y curl net-tools unzip make build-essential jq zsh git ripgrep fd-find snapd openssh-server htop ruby-full tree
 sudo -E apt-get install -y i3 rofi dzen2
 sudo -E snap install go --classic
 sudo -E snap install emacs --classic
-sudo -E snap install tree
 sudo -E usermod --shell /usr/bin/zsh ianic
 
 if [[ ! -d ~/.oh-my-zsh ]]; then
@@ -115,7 +114,7 @@ fi
 # dump:
 # dconf dump /org/gnome/terminal/ > gterminal.preferences
 # load:
-# cat gterminal.preferences | dconf load /org/gnome/terminal/legacy/profiles:/
+# cat gterminal.preferences | dconf load /org/gnome/terminal/
 
 
 # vmware enable shared folders:
@@ -124,3 +123,6 @@ fi
 # sudo reboot now
 # sudo mkdir -p /mnt/hgfs/
 # sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs/ -o subtype=vmhgfs-fuse,allow_other
+
+# for working with st
+sudo apt-get install -y stlink-tools
