@@ -1,0 +1,40 @@
+mp launch -n dev -m 4G -c 4 -d 16G
+mp mount /Users/ianic/code dev:/home/ubuntu/code
+
+mp transfer ~/.ssh/authorized_keys2 dev:/home/ubuntu/.ssh/authorized_keys2
+mp transfer ~/.ssh/id_rsa dev:/home/ubuntu/.ssh/id_rsa
+mp transfer ~/.ssh/id_rsa.pub dev:/home/ubuntu/.ssh/id_rsa.pub
+
+ssh dev 'chmod 400 ~/.ssh/id_rsa'
+ssh dev 'chmod 444 ~/.ssh/id_rsa.pub'
+ssh dev 'chmod 600 ~/.ssh/authorized_keys2'
+
+
+
+# update .ssh/config tamo stavim ip
+# nakon toga radi ssh dev
+
+ssh dev 'bash -s' < system.sh
+ssh dev 'bash -s' < nats.sh
+ssh dev 'bash -s' < zig.sh
+
+
+
+# go
+wget -q https://go.dev/dl/go1.18.linux-arm64.tar.gz
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.18.linux-arm64.tar.gz
+
+sudo snap install go --classic
+
+
+# my dot files
+cd -p ~/src/ianic
+cd ~/src/ianic
+git clone git@github.com:ianic/dot.git
+cd ~
+ln -s ~/src/ianic/dot/doom.d .doom.d
+
+# emacs
+rm -rf ~/.emacs.d
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install

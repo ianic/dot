@@ -20,3 +20,24 @@ select-all='<Super>a'
 zoom-in='<Super>equal'
 zoom-normal='<Super>0'
 zoom-out='<Super>minus'
+
+[legacy/profiles:]
+default='4a840f15-d5dc-4a9a-9cee-389f41702b59'
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9', '6977bf9d-ab62-45f3-8c91-419fc062327f', '4a840f15-d5dc-4a9a-9cee-389f41702b59']
+
+[legacy/profiles:/:4a840f15-d5dc-4a9a-9cee-389f41702b59]
+background-color='#282A36'
+bold-color='#6E46A4'
+bold-color-same-as-fg=false
+font='Hack Nerd Font Mono 12'
+foreground-color='#F8F8F2'
+palette=['#262626', '#E356A7', '#42E66C', '#E4F34A', '#9B6BDF', '#E64747', '#75D7EC', '#EFA554', '#7A7A7A', '#FF79C6', '#50FA7B', '#F1FA8C', '#BD93F9', '#FF5555', '#8BE9FD', '#FFB86C']
+use-system-font=false
+use-theme-colors=false
+visible-name='Dracula'
+
+[legacy/profiles:/:6977bf9d-ab62-45f3-8c91-419fc062327f]
+visible-name='Default'
+
+[legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+use-theme-colors=true

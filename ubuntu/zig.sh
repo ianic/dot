@@ -14,6 +14,9 @@ stable=https://ziglang.org/download/0.9.1/zig-$arch-aarch64-0.9.1.tar.xz
 # find the latest build
 latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"aarch64-$arch\".tarball" -r)
 
+# latest known good before stage1 changes
+# latest="https://ziglang.org/builds/zig-linux-aarch64-0.10.0-dev.3475+b3d463c9e.tar.xz"
+
 urls=( "$stable" "$latest" )
 for url in "${urls[@]}"; do
   fn=$(basename $url)
