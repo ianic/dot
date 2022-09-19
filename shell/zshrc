@@ -155,6 +155,7 @@ source $ZSH/oh-my-zsh.sh
 [[ -f ~/.bash_aliases ]]  && source ~/.bash_aliases
 [[ -f ~/.secrets ]]  && source ~/.secrets
 export PATH=~/go/bin:$PATH
+export PATH=$PATH:~/.local/bin # pip script install location
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     export DEFAULT_USER=ianic
@@ -178,7 +179,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    export DEFAULT_USER=ubuntu
+    export DEFAULT_USER=ianic
     export EDITOR=emacs
     # remove user from prompt on remote machine
     export SPACESHIP_USER_SHOW=false
@@ -187,3 +188,6 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 fi
 
 fpath=( ~/.oh-my-zsh/custom/plugins/zig "${fpath[@]}" )
+
+# completion to work in d
+setopt completealiases

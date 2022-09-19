@@ -3,10 +3,10 @@
 	whitespace=nowarn
 	editor = emacs -nw  --eval '(menu-bar-mode -1)' -Q
 [user]
-	name = Igor Anic
-	email = ianic@inet.hr
+	name = Igor Anić
+	email = igor.anic@gmail.com
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [safe]
 	directory = /home/ubuntu/code/zig/zig-libressl/libressl
 	directory = /home/ubuntu/code/zig/zig-libressl/libressl/openbsd
