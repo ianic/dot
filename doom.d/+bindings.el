@@ -54,7 +54,8 @@
   ;; Fix conventional OS keys in Emacs
   (map! "s-`" #'other-frame  ; fix frame-switching
         ;; fix OS window/frame navigation/manipulation keys
-        "s-w" #'delete-window
+        ;; ovaj mi smeta kada fulam desni option i stisnem command
+        ;;"s-w" #'delete-window
         "s-W" #'delete-frame
         "s-n" #'+default/new-buffer
         "s-N" #'make-frame
@@ -148,3 +149,8 @@
 
 
 ;;(set-face-attribute 'default nil :height 192)
+
+
+(map! :localleader
+      :map ruby-mode-map
+      "r" #'recompile )

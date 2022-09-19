@@ -52,3 +52,4 @@
  ;; If there is more than one, they won't work right.
  '(font-lock-comment-face ((t (:slant italic))))
  '(font-lock-keyword-face ((t (:slant italic)))))
+(put 'downcase-region 'disabled nil)

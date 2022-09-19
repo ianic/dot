@@ -1,0 +1,12 @@
+# build from source
+
+cd ~/code/build-emacs-for-macos
+./build-emacs-for-macos emacs-28
+
+# then copy from builds to /Applications
+
+# sign the binary
+bin/emacs-builder sign --sign - /Applications/Emacs.app
+
+# upgrade, native compile doom packages
+doom upgrade

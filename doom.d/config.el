@@ -120,3 +120,9 @@
 (setq lsp-zig-zls-executable "/usr/local/bin/zls")
 
 ;;(add-hook 'zig-mode-hook #'zig-toggle-format-on-save)
+
+
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (set (make-local-variable 'compile-command)
+                 (concat "ruby " buffer-file-name))))

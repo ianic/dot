@@ -1,0 +1,5 @@
+;; ref: https://www.reddit.com/r/emacs/comments/bjrd3f/how_can_i_unlock_folder_from_lspmode_blacklist/
+;; https://github.com/emacs-lsp/lsp-mode/issues/2392
+
+(setf (lsp-session-folders-blacklist (lsp-session)) nil)
+(lsp--persist-session (lsp-session))
