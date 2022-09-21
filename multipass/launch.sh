@@ -30,4 +30,4 @@ ssh $host 'chmod 600 ~/.ssh/authorized_keys2'
 
 ssh $host 'bash -ex' < system.sh
 ssh $host 'bash -ex' < nats.sh
-ssh $host 'bash -ex' < zig.sh
+ssh $host 'bash -ex' < ../ubuntu/zig.sh
