@@ -1,15 +1,5 @@
 ;;; ~/.doom.d/bindings.el -*- lexical-binding: t; -*-
 
-;; reference: https://github.com/hlissner/doom-emacs/issues/3952
-(setq mac-command-modifier       'super
-      ns-command-modifier        'super
-      mac-option-modifier        'meta
-      ns-option-modifier         'meta
-      mac-right-option-modifier  'meta   ;; nil by default
-      ns-right-option-modifier   'meta   ;; nil by default
-      mac-right-command-modifier 'meta
-      )
-
 (map!
  "s-}"          (lambda () (interactive) (other-window  1))
  "s-{"          (lambda () (interactive) (other-window -1))
@@ -46,12 +36,18 @@
  "s-a"          #'mark-whole-buffer
 )
 
-;; macos specific keybindings
-;; from: https://github.com/doomemacs/doomemacs/blob/c44bc81a05f3758ceaa28921dd9c830b9c571e61/modules/config/default/config.el#L298
-
-  ;; Fix MacOS shift+tab
-  (define-key key-translation-map [S-iso-lefttab] [backtab])
-  ;; Fix conventional OS keys in Emacs
+(if (eq system-type 'darwin)
+    ;; reference: https://github.com/hlissner/doom-emacs/issues/3952
+    (setq mac-command-modifier       'super
+          ns-command-modifier        'super
+          mac-option-modifier        'meta
+          ns-option-modifier         'meta
+          mac-right-option-modifier  'meta   ;; nil by default
+          ns-right-option-modifier   'meta   ;; nil by default
+          mac-right-command-modifier 'meta
+          )
+  ;; macos specific keybindings
+  ;; from: https://github.com/doomemacs/doomemacs/blob/c44bc81a05f3758ceaa28921dd9c830b9c571e61/modules/config/default/config.el#L298
   (map! "s-`" #'other-frame  ; fix frame-switching
         ;; fix OS window/frame navigation/manipulation keys
         ;; ovaj mi smeta kada fulam desni option i stisnem command
@@ -88,8 +84,9 @@
         :gi  [s-right]     #'doom/forward-to-last-non-comment-or-eol
         :gi  [M-backspace] #'backward-kill-word
         :gi  [M-left]      #'backward-word
-        :gi  [M-right]     #'forward-word)
-
+        :gi  [M-right]     #'forward-word
+        )
+  )
 
 ;; Go hooks
 (defun lsp-go-install-save-hooks ()
