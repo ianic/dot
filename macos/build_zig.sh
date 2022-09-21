@@ -29,5 +29,6 @@ cd stage3
 ninja
 stage3/bin/zig version
 
-
-# sudo rm -rf /opt/llvm-macos13.0-arm64-15.0.0-release/
+# cleanup
+# remove folder where we sarted cloning repos
+# $ sudo rm -rf /opt/llvm-macos13.0-arm64-15.0.0-release/
