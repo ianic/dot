@@ -60,12 +60,11 @@
 ;; and his config: https://gitlab.com/dwt1/dotfiles/-/blob/master/.doom.d/config.el
 
 ;;(setq doom-font (font-spec :family "SauceCodePro" :size 15)
-(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
-      ;;(setq doom-font (font-spec :family "Menlo" :size 12)
-      ;;doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
-      ;;doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
-      ;;doom-big-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 24))
+(if (eq system-type 'darwin)
+  (setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15))
+  (setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 31)) ;; for linux retina display
 )
+
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
