@@ -29,8 +29,8 @@ alias vim="emacsclient -f ~/.emacs.d/server/server"
 alias e="emacsclient -n"
 # alias et="/usr/local/bin/emacsclient -t -f ~/.emacs.d/server/server"
 alias emacs="emacs -nw  --eval '(menu-bar-mode -1)' -Q"
-alias oe="open /Applications/Emacs.app"
 alias doom="~/.emacs.d/bin/doom"
+alias oe="emacsclient -c -n -a /Applications/Emacs.app/Contents/MacOS/Emacs"
 
 # switching from emacs to vscode
 #alias e="code-insiders"
