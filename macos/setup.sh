@@ -13,6 +13,10 @@ if [ ! -f ~/Library/LaunchAgents/gnu.emacs.daemon.plist ]; then
     launchctl start gnu.emacs.daemon
 fi
 
+if [ ! -f ~/.config/lsd/ ]; then
+    mkdir -p ~/.config/lsd/
+    ln -s ~/code/dot/shell/lsd_config.yml ~/.config/lsd/config.yaml
+fi
 
 
 # notes

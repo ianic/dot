@@ -1,39 +1,23 @@
 #shell
 alias cd..="cd .."
-alias dir="ls -AlGh"
 alias la="ls -AlGh"
 alias ll="ls -lGh"
 alias cls="clear"
 alias c="clear"
-alias d="ls -lGh"
 
-# colorls aliases
-# https://github.com/athityakumar/colorls#installation
-# https://medium.com/@caulfieldOwen/youre-missing-out-on-a-better-mac-terminal-experience-d73647abf6d7
-# alias d="colorls -Al --dark --sd --gs"
-# alias dt="colorls --dark --tree"
-
-#switcing to lsd https://github.com/Peltoche/lsd
-# alias dc="colorls -Al --dark --sd --gs"
-alias d="lsd -Alh --group-dirs first --date relative"
-alias d-s="lsd -Alh --group-dirs first --total-size --date relative"
-alias d-d="d --date '+%Y-%m-%d %H:%M:%S'" # override date formating from reltaive to numbers
+alias d="lsd -l"
+alias ll="lsd -l"
 
 alias df="df -h"
 alias du="du -hc"
 alias mp="multipass"
 
 # emacs shortcuts
-alias vi="emacsclient -f ~/.emacs.d/server/server"
-alias vim="emacsclient -f ~/.emacs.d/server/server"
-alias e="emacsclient -n"
+alias e="emacsclient -n" # send file to emacs
 # alias et="/usr/local/bin/emacsclient -t -f ~/.emacs.d/server/server"
 alias emacs="emacs -nw  --eval '(menu-bar-mode -1)' -Q"
 alias doom="~/.emacs.d/bin/doom"
-alias oe="emacsclient -c -n -a /Applications/Emacs.app/Contents/MacOS/Emacs"
-
-# switching from emacs to vscode
-#alias e="code-insiders"
+alias oe="emacsclient -c -n -a /Applications/Emacs.app/Contents/MacOS/Emacs" # open emacs frame
 
 # git helpers
 alias gpp="gup && gp"
@@ -47,37 +31,14 @@ alias gba="git branch -avv"
 alias wrapon="tput rmam"
 alias wrapoff="tput smam"
 
-# rust
-# alias ct="cargo test --lib -- --nocapture"
-
-# go helpers 
+# go helpers
 alias gogrep="grep -r --include \*.go"
-
 function replace_import_path() {
     from=$(echo $1 | sed -e 's/[\/&]/\\&/g')
     to=$(echo $2 | sed -e 's/[\/&]/\\&/g')
     find . -name '*.go' -exec sed -i '' -e "s/$from/$to/g" {} \;
 }
 
-function git-who() {
-# using tool topuniq from: https://github.com/MestreLion/topuniq
-# if not available can be replaced with sort -f | uniq -ic | sort -nr
-
-  git ls-files | grep .go$ | xargs -n1 git blame --line-porcelain | sed -n 's/^author //p' | tr ć c | tr š s | tr Š S |\
-  sed 's/jsladovic/Janko Sladovic/' | \
-  sed 's/gljubojevic/Goran Ljubojevic/' | \
-  sed 's/ivlasic/Ivan Vlasic/' | \
-  sed 's/jpop32/jpop/' | \
-  sed 's/isaric/Igor Saric/' | \
-  sed 's/amarsic/Ana Marsic/' | \
-  sed 's/vedran/Vedran Vekic/' | \
-  sed 's/anababic0123/Ana Babic/' | \
-  sed 's/MSalopek/Matija Salopek/' | \
-  sed 's/zcalic/ZoranCalic/' | \
-  ~/work/ianic/topuniq/topuniq --total-last --min-perc=1 --min-perc=0.1
-
-#  sort -f | uniq -ic | sort -nr
-}
 
 function run() {
     for dir in script scripts; do
