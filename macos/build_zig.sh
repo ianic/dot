@@ -1,8 +1,10 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 #
 #Ref: https://www.epmor.app/posts/building-zig-from-scratch
 
-brew install cmake ninja
+if [[ $(brew list | grep -E "ninja|cmake" -c) != 2 ]]; then
+    brew install cmake ninja
+fi
 
 llvm_install_dir=/opt/llvm-macos13.0-arm64-15.0.0-release
 
@@ -15,22 +17,25 @@ if [ ! -d $llvm_install_dir ]; then
    sudo ninja install -C _build.llvm-macos13.0-arm64-15.0.0-release
    cd  ..
 fi
-export PATH=$llvm_install_dir:$PATH
+
+zig_build() {
+    cmake -G Ninja -B stage3 -DCMAKE_PREFIX_PATH=$llvm_install_dir
+    cd stage3
+    ninja
+    stage3/bin/zig version
+}
 
 if [ ! -d zig ]; then
     git clone https://github.com/ziglang/zig
     cd zig
+    zig_build
 else
     cd zig
-    git pull
+    git fetch
+    if git diff --exit-code master origin/master; then
+        echo "already up to date"
+    else
+        git pull
+        zig_build
+    fi
 fi
-
-cmake -G Ninja -B stage3 -DCMAKE_PREFIX_PATH=$llvm_install_dir
-cd stage3
-ninja
-stage3/bin/zig version
-
-# a note to myself
-# cleanup
-# remove folder where we sarted cloning repos
-# $ sudo rm -rf /opt/llvm-macos13.0-arm64-15.0.0-release/
