@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 #
 #Ref: https://www.epmor.app/posts/building-zig-from-scratch
 
@@ -10,6 +10,7 @@ build_name=llvm-macos$(sw_vers -productVersion)-arm64-15.0.0-release
 llvm_install_dir=$(pwd)/$build_name
 
 if [ ! -d $llvm_install_dir ]; then
+   echo "building llvm"
    if [ ! -d llvm-project ]; then
        git clone https://github.com/llvm/llvm-project
        cd llvm-project
@@ -21,14 +22,17 @@ if [ ! -d $llvm_install_dir ]; then
    ninja -C _build.$build_name
    ninja install -C _build.$build_name
    cd  ..
+else
+    echo "using llvm: $llvm_install_dir"
 fi
 
 zig_build() {
+    echo "building Zig"
     cmake -G Ninja -B stage3 -DCMAKE_PREFIX_PATH=$llvm_install_dir
     cd stage3
     ninja
 
-    echo "#(pwd)stage3/bin/zig"
+    echo "$(pwd)stage3/bin/zig"
     stage3/bin/zig version
 }
 
@@ -39,14 +43,13 @@ if [ ! -d zig ]; then
 else
     cd zig
     git fetch
-    if git diff --exit-code master origin/master; then
-        echo "already up to date"
+    if git diff --exit-code master origin/master > /dev/null; then
+        echo "Zig already up to date"
     else
         git pull
         zig_build
     fi
 fi
-
 
 # notes:
 # xcrun --show-sdk-version
