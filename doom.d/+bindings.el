@@ -3,7 +3,6 @@
 (map!
  "s-}"          (lambda () (interactive) (other-window  1))
  "s-{"          (lambda () (interactive) (other-window -1))
- "s-0"          #'+treemacs/toggle
  "s-1"          #'+workspace/switch-to-0
  "s-2"          #'+workspace/switch-to-1
  "s-3"          #'+workspace/switch-to-2
@@ -14,26 +13,26 @@
  "s-8"          #'+workspace/switch-left
  "s-9"          #'+workspace/switch-right
  ;; "C-c C-;"      #'comment-or-uncomment-region
- ;;"M-x"          #'lsp-rename
  "C-x C-m"      #'counsel-M-x
  "C-x m"        #'counsel-M-x
  "s-x"          #'kill-region
- ;;"C-z C-z"      #'counsel-M-x
  "M-s-."        #'+lookup/definition-other-window
  ;;"C-w"          #'backward-kill-word
  "C-x e"        #'end-of-buffer
  "C-x t"        #'beginning-of-buffer
- ;;"C-c C-c"      #'comment-dwim  ;; in collision with magit commit and shell ctrl-c
  "C-c ;"        #'comment-dwim
  "C-c C-;"      #'comment-dwim
  "s-f"          #'forward-word
  "s-b"          #'backward-word
- ;; copy paste for ubuntu
+ ;; copy paste
  "s-z"          #'undo-fu-only-undo
  "s-x"          #'kill-region
  "s-c"          #'copy-region-as-kill
  "s-v"          #'yank
  "s-a"          #'mark-whole-buffer
+ ;; like pallete in vscode and warp
+ "s-p"          #'counsel-M-x
+ "s-0"          #'doom/reset-font-size
 )
 
 (if (eq system-type 'darwin)
@@ -98,8 +97,6 @@
 
 ;; my private leader key
 (map! "C-z" nil)
-;;(setq doom-localleader-alt-key "C-z")
-;;(setq doom-localleader-alt-key "C-z l")
 
 ;;(map! "C-j" nil)
 (setq doom-localleader-alt-key "C-j")
@@ -109,15 +106,14 @@
   :prefix "C-z")
 
 (my-leader-def
-  ;;";" 'comment-or-uncomment-region
   ";" 'comment-dwim
-  ;; ";" 'comment-line
   ;; bind nothing but give SPC f a description for which-key
   "r" '(:ignore t :which-key "lsp references")
   "l" '(:ignore t :which-key "local leader")
   "b"  (cmd! (compile "go build"))
   "n" `lsp-rename
   "C-z" `counsel-M-x
+  "o" '+workspace/other
 )
 
 (general-create-definer my-leader-references-def
@@ -138,16 +134,22 @@
   (interactive)
   (zig--run-cmd "build flash"))
 
-
 ;; ref: https://github.com/doomemacs/doomemacs/blob/master/modules/lang/zig/config.el
 (map! :localleader
-      :map zig-mode-map
-      "m" #'zig-build-flash )
-
-
-;;(set-face-attribute 'default nil :height 192)
-
+        :map zig-mode-map
+        "b" #'zig-compile
+        "f" #'zig-format-buffer
+        "r" #'zig-run
+        "t" #'zig-test-buffer
+        "m" #'zig-build-flash
+        )
+(setq zig-return-to-buffer-after-format t)
+(setq zig-format-show-buffer nil)
 
 (map! :localleader
       :map ruby-mode-map
       "r" #'recompile )
+
+;; show which-key faster (default i 1.0 seconds)
+;; ref: https://github.com/doomemacs/doomemacs/issues/1465
+(setq which-key-idle-delay 0.2)
