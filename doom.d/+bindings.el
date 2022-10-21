@@ -153,3 +153,7 @@
 ;; show which-key faster (default i 1.0 seconds)
 ;; ref: https://github.com/doomemacs/doomemacs/issues/1465
 (setq which-key-idle-delay 0.2)
+
+
+;;(setq lsp-zig-zls-executable "/usr/local/bin/zls_log")
+(setq lsp-zig-zls-executable "/usr/local/bin/zls")
