@@ -1,8 +1,5 @@
 #!/bin/bash -ex
 #
-# currently using 1.9.0 RC version from: https://github.com/canonical/multipass/issues/2511
-# so I can get ubuntu 22.04 image
-
 host=${1:-dev}
 
 multipass launch -n $host -m 4G -c 4 -d 8G 22.04
@@ -29,5 +26,5 @@ ssh $host 'chmod 600 ~/.ssh/authorized_keys2'
 
 
 ssh $host 'bash -ex' < system.sh
-ssh $host 'bash -ex' < nats.sh
 ssh $host 'bash -ex' < ../ubuntu/zig.sh
+ssh $host 'bash -ex' < ../macos/nats.sh

@@ -1,9 +1,9 @@
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = /Users/ianic/.gitignore
 	whitespace=nowarn
 	editor = emacs -nw  --eval '(menu-bar-mode -1)' -Q
 [user]
-	name = Igor Anić
+	name = Igor Anić
 	email = igor.anic@gmail.com
 [init]
 	defaultBranch = main
@@ -11,3 +11,16 @@
 	directory = /home/ubuntu/code/zig/zig-libressl/libressl
 	directory = /home/ubuntu/code/zig/zig-libressl/libressl/openbsd
 	directory = /home/ubuntu/code/zig/zig-bearssl/BearSSL
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/ianic/.stCommitMsg

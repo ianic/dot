@@ -36,6 +36,10 @@ zig_build() {
     stage3/bin/zig version
 }
 
+cd zig
+zig_build
+exit 0
+
 if [ ! -d zig ]; then
     git clone https://github.com/ziglang/zig
     cd zig

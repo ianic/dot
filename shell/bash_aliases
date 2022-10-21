@@ -64,3 +64,6 @@ function cd-git-root() {
 alias cdr="cd-git-root"
 
 alias stm_cli=/Applications/STMicroelectronics/STM32Cube/STM32CubeProgrammer/STM32CubeProgrammer.app/Contents/MacOs/bin/STM32_Programmer_CLI
+alias cdz="cd ~/code/zig"
+alias cdc="cd ~/code"
+alias cdd="cd ~/code/dot"

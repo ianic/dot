@@ -17,7 +17,8 @@ latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"aarch64
 # latest known good before stage1 changes
 # latest="https://ziglang.org/builds/zig-linux-aarch64-0.10.0-dev.3475+b3d463c9e.tar.xz"
 
-urls=( "$stable" "$latest" )
+#urls=( "$stable" "$latest" )
+urls=( "$latest" )
 for url in "${urls[@]}"; do
   fn=$(basename $url)
   dir=${fn%.tar.xz}
@@ -42,6 +43,7 @@ else
     git pull
 fi
 zig build -Drelease-safe
+sudo rm /usr/local/bin/zls || true
 sudo cp ./zig-out/bin/zls /usr/local/bin/
 # ovo je interactive
 # ./zig-out/bin/zls config # Configure ZLS

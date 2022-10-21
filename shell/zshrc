@@ -166,8 +166,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     [ -f /etc/paths.d/go ] && PATH=$(cat /etc/paths.d/go):$PATH || true
 
     # my aws defaults
-    export AWS_PROFILE=org5
+    export AWS_PROFILE=aws1
     export AWS_REGION=eu-central-1
+    export AWS_PAGER=""
     # export PATH="$PATH:/Users/ianic/.nsc/bin"
     #
     # use homebrew Ruby
