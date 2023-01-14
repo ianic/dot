@@ -17,7 +17,6 @@
  ;; "C-c C-;"      #'comment-or-uncomment-region
  "C-x C-m"      #'counsel-M-x
  "C-x m"        #'counsel-M-x
- "s-x"          #'kill-region
  "M-s-."        #'+lookup/definition-other-window
  ;;"C-w"          #'backward-kill-word
  "C-x e"        #'end-of-buffer
@@ -69,8 +68,8 @@
         "s-c" (if (featurep 'evil) #'evil-yank #'copy-region-as-kill)
         "s-v" #'yank
         "s-s" #'save-buffer
-        "s-x" #'execute-extended-command
-        :v "s-x" #'kill-region
+        ;;"s-x" #'execute-extended-command
+        "s-x" #'kill-region
         ;; Buffer-local font scaling
         "s-+" #'doom/reset-font-size
         "s-0" #'doom/reset-font-size
@@ -156,7 +155,7 @@
 (setq zig-return-to-buffer-after-format t)
 (setq zig-format-show-buffer nil)
 ;;(setq lsp-zig-zls-executable "/usr/local/bin/zls_log")
-(setq lsp-zig-zls-executable "/usr/local/bin/zls")
+(setq lsp-zig-zls-executable "~/.local/bin/zls")
 
 
 

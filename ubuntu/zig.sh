@@ -43,8 +43,10 @@ else
     git pull
 fi
 zig build -Drelease-safe
-sudo rm /usr/local/bin/zls || true
-sudo cp ./zig-out/bin/zls /usr/local/bin/
+
+mkdir -p ~/.local/bin
+rm ~/.local/bin/zls || true
+cp ./zig-out/bin/zls ~/.local/bin
 # ovo je interactive
 # ./zig-out/bin/zls config # Configure ZLS
 [[ -f ~/zls.json ]] || echo '{"zig_exe_path":"/usr/local/bin/zig","enable_snippets":true,"warn_style":true,"enable_semantic_tokens":true,"operator_completions":true,"include_at_in_builtins":false,"max_detail_length":1048576}' > ~/zls.json
