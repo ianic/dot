@@ -1,17 +1,19 @@
 ;;; ~/.doom.d/bindings.el -*- lexical-binding: t; -*-
 
 (map!
- "s-}"          (lambda () (interactive) (other-window  1))
- "s-{"          (lambda () (interactive) (other-window -1))
+ ;; "s-}"          (lambda () (interactive) (other-window  1))
+ ;; "s-{"          (lambda () (interactive) (other-window -1))
+ "s-]"          (lambda () (interactive) (other-window  1))
+ "s-["          (lambda () (interactive) (other-window -1))
  "s-1"          #'+workspace/switch-to-0
  "s-2"          #'+workspace/switch-to-1
  "s-3"          #'+workspace/switch-to-2
  "s-4"          #'+workspace/switch-to-3
  "s-5"          #'+workspace/switch-to-4
  "s-6"          #'+workspace/switch-to-5
- "s-7"          #'+workspace/switch-to
- "s-8"          #'+workspace/switch-left
- "s-9"          #'+workspace/switch-right
+ "s-o"          #'+workspace/switch-to
+ "s-{"          #'+workspace/switch-left
+ "s-}"          #'+workspace/switch-right
  ;; "C-c C-;"      #'comment-or-uncomment-region
  "C-x C-m"      #'counsel-M-x
  "C-x m"        #'counsel-M-x
@@ -33,6 +35,7 @@
  ;; like pallete in vscode and warp
  "s-p"          #'counsel-M-x
  "s-0"          #'doom/reset-font-size
+ "s-r"          #'query-replace
 )
 
 (if (eq system-type 'darwin)
@@ -134,17 +137,28 @@
   (interactive)
   (zig--run-cmd "build flash"))
 
+
+(defun zig-build-test ()
+  "Create an executable from the current buffer and run it immediately."
+  (interactive)
+  (zig--run-cmd "build" "test"))
+
 ;; ref: https://github.com/doomemacs/doomemacs/blob/master/modules/lang/zig/config.el
 (map! :localleader
         :map zig-mode-map
         "b" #'zig-compile
         "f" #'zig-format-buffer
         "r" #'zig-run
-        "t" #'zig-test-buffer
-        "m" #'zig-build-flash
+        "t" #'zig-build-test
+        "s" #'zig-test-buffer
+        ;;"m" #'zig-build-flash
         )
 (setq zig-return-to-buffer-after-format t)
 (setq zig-format-show-buffer nil)
+;;(setq lsp-zig-zls-executable "/usr/local/bin/zls_log")
+(setq lsp-zig-zls-executable "/usr/local/bin/zls")
+
+
 
 (map! :localleader
       :map ruby-mode-map
@@ -153,7 +167,3 @@
 ;; show which-key faster (default i 1.0 seconds)
 ;; ref: https://github.com/doomemacs/doomemacs/issues/1465
 (setq which-key-idle-delay 0.2)
-
-
-;;(setq lsp-zig-zls-executable "/usr/local/bin/zls_log")
-(setq lsp-zig-zls-executable "/usr/local/bin/zls")
