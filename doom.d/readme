@@ -10,3 +10,18 @@ bin/emacs-builder sign --sign - /Applications/Emacs.app
 
 # upgrade, native compile doom packages
 doom upgrade
+
+# emacs server
+
+https://www.emacswiki.org/emacs/EmacsAsDaemon#h5o-8
+
+launchctl load -w ~/Library/LaunchAgents/gnu.emacs.daemon.plist
+
+
+launchctl start gnu.emacs.daemon
+
+# to open file in existing workspace
+emacsclient -n [file]
+
+# to open in new workspace
+emacsclient -nc [file]

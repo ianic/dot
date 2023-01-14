@@ -14,10 +14,10 @@ alias mp="multipass"
 
 # emacs shortcuts
 alias e="emacsclient -n" # send file to emacs
-# alias et="/usr/local/bin/emacsclient -t -f ~/.emacs.d/server/server"
-alias emacs="emacs -nw  --eval '(menu-bar-mode -1)' -Q"
+alias et="emacsclient -t" # open emacs in terminal
+alias emacs="emacs -nw  --eval '(menu-bar-mode -1)' -Q" # open pure emacs in terminal
 alias doom="~/.emacs.d/bin/doom"
-alias oe="emacsclient -c -n -a /Applications/Emacs.app/Contents/MacOS/Emacs" # open emacs frame
+alias emacs-daemon="launchctl start gnu.emacs.daemon"
 
 # git helpers
 alias gpp="gup && gp"
@@ -38,7 +38,6 @@ function replace_import_path() {
     to=$(echo $2 | sed -e 's/[\/&]/\\&/g')
     find . -name '*.go' -exec sed -i '' -e "s/$from/$to/g" {} \;
 }
-
 
 function run() {
     for dir in script scripts; do
