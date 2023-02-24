@@ -33,7 +33,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type nil)
 
 
 (setq dabbrev-case-fold-search nil)
@@ -96,8 +96,6 @@
 
 )
 
-(setq display-line-numbers-type nil)
-
 (setq uniquify-buffer-name-style 'forward)
 
 (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode)
@@ -125,3 +123,6 @@
           (lambda ()
             (set (make-local-variable 'compile-command)
                  (concat "ruby " buffer-file-name))))
+
+
+(setq-hook! 'web-mode-hook +format-with :none)

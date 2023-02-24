@@ -42,7 +42,7 @@ else
     cd zls
     git pull
 fi
-zig build -Drelease-safe
+zig build -Doptimize=ReleaseSafe
 
 mkdir -p ~/.local/bin
 rm ~/.local/bin/zls || true

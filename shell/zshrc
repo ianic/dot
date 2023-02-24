@@ -154,12 +154,11 @@ source $ZSH/oh-my-zsh.sh
 
 [[ -f ~/.bash_aliases ]]  && source ~/.bash_aliases
 [[ -f ~/.secrets ]]  && source ~/.secrets
-export PATH=~/go/bin:$PATH
-export PATH=$PATH:~/.local/bin # pip script install location
+export PATH=~/go/bin:~/.local/bin:$PATH
+export DEFAULT_USER=ianic
+export EDITOR="emacs"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    export DEFAULT_USER=ianic
-    export EDITOR="/usr/local/bin/emacsclient -f ~/.emacs.d/server/server"
     # set homebrew env variables
     eval "$(/opt/homebrew/bin/brew shellenv)"
     # prepend go path to be before homebrew go
@@ -175,21 +174,22 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # By default, binaries installed by gem will be placed into:  /opt/homebrew/lib/ruby/gems/3.1.0/bin
     #
     if [[ -d /opt/homebrew/opt/ruby/bin ]]; then
-       export PATH=/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.1.0/bin:$PATH
+       export PATH=/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.2.0/bin:$PATH
+       # For compilers to find ruby you may need to set:
+       export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/ruby/lib"
+       export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/ruby/include"
     fi
 
     # use curl from homwbrew
     if [[ -d /opt/homebrew/opt/curl/bin ]]; then
        export PATH="/opt/homebrew/opt/curl/bin:$PATH"
        # For compilers to find curl you may need to set:
-       export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
-       export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
+       export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/curl/lib"
+       export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/curl/include"
     fi
 fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    export DEFAULT_USER=ianic
-    export EDITOR=emacs
     # remove user from prompt on remote machine
     export SPACESHIP_USER_SHOW=false
     export SPACESHIP_DIR_PREFIX=

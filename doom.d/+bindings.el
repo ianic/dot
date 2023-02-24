@@ -1,36 +1,42 @@
 ;;; ~/.doom.d/bindings.el -*- lexical-binding: t; -*-
 
 (map!
- ;; "s-}"          (lambda () (interactive) (other-window  1))
- ;; "s-{"          (lambda () (interactive) (other-window -1))
+ ;; window navigation
  "s-]"          (lambda () (interactive) (other-window  1))
  "s-["          (lambda () (interactive) (other-window -1))
+ ;; tabs/workspaces navigation
+ "s-{"          #'+workspace/switch-left
+ "s-}"          #'+workspace/switch-right
+
  "s-1"          #'+workspace/switch-to-0
  "s-2"          #'+workspace/switch-to-1
  "s-3"          #'+workspace/switch-to-2
  "s-4"          #'+workspace/switch-to-3
  "s-5"          #'+workspace/switch-to-4
  "s-6"          #'+workspace/switch-to-5
- "s-o"          #'+workspace/switch-to
- "s-{"          #'+workspace/switch-left
- "s-}"          #'+workspace/switch-right
- ;; "C-c C-;"      #'comment-or-uncomment-region
+
  "C-x C-m"      #'counsel-M-x
  "C-x m"        #'counsel-M-x
  "M-s-."        #'+lookup/definition-other-window
- ;;"C-w"          #'backward-kill-word
- "C-x e"        #'end-of-buffer
- "C-x t"        #'beginning-of-buffer
+
+
  "C-c ;"        #'comment-dwim
  "C-c C-;"      #'comment-dwim
- "s-f"          #'forward-word
- "s-b"          #'backward-word
+
+ ;; suspended
+ ;;"s-f"          #'forward-word
+ ;;"s-b"          #'backward-word
+ ;; "s-o"          #'+workspace/switch-to
+ ;;"C-x e"        #'end-of-buffer
+ ;;"C-x t"        #'beginning-of-buffer
+
  ;; copy paste
  "s-z"          #'undo-fu-only-undo
  "s-x"          #'kill-region
  "s-c"          #'copy-region-as-kill
  "s-v"          #'yank
  "s-a"          #'mark-whole-buffer
+
  ;; like pallete in vscode and warp
  "s-p"          #'counsel-M-x
  "s-0"          #'doom/reset-font-size
@@ -154,10 +160,10 @@
         )
 (setq zig-return-to-buffer-after-format t)
 (setq zig-format-show-buffer nil)
-;;(setq lsp-zig-zls-executable "/usr/local/bin/zls_log")
 (setq lsp-zig-zls-executable "~/.local/bin/zls")
 
-
+(setq rustic-test-arguments "--nocapture")
+(setq rustic-default-test-arguments "--benches --tests --all-features -- --nocapture")
 
 (map! :localleader
       :map ruby-mode-map
