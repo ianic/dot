@@ -14,6 +14,7 @@
  "s-4"          #'+workspace/switch-to-3
  "s-5"          #'+workspace/switch-to-4
  "s-6"          #'+workspace/switch-to-5
+ "s-9"          #'+workspace/switch-to
 
  "C-x C-m"      #'counsel-M-x
  "C-x m"        #'counsel-M-x
@@ -22,7 +23,10 @@
 
  "C-c ;"        #'comment-dwim
  "C-c C-;"      #'comment-dwim
+ "C-;"          #'comment-dwim
 
+ "M-;"          #'+company/complete
+ "M-'"          #'counsel-imenu
  ;; suspended
  ;;"s-f"          #'forward-word
  ;;"s-b"          #'backward-word
@@ -103,38 +107,36 @@
 (add-hook! go-mode #'lsp-go-install-save-hooks)
 
 
-;; my private leader key
+;; ;; my private leader key
 (map! "C-z" nil)
 
-;;(map! "C-j" nil)
-(setq doom-localleader-alt-key "C-j")
+;; (require 'general)
+;; (general-create-definer my-leader-def
+;;   :prefix "C-z")
 
-(require 'general)
-(general-create-definer my-leader-def
-  :prefix "C-z")
+;; (my-leader-def
+;;   ";" 'comment-dwim
+;;   ;; bind nothing but give SPC f a description for which-key
+;;   "r" '(:ignore t :which-key "lsp references")
+;;   "l" '(:ignore t :which-key "local leader")
+;;   "b"  (cmd! (compile "go build"))
+;;   "n" `lsp-rename
+;;   "C-z" `counsel-M-x
+;;   "o" '+workspace/other
+;; )
 
-(my-leader-def
-  ";" 'comment-dwim
-  ;; bind nothing but give SPC f a description for which-key
-  "r" '(:ignore t :which-key "lsp references")
-  "l" '(:ignore t :which-key "local leader")
-  "b"  (cmd! (compile "go build"))
-  "n" `lsp-rename
-  "C-z" `counsel-M-x
-  "o" '+workspace/other
-)
+;; (general-create-definer my-leader-references-def
+;;   :keymaps 'lsp-mode-map
+;;   :prefix "C-z r")
 
-(general-create-definer my-leader-references-def
-  :keymaps 'lsp-mode-map
-  :prefix "C-z r")
 
-(my-leader-references-def
-  "k" `lsp-ui-peek-find-references
-  "r" `lsp-find-references
-  "f" `lsp-find-references
-  "p" `lsp-ui-find-prev-reference
-  "n" `lsp-ui-find-next-reference
- )
+;; (my-leader-references-def
+;;   "k" `lsp-ui-peek-find-references
+;;   "r" `lsp-find-references
+;;   "f" `lsp-find-references
+;;   "p" `lsp-ui-find-prev-reference
+;;   "n" `lsp-ui-find-next-reference
+;;  )
 
 ;; add zig build flash command, and shortcut
 (defun zig-build-flash ()
@@ -143,25 +145,38 @@
   (zig--run-cmd "build flash"))
 
 
-(defun zig-build-test ()
-  "Create an executable from the current buffer and run it immediately."
+(defun zig-test-project ()
+  "Run projects tests"
   (interactive)
   (zig--run-cmd "build" "test"))
+
+(setq doom-localleader-alt-key "C-j")
 
 ;; ref: https://github.com/doomemacs/doomemacs/blob/master/modules/lang/zig/config.el
 (map! :localleader
         :map zig-mode-map
-        "b" #'zig-compile
-        "f" #'zig-format-buffer
-        "r" #'zig-run
-        "t" #'zig-build-test
-        "s" #'zig-test-buffer
-        ;;"m" #'zig-build-flash
+        :desc "Compile"       "b" #'zig-compile
+        :desc "Format buffer" "f" #'zig-format-buffer
+        :desc "Run"           "r" #'zig-run
+        :desc "Test buffer"   "t" #'zig-test-buffer
+        :desc "Test project"  "p" #'zig-test-project
+        :desc "Rename"        "n" #'lsp-rename
+        (:prefix-map ("l" . "lsp")
+         "p" #'lsp-ui-peek-find-references
+         "r" #'lsp-find-references
+         ;;"f" #'lsp-find-references
+         "[" #'lsp-ui-find-prev-reference
+         "]" #'lsp-ui-find-next-reference
+         "n" #'lsp-rename
         )
+        ;; "m" #'zig-build-flash
+)
+;; Zig
 (setq zig-return-to-buffer-after-format t)
 (setq zig-format-show-buffer nil)
 (setq lsp-zig-zls-executable "~/.local/bin/zls")
 
+;; Rust
 (setq rustic-test-arguments "--nocapture")
 (setq rustic-default-test-arguments "--benches --tests --all-features -- --nocapture")
 
@@ -172,3 +187,6 @@
 ;; show which-key faster (default i 1.0 seconds)
 ;; ref: https://github.com/doomemacs/doomemacs/issues/1465
 (setq which-key-idle-delay 0.2)
+
+;; fix tooltip with bigger than frame
+(setq company-tooltip-maximum-width 120)
