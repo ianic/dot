@@ -25,7 +25,10 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-vibrant)
+;; Theme gallery: https://github.com/doomemacs/themes/tree/screenshots
+(setq doom-theme 'doom-nord-aurora)
+;;(setq doom-theme 'doom-one-light)
+(doom-themes-visual-bell-config)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -124,5 +127,14 @@
             (set (make-local-variable 'compile-command)
                  (concat "ruby " buffer-file-name))))
 
-
 (setq-hook! 'web-mode-hook +format-with :none)
+
+(after! projectile
+  (mapc (lambda (item)
+          (add-to-list 'projectile-globally-ignored-directories item))
+        '("^zig-out$" "^zig-cache$")))
+
+
+;; balance windows width on split and close
+(advice-add 'split-window-right :after #'balance-windows)
+(advice-add '+workspace/close-window-or-workspace :after #'balance-windows)

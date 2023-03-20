@@ -15,9 +15,10 @@
  "s-5"          #'+workspace/switch-to-4
  "s-6"          #'+workspace/switch-to-5
  "s-9"          #'+workspace/switch-to
+ "s-i"          #'lsp-ui-imenu
 
- "C-x C-m"      #'counsel-M-x
- "C-x m"        #'counsel-M-x
+ "C-x C-m"      #'execute-extended-command
+ "C-x m"        #'execute-extended-command
  "M-s-."        #'+lookup/definition-other-window
 
 
@@ -26,7 +27,7 @@
  "C-;"          #'comment-dwim
 
  "M-;"          #'+company/complete
- "M-'"          #'counsel-imenu
+ "M-'"          #'imenu
  ;; suspended
  ;;"s-f"          #'forward-word
  ;;"s-b"          #'backward-word
@@ -42,10 +43,19 @@
  "s-a"          #'mark-whole-buffer
 
  ;; like pallete in vscode and warp
- "s-p"          #'counsel-M-x
+ "s-p"          #'+ivy/projectile-find-file
+ "s-P"          #'execute-extended-command
+
  "s-0"          #'doom/reset-font-size
  "s-r"          #'query-replace
-)
+ ;; "C-s"          #'+default/search-buffer
+
+ "s-f"          #'+default/search-buffer
+ "s-F"          #'+default/search-project
+
+ "s-E"          #'treemacs-select-window
+ "s-O"          #'imenu
+ )
 
 (if (eq system-type 'darwin)
     ;; reference: https://github.com/hlissner/doom-emacs/issues/3952
@@ -144,33 +154,48 @@
   (interactive)
   (zig--run-cmd "build flash"))
 
-
 (defun zig-test-project ()
   "Run projects tests"
   (interactive)
   (zig--run-cmd "build" "test"))
 
+(defun zig-test-single-test ()
+  "Run single function test"
+  (interactive)
+  (let (
+        (old-pnt (point-marker)))
+
+        (re-search-backward "^test.*\"\\(.*\\)\".*{")
+        (message "Nearest test function: %s" (match-string 1))
+        (goto-char old-pnt)
+
+        (zig--run-cmd "test" (buffer-file-name) "--test-filter" (match-string 1) "-O" zig-test-optimization-mode)
+    )
+  )
+
 (setq doom-localleader-alt-key "C-j")
 
 ;; ref: https://github.com/doomemacs/doomemacs/blob/master/modules/lang/zig/config.el
 (map! :localleader
-        :map zig-mode-map
-        :desc "Compile"       "b" #'zig-compile
-        :desc "Format buffer" "f" #'zig-format-buffer
-        :desc "Run"           "r" #'zig-run
-        :desc "Test buffer"   "t" #'zig-test-buffer
-        :desc "Test project"  "p" #'zig-test-project
-        :desc "Rename"        "n" #'lsp-rename
-        (:prefix-map ("l" . "lsp")
-         "p" #'lsp-ui-peek-find-references
-         "r" #'lsp-find-references
-         ;;"f" #'lsp-find-references
-         "[" #'lsp-ui-find-prev-reference
-         "]" #'lsp-ui-find-next-reference
-         "n" #'lsp-rename
-        )
-        ;; "m" #'zig-build-flash
-)
+      :map zig-mode-map
+      :desc "Build"         "b" #'zig-compile
+      :desc "Recompile"     "c" #'recompile
+      :desc "Format buffer" "f" #'zig-format-buffer
+      :desc "Run"           "r" #'zig-run
+      :desc "Test buffer"   "t" #'zig-test-buffer
+      :desc "Test project"  "p" #'zig-test-project
+      :desc "Test function" "s" #'zig-test-single-test
+      :desc "Rename"        "n" #'lsp-rename
+      (:prefix-map ("l" . "lsp")
+                   "p" #'lsp-ui-peek-find-references
+                   "r" #'lsp-find-references
+                   ;;"f" #'lsp-find-references
+                   "[" #'lsp-ui-find-prev-reference
+                   "]" #'lsp-ui-find-next-reference
+                   "n" #'lsp-rename
+                   )
+      ;; "m" #'zig-build-flash
+      )
 ;; Zig
 (setq zig-return-to-buffer-after-format t)
 (setq zig-format-show-buffer nil)
@@ -190,3 +215,6 @@
 
 ;; fix tooltip with bigger than frame
 (setq company-tooltip-maximum-width 120)
+
+(setq lsp-ui-imenu-buffer-position 'left)
+(setq lsp-ui-imenu-auto-refresh t)
