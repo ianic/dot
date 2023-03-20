@@ -2,7 +2,7 @@
 #
 host=${1:-dev}
 
-multipass launch -n $host -m 4G -c 4 -d 8G 22.04
+multipass launch -n $host -m 4G -c 4 -d 8G 22.10
 multipass mount /Users/ianic/code $host:/home/ubuntu/code
 
 # get IP of the new host
@@ -27,4 +27,4 @@ ssh $host 'chmod 600 ~/.ssh/authorized_keys2'
 
 ssh $host 'bash -ex' < system.sh
 ssh $host 'bash -ex' < ../ubuntu/zig.sh
-ssh $host 'bash -ex' < ../macos/nats.sh
+# ssh $host 'bash -ex' < ../macos/nats.sh

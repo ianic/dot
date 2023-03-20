@@ -5,15 +5,15 @@ sudo apt-get upgrade -y
 
 sudo -E apt-get install -y make build-essential autoconf
 sudo -E apt-get install -y curl net-tools unzip htop tree git fd-find jq ripgrep
-##sudo -E apt-get install -y zsh emacs-nox
-sudo snap refresh emacs --edge --classic
-sudo -E snap install go --classic
-sudo -E usermod --shell /usr/bin/zsh ubuntu
+sudo -E apt-get install -y zsh emacs-nox
+#sudo snap install emacs --classic
+#sudo -E snap install go --classic
 
 # Ruby
 #sudo -E apt-get install -y ruby-full
 #sudo gem install solargraph
 
+sudo -E usermod --shell /usr/bin/zsh ubuntu
 cd ~
 ln -s ~/code/dot/shell/zshrc        .zshrc
 ln -s ~/code/dot/shell/bash_aliases .bash_aliases
