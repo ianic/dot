@@ -1,0 +1,8 @@
+# KEYBOARD CONFIGURATION FILE
+
+# Consult the keyboard(5) manual page.
+
+XKBMODEL="macbook79"
+XKBLAYOUT="us(mac)"
+
+BACKSPACE="guess"

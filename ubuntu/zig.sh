@@ -16,8 +16,12 @@ latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"aarch64
 
 # latest known good before stage1 changes
 # latest="https://ziglang.org/builds/zig-linux-aarch64-0.10.0-dev.3475+b3d463c9e.tar.xz"
+#
+specific=0.11.0-dev.1855+18e6d1e81
+specific="https://ziglang.org/builds/zig-$arch-aarch64-$specific.tar.xz"
+echo $specific
 
-urls=( "$stable" "$latest" )
+urls=( "$stable" "$latest")
 # urls=( "$latest" )
 for url in "${urls[@]}"; do
   fn=$(basename $url)
@@ -49,6 +53,6 @@ rm ~/.local/bin/zls || true
 cp ./zig-out/bin/zls ~/.local/bin
 # ovo je interactive
 # ./zig-out/bin/zls config # Configure ZLS
-[[ -f ~/zls.json ]] || echo '{"zig_exe_path":"/usr/local/bin/zig","enable_snippets":true,"warn_style":true,"enable_semantic_tokens":true,"operator_completions":true,"include_at_in_builtins":false,"max_detail_length":1048576}' > ~/zls.json
+# [[ -f ~/zls.json ]] || echo '{"zig_exe_path":"/usr/local/bin/zig","enable_snippets":true,"warn_style":true,"enable_semantic_tokens":true,"operator_completions":true,"include_at_in_builtins":false,"max_detail_length":1048576}' > ~/zls.json
 
 echo "after zig version: $(zig version)"

@@ -15,6 +15,7 @@ if [ ! -f /usr/local/bin/alacritty ]; then
   rustup update stable
 
   # get alacritty code and build
+  mkdir -p ~/src
   cd ~/src
   if [[ -d alacritty ]]; then
       cd alacritty
@@ -36,6 +37,6 @@ if [ ! -f /usr/local/bin/alacritty ]; then
 
   cd ~
   if [[ ! -f .alacritty.yml ]]; then
-      ln -s code/dot/ubuntu/alacritty.yml .alacritty.yml
+      ln -s ~/dot/ubuntu/alacritty.yml .alacritty.yml
   fi
 fi
