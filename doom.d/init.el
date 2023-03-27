@@ -24,7 +24,7 @@
        ;;helm                ; the *other* search engine for love and life
        ;;ido                 ; the other *other* search engine...
        ;;(ivy +childframe +icons +prescient)   ; a search engine for love and life
-       (vertico +childframe +icons)
+       (vertico +icons)
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -36,7 +36,7 @@
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        ;;indent-guides     ; highlighted indent columns
-       ;;ligatures         ; ligatures and symbols to make your code pretty again
+       (ligatures +iosevka)         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
@@ -94,7 +94,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       (lsp +peek)
+       (lsp +peek +eglot)
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds

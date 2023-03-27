@@ -64,8 +64,14 @@
 
 ;;(setq doom-font (font-spec :family "SauceCodePro" :size 15)
 (if (eq system-type 'darwin)
-  (setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15))
-  (setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 31)) ;; for linux retina display
+  ;;(setq doom-font "-*-Iosevka Term-semibold-normal-expanded-*-15-*-*-*-m-0-iso10646-1")
+  ;;(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15))
+  (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
+        doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15)
+	)
+  ;;for Linux retina display
+  ;;(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15))
+  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 31))
 )
 
 (after! doom-themes
