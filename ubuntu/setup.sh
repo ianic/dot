@@ -20,3 +20,7 @@ cd $(dirname "${BASH_SOURCE[0]}" ) # this script dir
 # dconf dump /org/gnome/terminal/ > gterminal.preferences
 # load:
 cat gterminal.preferences | dconf load /org/gnome/terminal/
+
+# free Ctrl-; from globaly used by the system
+# ref: https://unix.stackexchange.com/questions/692237/ctrl-displays-e-character-and-captures-the-keyboard-shortcut
+gsettings set org.freedesktop.ibus.panel.emoji hotkey "[]"
