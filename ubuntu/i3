@@ -12,8 +12,9 @@ new_window pixel 2
 new_float pixel 2
 floating_minimum_size 400 x 300
 floating_maximum_size -1 x -1
-focus_follows_mouse no
+focus_follows_mouse yes
 hide_edge_borders smart
+#gaps inner 10
 
 # Reading colors from resources (defined in Xresources file)
 set_from_resource $back			i3wm.background #1D1F21
@@ -54,18 +55,15 @@ exec --no-startup-id xsetroot -solid $back
 
 floating_modifier $mod
 
-bindsym $mod+o exec rofi -dpi 220 -show run -no-config
-bindsym $mod+less exec rofi -dpi 220 -show window -no-config
+bindsym $mod+o exec --no-startup-id rofi -dpi 220 -show run -no-config
+bindsym $mod+less exec --no-startup-id rofi -dpi 220 -show window -no-config
 # bindsym $mod+o exec --no-startup-id dmenu_run
 
 # start a terminal
-bindsym $mod+T exec alacritty #i3-sensible-terminal
+bindsym $mod+T exec --no-startup-id alacritty #i3-sensible-terminal
 
 bindsym $mod+d split h
 bindsym $mod+Shift+d split v
-
-# temp, hacking on a tty
-# bindsym $mod+Shift+n exec /home/mitchellh/bin/devtty --config-file=/home/mitchellh/.config/devtty/config
 
 # kill focused window
 bindsym $mod+q kill
@@ -75,10 +73,13 @@ bindsym $mod+q kill
 #bindsym $mod+bracketright focus right
 bindsym $mod+Shift+bracketleft focus left
 bindsym $mod+Shift+bracketright focus right
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
+bindsym $mod+Shift+o focus down
+bindsym $mod+Shift+p focus up
+
+bindsym $mod+Shift+j focus left
+bindsym $mod+Shift+k focus down
+bindsym $mod+Shift+l focus up
+bindsym $mod+Shift+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -99,8 +100,6 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # enter fullscreen mode for the focused container
-#bindsym $mod+f fullscreen toggle
-# bindsym $mod+Shift+f fullscreen toggle # this one is not working
 bindsym $mod+Shift+Return fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
@@ -160,7 +159,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # To find class run xprop in the terminal click on window and use WM_CLASS second argument
 # ref: https://youtu.be/8-S0cWnLBKg?list=PL5ze0DjYv5DbCv9vNEzFmP6sU7ZmkGzcf&t=1483
-assign [class="Emacs"] $ws2
+# assign [class="Emacs"] $ws2
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -213,17 +212,18 @@ mode "$mode_resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+Shift+r mode "$mode_resize"
+# disabled I never use this
+# bindsym $mod+Shift+r mode "$mode_resize"
 
 #----------------------------------------------------------------------
 # System Mode
 #----------------------------------------------------------------------
 # shutdown / restart / suspend...
-set $mode_system System (o) logout, (r) restart i3, (l) reload i3, (Ctrl+r) reboot, (Ctrl+s) shutdown
+set $mode_system   (r) restart i3 | (l) reload i3 | (o) logout | (Ctrl+r) reboot | (Ctrl+s) shutdown
 
 mode "$mode_system" {
     bindsym o exec --no-startup-id i3-msg exit, mode "default"
-    bindsym Ctrl-r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Ctrl+r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Ctrl+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
     bindsym l reload, mode "default"
@@ -232,6 +232,7 @@ mode "$mode_system" {
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym Ctrl+g mode "default"
 }
 
 bindsym $mod+BackSpace mode "$mode_system"
@@ -245,30 +246,31 @@ bar {
     colors {
         background $back
     }
+
+    mode hide
+    # modifier Mod1
+    # workspace_buttons no
 }
 
-# start parallesl tools
+
+# start parallels copy client
 exec --no-startup-id /usr/bin/prlcc
 
 # try to set resolution on startup
-exec --no-startup-id '/run/current-system/sw/bin/xrandr -s 6720x3732'
+# exec --no-startup-id '/run/current-system/sw/bin/xrandr -s 6720x3732'
 
 # put two terminals in workspace 1
-# exec --no-startup-id i3-msg 'workspace 1; exec alacritty; exec alacritty;'
-#exec --no-startup-id i3-msg 'exec sleep 2'
-#exec --no-startup-id i3-msg 'workspace 2; exec sh -c "sleep 5 && emacsclient -c"'
-#exec --no-startup-id i3-msg 'workspace 3; exec emacsclient -nc;'
-#exec i3-msg 'workspace 4; exec emacsclient -nc;'
-exec alacritty
-exec alacritty
-exec emacs
+exec --no-startup-id alacritty
+exec --no-startup-id alacritty
+#exec emacsclient -nc
+#assign [class="Emacs"] $ws2
 
 # command to start emacs
-bindsym $mod+e exec emacsclient -nc
+bindsym $mod+e exec --no-startup-id emacsclient -nc
 
 # foucs emacs window when I type e [filename]
 focus_on_window_activation focus #smart|urgent|focus|none
 
 # Set wallpaper
-exec_always feh --bg-scale ~/host/Pictures/Big\ Sur\ Road.jpg
+exec_always --no-startup-id feh --bg-scale ~/host/Pictures/Big\ Sur\ Road.jpg
 exec --no-startup-id picom -CGb

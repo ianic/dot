@@ -15,14 +15,14 @@ stable=https://ziglang.org/download/0.10.0/zig-$arch-aarch64-0.10.0.tar.xz
 latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"aarch64-$arch\".tarball" -r)
 
 # latest known good before stage1 changes
-# latest="https://ziglang.org/builds/zig-linux-aarch64-0.10.0-dev.3475+b3d463c9e.tar.xz"
+# latest="https://ziglang.org/builds/zig-$arch-aarch64-0.11.0-dev.2666+1e207f1ed.tar.xz"
+
 #
-specific=0.11.0-dev.1855+18e6d1e81
-specific="https://ziglang.org/builds/zig-$arch-aarch64-$specific.tar.xz"
-echo $specific
+#specific=0.11.0-dev.1855+18e6d1e81
+#specific="https://ziglang.org/builds/zig-$arch-aarch64-$specific.tar.xz"
+#echo $specific
 
 urls=( "$stable" "$latest")
-# urls=( "$latest" )
 for url in "${urls[@]}"; do
   fn=$(basename $url)
   dir=${fn%.tar.xz}

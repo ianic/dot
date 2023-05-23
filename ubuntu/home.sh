@@ -31,6 +31,6 @@ if [[ ! -f /etc/sudoers.d/ianic ]] ; then
 fi
 
 if [[ ! -f ~/.Xmodmap ]] ; then
-    ln -s ~/dot/ubuntu/Xmodmap ~/.Xmodmap
+    ln -s ~/host/code/dot/ubuntu/Xmodmap ~/.Xmodmap
 fi
-sudo cp ~/dot/ubuntu/etc-default-keyboard /etc/default/keyboard
+sudo cp ~/host/code/dot/ubuntu/etc-default-keyboard /etc/default/keyboard

@@ -1,0 +1,21 @@
+xkb_keymap {
+	xkb_keycodes  {
+                  include "evdev+aliases(qwerty)"
+
+                  # fix ~ and ± keys on mac kayboard
+                  <TLDE> =  94;
+                  <LSGT> =  49;
+
+    };
+	xkb_types     { include "complete+numpad(mac)"	};
+	xkb_compat    { include "complete"	};
+
+    # to toggle between layouts alt_space_toggle
+    xkb_symbols   { include "pc+us(mac)+hr(unicode):2+inet(evdev)+group(alt_space_toggle)+level3(ralt_alt)+terminate(ctrl_alt_bksp)"	};
+	xkb_geometry  { include "macintosh(macbook79)"	};
+};
+
+
+
+xmodmap -e "keycode 94 = grave asciitilde"
+xmodmap -e "keycode 49 = section plusminus"

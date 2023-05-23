@@ -2,7 +2,7 @@
 
 if [[ ! -d ~/host ]]; then
    cd ~
-   ln -s /media/psf/Home/code/dot dot
+   # ln -s /media/psf/Home/code/dot dot
    ln -s /media/psf/Home/ host
    ln -s /media/psf/Home/code code
 fi

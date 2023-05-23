@@ -8,7 +8,8 @@ sudo -E apt-get install -y sway
 sudo -E apt-get install -y i3 rofi dzen2 feh picom
 
 sudo -E snap install go --classic
-sudo -E snap install emacs --classic
+sudo -E snap install emacs --edge --classic # edge 30
+#sudo -E snap install emacs --classic # 28.2
 sudo -E usermod --shell /usr/bin/zsh ianic
 
 # Ruby

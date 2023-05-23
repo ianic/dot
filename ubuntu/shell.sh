@@ -27,10 +27,10 @@ if [[ ! -f ~/.zshrc ]]; then
     ln -s ~/host/code/dot/shell/gitignore    .gitignore
 
     mkdir -p ~/.config/i3
-    ln -s ~/dot/ubuntu/i3 ~/.config/i3/config
+    ln -s ~/host/code/dot/ubuntu/i3 ~/.config/i3/config
 
     mkdir -p ~/.config/rofi
-    ln -s ~/dot/ubuntu/rofi ~/.config/rofi/config.rasi
+    ln -s ~/host/code/dot/ubuntu/rofi ~/.config/rofi/config.rasi
     #mkdir -p ~/.config/i3status
     #ln -s /home/ianic/code/dot/ubuntu/i3status ~/.config/i3status/config
 fi

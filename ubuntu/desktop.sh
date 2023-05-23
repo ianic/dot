@@ -22,5 +22,3 @@ cd $(dirname "${BASH_SOURCE[0]}" ) # this script dir
 # dconf dump /org/gnome/terminal/ > gterminal.preferences
 # load:
 cat gterminal.preferences | dconf load /org/gnome/terminal/
-
-
