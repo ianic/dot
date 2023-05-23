@@ -6,7 +6,7 @@ alias cls="clear"
 alias c="clear"
 
 alias d="lsd -l"
-alias ll="lsd -l"
+alias ll="ls -l"
 
 alias df="df -h"
 alias du="du -hc"
