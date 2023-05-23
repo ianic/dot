@@ -15,10 +15,10 @@ sudo -E apt-get install -y zsh emacs-nox
 
 sudo -E usermod --shell /usr/bin/zsh ubuntu
 cd ~
-ln -s ~/code/dot/shell/zshrc        .zshrc
-ln -s ~/code/dot/shell/bash_aliases .bash_aliases
-ln -s ~/code/dot/shell/gitconfig    .gitconfig
-ln -s ~/code/dot/shell/gitignore    .gitignore
+ln -s ~/home/code/dot/shell/zshrc        .zshrc
+ln -s ~/home/code/dot/shell/bash_aliases .bash_aliases
+ln -s ~/home/code/dot/shell/gitconfig    .gitconfig
+ln -s ~/home/code/dot/shell/gitignore    .gitignore
 mkdir -p ~/src
 
 # zsh
