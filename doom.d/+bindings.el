@@ -8,6 +8,9 @@
  "s-{"          #'+workspace/switch-left
  "s-}"          #'+workspace/switch-right
 
+ "M-["          #'+workspace/switch-left
+ "M-]"          #'+workspace/switch-right
+
  "s-1"          #'+workspace/switch-to-0
  "s-2"          #'+workspace/switch-to-1
  "s-3"          #'+workspace/switch-to-2
@@ -16,6 +19,13 @@
  "s-6"          #'+workspace/switch-to-5
  "s-9"          #'+workspace/switch-to
  "s-i"          #'lsp-ui-imenu
+
+ "M-1"          #'+workspace/switch-to-0
+ "M-2"          #'+workspace/switch-to-1
+ "M-3"          #'+workspace/switch-to-2
+ "M-4"          #'+workspace/switch-to-3
+ "M-5"          #'+workspace/switch-to-4
+ "M-6"          #'+workspace/switch-to-5
 
  "C-x C-m"      #'execute-extended-command
  "C-x m"        #'execute-extended-command

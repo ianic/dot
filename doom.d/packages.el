@@ -56,4 +56,6 @@
 ;; (package! lsp-mode :pin "f89e7f2a09bd8a1ae368e856ec5f3d5fed4b57ee")
 ;;(package! lsp-mode :recipe (:host github :repo "emacs-lsp/lsp-mode"))
 
+
 ;; (package! lsp-mode :recipe (:local-repo "/Users/ianic/work/lsp-mode"))
+(package! beframe)

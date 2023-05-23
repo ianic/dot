@@ -22,7 +22,7 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
-;; There are two ways to load a theme. Both assume the theme is installed and
+;; There are two ways to load a themetheme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; Theme gallery: https://github.com/doomemacs/themes/tree/screenshots
@@ -144,3 +144,42 @@
 ;; balance windows width on split and close
 (advice-add 'split-window-right :after #'balance-windows)
 (advice-add '+workspace/close-window-or-workspace :after #'balance-windows)
+
+
+(custom-theme-set-faces! 'doom-nord-aurora
+  ;; it was original #D8DEE9 which is almost white
+  ;; this is same as comment block
+  '(font-lock-doc-face :foreground "#9099AB")
+)
+
+
+
+;; beframe configuration
+;; ref: https://protesilaos.com/emacs/beframe
+(require 'beframe)
+(beframe-mode 1)
+
+(defvar consult-buffer-sources)
+(declare-function consult--buffer-state "consult")
+
+(with-eval-after-load 'consult
+  (defface beframe-buffer
+    '((t :inherit font-lock-string-face))
+    "Face for `consult' framed buffers.")
+
+  (defvar beframe-consult-source
+    `( :name     "Frame-specific buffers (current frame)"
+       :narrow   ?F
+       :category buffer
+       :face     beframe-buffer
+       :history  beframe-history
+       :items    ,#'beframe-buffer-names
+       :action   ,#'switch-to-buffer
+       :state    ,#'consult--buffer-state))
+
+  )
+
+(if (eq system-type 'darwin)
+    (setq doom-modeline-height 35)
+    (setq doom-modeline-height 70)
+    )
