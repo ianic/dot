@@ -38,20 +38,21 @@ fi
 if [[ ! -d ~/.fonts ]]; then
     echo "install fonts"
     cd ~
-    version=v2.3.3
+    version=v3.0.1
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/UbuntuMono.zip
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/Hack.zip
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/Meslo.zip
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/SourceCodePro.zip
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/JetBrainsMono.zip
 
-    unzip SourceCodePro.zip -d ~/.fonts
-    unzip UbuntuMono.zip -d ~/.fonts
-    unzip Hack.zip -d ~/.fonts
-    unzip Meslo.zip -d ~/.fonts
-    unzip JetBrainsMono.zip -d ~/.fonts
-    fc-cache -fv
+    unzip -o SourceCodePro.zip -d ~/.fonts
+    unzip -o UbuntuMono.zip -d ~/.fonts
+    unzip -o Hack.zip -d ~/.fonts
+    unzip -o Meslo.zip -d ~/.fonts
+    unzip -o JetBrainsMono.zip -d ~/.fonts
     rm -f UbuntuMono.zip Hack.zip Meslo.zip SourceCodePro.zip JetBrainsMono.zip
+
+    fc-cache -fv
 
     sudo apt install fonts-firacode
 
