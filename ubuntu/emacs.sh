@@ -19,6 +19,7 @@ if [[ ! -f ~/.config/systemd/user/emacs.service ]]; then
     ln -s ~/host/code/dot/ubuntu/emacs.service ~/.config/systemd/user
     systemctl --user daemon-reload
     systemctl start --user emacs
+    systemctl --user enable emacs
     # commnads to view logs, stop server, view status:
     # journalctl --user -u emacs -f
     # systemctl stop --user emacs

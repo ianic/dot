@@ -32,5 +32,12 @@ fi
 
 if [[ ! -f ~/.Xmodmap ]] ; then
     ln -s ~/host/code/dot/ubuntu/Xmodmap ~/.Xmodmap
+    xmodmap ~/.Xmodmap
 fi
+
+if [[ ! -f ~/.Xresources ]] ; then
+    ln -s ~/host/code/dot/ubuntu/Xresources ~/.Xresources
+fi
+
+
 sudo cp ~/host/code/dot/ubuntu/etc-default-keyboard /etc/default/keyboard

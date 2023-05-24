@@ -5,7 +5,8 @@ alias ll="ls -lGh"
 alias cls="clear"
 alias c="clear"
 
-alias d="lsd -l"
+#alias d="lsd -l"
+alias d="exa -l --icons"
 alias ll="ls -l"
 
 alias df="df -h"
