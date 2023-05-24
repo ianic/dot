@@ -38,3 +38,37 @@ ln -s ~/src/ianic/dot/doom.d .doom.d
 rm -rf ~/.emacs.d
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install
+
+
+
+# krenio od ubuntu server i stavljam desktop na njega
+
+sudo apt update && sudo apt upgrade
+sudo apt install ubuntu-desktop # ovo traje jakooo dugo
+reboot
+# i imam gui, nastavljam kao dolje, parallels tools ...
+
+
+# krenio od ubuntu desktop image 22.04 (jammy current)
+https://cdimage.ubuntu.com/jammy/daily-live/current/
+zavrsilo brzo
+installiram parrallels tools, kliknio gore, otvorio njegov finder i tamo pokrenio install-gui
+restart
+u Parallels/Options/Sharing, share custom folder with Linux, dodao moj home
+sada imam /media/psf/Home
+pokrenio /media/psf/Home/code/dot/ubuntu/setup.sh
+  instalacija fontova pita smije li overwrite, unzip me zafrkava
+  doom instalacija pita za envvar i za all-the-icons
+$ reboot
+dolje desno se prebacim na i3 i login
+u Parallels config/Hardware : retina display, shortuct nikakvi, iskljucio printers, sound, camera
+  iskljucio share application with mac u Options/Applications
+morao na ruke startati emacs server
+$ systemctl start --user emacs
+
+prvi zig build u zls je pao s TlsFailure
+ovo je izgleda popravilo, iako kaze da nije napravilo nista
+$ sudo update-ca-certificates
+
+# krenio od ubuntu desktop image 23.10 (current)
+https://cdimage.ubuntu.com/daily-live/current/
