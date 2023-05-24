@@ -8,13 +8,6 @@ if [[ ! -d ~/.oh-my-zsh ]]; then
     git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
     ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 
-    # deprecated using exa now
-    # echo "install lsd tool"
-    # https://github.com/Peltoche/lsd/releases
-    # wget -q https://github.com/Peltoche/lsd/releases/download/0.23.1/lsd_0.23.1_arm64.deb
-    #sudo dpkg -i lsd_0.23.1_arm64.deb
-    # rm lsd_0.23.1_arm64.deb
-
     # disable screen lock
     gsettings set org.gnome.desktop.screensaver lock-enabled false
 fi
