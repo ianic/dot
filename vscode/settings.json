@@ -1,0 +1,21 @@
+{
+    "zig.zls.path": "/Users/ianic/Library/Application Support/Code - Insiders/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
+    "zig.zls.enableAutofix": true,
+    "zig.zls.enableImportEmbedfileArgumentCompletions": true,
+    "zig.zls.enableSnippets": true,
+    "zig.zls.highlightGlobalVarDeclarations": true,
+    "zig.buildOnSave": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyle": "line",
+    "git.openRepositoryInParentFolders": "always",
+    "[zig]": {
+        "editor.defaultFormatter": "ziglang.vscode-zig"
+    },
+    "workbench.colorTheme": "GitHub Dark",
+    "editor.fontFamily": "SauceCodePro Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace",
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.iconTheme": "material-icon-theme",
+    "terminal.integrated.fontSize": 14,
+    "editor.fontSize": 15,
+    "terminal.external.osxExec": "Warp.app"
+}
