@@ -1,0 +1,253 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    // Zig: Run file tests
+    {
+        "key": "ctrl+j t",
+        "command": "zig-language-extras.runFileTests",
+        "when": "editorLangId == 'zig'"
+    },
+    // Zig: Run single test
+    {
+        "key": "ctrl+j s",
+        "command": "zig-language-extras.runSingleTest",
+        "when": "editorLangId == 'zig'"
+    },
+    // Zig: Test workspace
+    {
+        "key": "ctrl+j w",
+        "command": "zig-language-extras.testWorkspace",
+        "when": "editorLangId == 'zig'"
+    },
+    // Zig: Build workspace
+    {
+        "key": "ctrl+j b",
+        "command": "zig-language-extras.buildWorkspace",
+        "when": "editorLangId == 'zig'"
+    },
+    // Rename
+    {
+        "key": "ctrl+j n",
+        "command": "editor.action.rename",
+        "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+    },
+    // Go to references
+    {
+        "key": "ctrl+j r",
+        "command": "editor.action.goToReferences",
+        "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+    },
+    // Peek definition
+    {
+        "key": "ctrl+j d",
+        "command": "editor.action.peekDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+    },
+    {
+        "key": "ctrl+j g",
+        "command": "magit.status",
+    },
+    // Emacs like extended command
+    {
+        "key": "ctrl+x m",
+        "command": "workbench.action.showCommands",
+    },
+    // Reset editor group sizes
+    {
+        "key": "ctrl+x shift+=",
+        "command": "workbench.action.evenEditorWidths"
+    },
+    // Editor group navigation left/right
+    {
+        "key": "cmd+[",
+        "command": "workbench.action.focusLeftGroup"
+    },
+    {
+        "key": "cmd+]",
+        "command": "workbench.action.focusRightGroup"
+    },
+    // Go to definition
+    {
+        "key": "alt+.",
+        "command": "editor.action.revealDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
+    },
+    // Go back
+    {
+        "key": "alt+,",
+        "command": "workbench.action.navigateBack",
+        "when": "canNavigateBack"
+    },
+    {
+        "key": "alt+cmd+,",
+        "command": "workbench.action.navigateForward",
+        "when": "canNavigateBack"
+    },
+    // Replace
+    {
+        "key": "cmd+r",
+        "command": "editor.action.startFindReplaceAction",
+        "when": "editorFocus || editorIsOpen"
+    },
+    // Go to line to cmd+l
+    {
+        "key": "cmd+l",
+        "command": "workbench.action.gotoLine"
+    },
+    // Reset zoom with cmd+0 instead of numpad 0
+    {
+        "key": "cmd+0",
+        "command": "workbench.action.zoomReset"
+    },
+    // When terminal focused cmd+n new terminal, cmd+w close terminal
+    {
+        "key": "cmd+n",
+        "command": "workbench.action.terminal.new",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "cmd+w",
+        "command": "workbench.action.terminal.kill",
+        "when": "terminalFocus"
+    },
+    // Same as ctrl-tab which is harder to reach for me
+    {
+        "key": "alt+tab",
+        "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+        "when": "!activeEditorGroupEmpty"
+    },
+    {
+        "key": "alt+tab",
+        "command": "workbench.action.quickOpenNavigateNextInEditorPicker",
+        "when": "inEditorsPicker && inQuickOpen"
+    },
+    {
+        "key": "alt+shift+tab",
+        "command": "workbench.action.quickOpenNavigatePreviousInEditorPicker",
+        "when": "inEditorsPicker && inQuickOpen"
+    },
+    // Switch buffer to something more like that
+    {
+        "key": "ctrl+x b",
+        "command": "workbench.action.showAllEditorsByMostRecentlyUsed",
+        //"command": "workbench.action.quickOpen"
+    },
+    // Experimenting without tabs
+    // {
+    //     "key": "cmd+shift+]",
+    //     "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+    //     "when": "!activeEditorGroupEmpty"
+    // },
+    // {
+    //     "key": "cmd+shift+]",
+    //     "command": "workbench.action.quickOpenNavigateNextInEditorPicker",
+    //     "when": "inEditorsPicker && inQuickOpen"
+    // },
+    // {
+    //     "key": "cmd+shift+[",
+    //     "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+    //     "when": "!activeEditorGroupEmpty"
+    // },
+    // {
+    //     "key": "cmd+shift+[",
+    //     "command": "workbench.action.quickOpenNavigatePreviousInEditorPicker",
+    //     "when": "inEditorsPicker && inQuickOpen"
+    // },
+    // Prevent tab iterator moving to another editor group
+    // {
+    //     "key": "shift+cmd+]",
+    //     "command": "workbench.action.nextEditorInGroup"
+    // },
+    // {
+    //     "key": "shift+cmd+[",
+    //     "command": "-workbench.action.previousEditor"
+    // },
+    // Rearrange editor order in group
+    {
+        "key": "shift+cmd+alt+]",
+        "command": "workbench.action.moveEditorRightInGroup"
+    },
+    {
+        "key": "shift+cmd+alt+[",
+        "command": "workbench.action.moveEditorLeftInGroup"
+    },
+    // Move editor to another group
+    {
+        "key": "cmd+alt+]",
+        "command": "workbench.action.moveEditorToNextGroup"
+    },
+    {
+        "key": "cmd+alt+[",
+        "command": "workbench.action.moveEditorToPreviousGroup"
+    },
+    // so I can close terminal after running test with emacs like keybinding
+    {
+        "key": "ctrl+g",
+        "command": "workbench.action.togglePanel",
+        "when": "editorFocus && panelVisible"
+    },
+    // Open from File Explorer with enter instead of cmd+down
+    // and use both plain enter and Ctrl+enter (because I'm already holding ctrl for up/down navigation)
+    {
+        "key": "ctrl+enter",
+        "command": "explorer.openAndPassFocus",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "list.select",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "cmd+enter",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+        "key": "enter",
+        "command": "-renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+        "key": "enter",
+        "command": "list.select",
+        "when": "listFocus && !inputFocus"
+    },
+    // Emacs like file open
+    // {
+    //     "key": "ctrl+x f",
+    //     "command": "quick-file-browser.open"
+    // },
+    // {
+    //     "key": "ctrl+x ctrl+f",
+    //     "command": "quick-file-browser.open"
+    // },
+    {
+        "key": "cmd+4",
+        "command": "-workbench.action.focusFourthEditorGroup"
+    },
+    {
+        "key": "cmd+4",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "cmd+9",
+        "command": "-workbench.action.lastEditorInGroup"
+    },
+    {
+        "key": "cmd+9",
+        "command": "workbench.action.terminal.focus"
+    },
+    {
+        "key": "cmd+8",
+        "command": "workbench.panel.output.focus"
+    },
+    {
+        "key": "cmd+7",
+        "command": "workbench.panel.markers.view.focus"
+    },
+    {
+        "key": "cmd+6",
+        "command": "workbench.debug.action.focusRepl"
+    }
+]
