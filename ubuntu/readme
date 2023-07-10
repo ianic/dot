@@ -72,3 +72,13 @@ $ sudo update-ca-certificates
 
 # krenio od ubuntu desktop image 23.10 (current)
 https://cdimage.ubuntu.com/daily-live/current/
+
+
+
+
+# disable screen saver
+$ xset s off; xset s noblank; xset -dpms
+referece: https://askubuntu.com/questions/177348/how-do-i-disable-the-screensaver-lock
+
+# set keyboar repeat to my feeling
+$ xset r rate 300 30k

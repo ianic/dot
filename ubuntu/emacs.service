@@ -3,11 +3,11 @@ Description=Emacs text editor
 Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 
 [Service]
-Type=notify
-ExecStart=/snap/bin/emacs --fg-daemon
-Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+Type=forking
+ExecStart=/usr/local/bin/emacs --bg-daemon
+ExecStop=/usr/local/bin/emacsclient --eval "(kill-emacs)"
+# Environment=SSH_AUTH_SOCK=%t/keyring/ssh
 Restart=on-failure
-ExecStop=/snap/bin/emacsclient --eval "(kill-emacs)"
 
 [Install]
 WantedBy=default.target
