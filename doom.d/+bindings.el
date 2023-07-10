@@ -4,28 +4,32 @@
  ;; window navigation
  "s-]"          (lambda () (interactive) (other-window  1))
  "s-["          (lambda () (interactive) (other-window -1))
+
+ "s-{"          (lambda () (interactive) (other-window  1))
+ "s-}"          (lambda () (interactive) (other-window -1))
+
  ;; tabs/workspaces navigation
- "s-{"          #'+workspace/switch-left
- "s-}"          #'+workspace/switch-right
+ ;; "s-{"          #'+workspace/switch-left
+ ;; "s-}"          #'+workspace/switch-right
 
- "M-["          #'+workspace/switch-left
- "M-]"          #'+workspace/switch-right
+ ;; "M-["          #'+workspace/switch-left
+ ;; "M-]"          #'+workspace/switch-right
 
- "s-1"          #'+workspace/switch-to-0
- "s-2"          #'+workspace/switch-to-1
- "s-3"          #'+workspace/switch-to-2
- "s-4"          #'+workspace/switch-to-3
- "s-5"          #'+workspace/switch-to-4
- "s-6"          #'+workspace/switch-to-5
- "s-9"          #'+workspace/switch-to
- "s-i"          #'lsp-ui-imenu
+ ;; "s-1"          #'+workspace/switch-to-0
+ ;; "s-2"          #'+workspace/switch-to-1
+ ;; "s-3"          #'+workspace/switch-to-2
+ ;; "s-4"          #'+workspace/switch-to-3
+ ;; "s-5"          #'+workspace/switch-to-4
+ ;; "s-6"          #'+workspace/switch-to-5
+ ;; "s-9"          #'+workspace/switch-to
+ ;; "s-i"          #'lsp-ui-imenu
 
- "M-1"          #'+workspace/switch-to-0
- "M-2"          #'+workspace/switch-to-1
- "M-3"          #'+workspace/switch-to-2
- "M-4"          #'+workspace/switch-to-3
- "M-5"          #'+workspace/switch-to-4
- "M-6"          #'+workspace/switch-to-5
+ ;; "M-1"          #'+workspace/switch-to-0
+ ;; "M-2"          #'+workspace/switch-to-1
+ ;; "M-3"          #'+workspace/switch-to-2
+ ;; "M-4"          #'+workspace/switch-to-3
+ ;; "M-5"          #'+workspace/switch-to-4
+ ;; "M-6"          #'+workspace/switch-to-5
 
  "C-x C-m"      #'execute-extended-command
  "C-x m"        #'execute-extended-command
@@ -53,7 +57,7 @@
  "s-a"          #'mark-whole-buffer
 
  ;; like pallete in vscode and warp
- "s-p"          #'+ivy/projectile-find-file
+ "s-p"          #'find-file ;;+ivy/projectile-find-file
  "s-P"          #'execute-extended-command
 
  "s-0"          #'doom/reset-font-size
@@ -195,14 +199,24 @@
       :desc "Test buffer"   "t" #'zig-test-buffer
       :desc "Test project"  "p" #'zig-test-project
       :desc "Test function" "s" #'zig-test-single-test
-      :desc "Rename"        "n" #'lsp-rename
-      (:prefix-map ("l" . "lsp")
-                   "p" #'lsp-ui-peek-find-references
-                   "r" #'lsp-find-references
-                   ;;"f" #'lsp-find-references
-                   "[" #'lsp-ui-find-prev-reference
-                   "]" #'lsp-ui-find-next-reference
-                   "n" #'lsp-rename
+      ;;:desc "Rename"        "n" #'lsp-rename
+      :desc "Rename"        "n" #'eglot-rename
+      ;; (:prefix-map ("l" . "lsp")
+      ;;              "p" #'lsp-ui-peek-find-references
+      ;;              "r" #'lsp-find-references
+      ;;              ;;"f" #'lsp-find-references
+      ;;              "[" #'lsp-ui-find-prev-reference
+      ;;              "]" #'lsp-ui-find-next-reference
+      ;;              "n" #'lsp-rename
+      ;;              )
+      (:prefix-map ("e" . "eglot")
+                   "a" #'eglot-code-actions
+                   "d" #'eglot-find-declaration
+                   "i" #'eglot-find-implementation
+                   "t" #'eglot-find-typeDefinition
+                   "i" #'eglot-code-action-organize-imports
+                   "f" #'eglot-format-buffer
+                   "n" #'eglot-rename
                    )
       ;; "m" #'zig-build-flash
       )
