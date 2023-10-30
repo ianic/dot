@@ -1,5 +1,44 @@
 // Place your key bindings in this file to override the defaultsauto[]
 [
+    // {
+    //     "key": "ctrl+j f",
+    //     "command": "go.toggle.test.file",
+    //     "when": "editorLangId == 'go'"
+    // },
+    // {
+    //     "key": "ctrl+j p",
+    //     "command": "go.test.package",
+    //     "when": "editorLangId == 'go'"
+    // },
+    // {
+    //     "key": "ctrl+j s",
+    //     "command": "go.test.cursor",
+    //     "when": "editorLangId == 'go'"
+    // },
+    // {
+    //     "key": "ctrl+j t",
+    //     "command": "go.test.file",
+    //     "when": "editorLangId == 'go'"
+    // },
+    {
+        "key": "ctrl+j a",
+        "command": "testing.runAll"
+    },
+    {
+        "key": "ctrl+j s",
+        "command": "testing.runAtCursor",
+        //"when": "editorLangId == 'go'"
+    },
+    {
+        "key": "ctrl+j t",
+        "command": "testing.runCurrentFile",
+        //"when": "editorLangId == 'go'"
+    },
+    {
+        "key": "ctrl+j l",
+        "command": "testing.reRunLastRun",
+        //"when": "editorLangId == 'go'"
+    },
     // Zig: Run file tests
     {
         "key": "ctrl+j t",
@@ -24,6 +63,11 @@
         "command": "zig-language-extras.buildWorkspace",
         "when": "editorLangId == 'zig'"
     },
+    {
+        "key": "ctrl+j b",
+        "command": "go.build.workspace",
+        "when": "editorLangId == 'go'"
+    },
     // Rename
     {
         "key": "ctrl+j n",
@@ -36,7 +80,10 @@
         "command": "editor.action.goToReferences",
         "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
     },
-    // Peek definition
+    {
+        "key": "ctrl+j p",
+        "command": "editor.action.referenceSearch.trigger"
+    },
     {
         "key": "ctrl+j d",
         "command": "editor.action.peekDefinition",
@@ -45,11 +92,6 @@
     {
         "key": "ctrl+j g",
         "command": "magit.status",
-    },
-    // Emacs like extended command
-    {
-        "key": "ctrl+x m",
-        "command": "workbench.action.showCommands",
     },
     // Reset editor group sizes
     {
@@ -69,6 +111,11 @@
     {
         "key": "alt+.",
         "command": "editor.action.revealDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
+    },
+    {
+        "key": "alt+ctrl+.",
+        "command": "editor.action.revealDefinitionAside",
         "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
     },
     // Go back
@@ -112,8 +159,15 @@
     // Same as ctrl-tab which is harder to reach for me
     {
         "key": "alt+tab",
+        //"command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+        "command": "workbench.action.quickOpenPreviousRecentlyUsedEditor",
+        "when": "!inEditorsPicker"
+    },
+    {
+        "key": "alt+shift+tab",
         "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
-        "when": "!activeEditorGroupEmpty"
+        // "command": "workbench.action.quickOpenLeastRecentlyUsedEditor",
+        "when": "!inEditorsPicker"
     },
     {
         "key": "alt+tab",
@@ -128,39 +182,15 @@
     // Switch buffer to something more like that
     {
         "key": "ctrl+x b",
-        "command": "workbench.action.showAllEditorsByMostRecentlyUsed",
+        "command": "workbench.action.showAllEditors"
         //"command": "workbench.action.quickOpen"
+        //"command": "workbench.action.openPreviousEditorFromHistory"
+        //"command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
     },
-    // Experimenting without tabs
-    // {
-    //     "key": "cmd+shift+]",
-    //     "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
-    //     "when": "!activeEditorGroupEmpty"
-    // },
-    // {
-    //     "key": "cmd+shift+]",
-    //     "command": "workbench.action.quickOpenNavigateNextInEditorPicker",
-    //     "when": "inEditorsPicker && inQuickOpen"
-    // },
-    // {
-    //     "key": "cmd+shift+[",
-    //     "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
-    //     "when": "!activeEditorGroupEmpty"
-    // },
-    // {
-    //     "key": "cmd+shift+[",
-    //     "command": "workbench.action.quickOpenNavigatePreviousInEditorPicker",
-    //     "when": "inEditorsPicker && inQuickOpen"
-    // },
-    // Prevent tab iterator moving to another editor group
-    // {
-    //     "key": "shift+cmd+]",
-    //     "command": "workbench.action.nextEditorInGroup"
-    // },
-    // {
-    //     "key": "shift+cmd+[",
-    //     "command": "-workbench.action.previousEditor"
-    // },
+    {
+        "key": "ctrl+x ctrl+b",
+        "command": "workbench.action.showAllEditorsByMostRecentlyUsed",
+    },
     // Rearrange editor order in group
     {
         "key": "shift+cmd+alt+]",
@@ -183,7 +213,7 @@
     {
         "key": "ctrl+g",
         "command": "workbench.action.togglePanel",
-        "when": "editorFocus && panelVisible"
+        "when": "panelVisible"
     },
     // Open from File Explorer with enter instead of cmd+down
     // and use both plain enter and Ctrl+enter (because I'm already holding ctrl for up/down navigation)
@@ -212,15 +242,6 @@
         "command": "list.select",
         "when": "listFocus && !inputFocus"
     },
-    // Emacs like file open
-    // {
-    //     "key": "ctrl+x f",
-    //     "command": "quick-file-browser.open"
-    // },
-    // {
-    //     "key": "ctrl+x ctrl+f",
-    //     "command": "quick-file-browser.open"
-    // },
     {
         "key": "cmd+4",
         "command": "-workbench.action.focusFourthEditorGroup"
@@ -249,5 +270,100 @@
     {
         "key": "cmd+6",
         "command": "workbench.debug.action.focusRepl"
+    },
+    // Next problem in files instead of just next in current file
+    {
+        "key": "ctrl+x `",
+        "command": "editor.action.marker.nextInFiles",
+        "when": "editorTextFocus"
+    },
+    // In quick open second entry is default, Emacs like
+    {
+        "key": "cmd+p",
+        "command": "workbench.action.quickOpenPreviousEditor"
+    },
+    {
+        "key": "cmd+p",
+        "command": "-workbench.action.quickOpen"
+    },
+    // Emacs like extended command
+    {
+        "key": "ctrl+x m",
+        "command": "workbench.action.showCommands",
+    },
+    // Emacs like file open
+    // {
+    //     "key": "ctrl+x f",
+    //     "command": "quick-file-browser.open"
+    // },
+    // {
+    //     "key": "ctrl+x ctrl+f",
+    //     "command": "quick-file-browser.open"
+    // },
+    // {
+    //     "key": "ctrl-x f",
+    //     "command": "find-it-faster.findFiles"
+    // },
+    {
+        "key": "ctrl-x ctrl-f",
+        "command": "find-it-faster.findFiles"
+    },
+    {
+        "key": "ctrl-x ctrl-g",
+        "command": "find-it-faster.findWithinFiles"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "-workbench.action.previousEditor"
+    },
+    {
+        "key": "cmd+]",
+        "command": "workbench.action.terminal.focusNextPane",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "cmd+[",
+        "command": "workbench.action.terminal.focusPreviousPane",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "cmd+d",
+        "command": "workbench.action.terminal.split",
+        "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
+    },
+    // disable emacs extension isearch
+    {
+        "key": "ctrl+s",
+        "command": "-emacs-mcx.isearchForward",
+        "when": "!findInputFocussed"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "-editor.action.nextMatchFindAction",
+        "when": "findInputFocussed"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "-notebook.find",
+        "when": "notebookEditorFocused && activeEditor == 'workbench.editor.interactive' || notebookEditorFocused && activeEditor == 'workbench.editor.notebook'"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-emacs-mcx.isearchBackward",
+        "when": "!findInputFocussed"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-editor.action.previousMatchFindAction",
+        "when": "findInputFocussed"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-notebook.find",
+        "when": "notebookEditorFocused && activeEditor == 'workbench.editor.interactive' || notebookEditorFocused && activeEditor == 'workbench.editor.notebook'"
     }
 ]

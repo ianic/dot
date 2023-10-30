@@ -31,7 +31,8 @@ sudo apt update -y
 sudo apt upgrade -y
 
 sudo -E apt install -y curl net-tools unzip make build-essential \
-    jq zsh git ripgrep fd-find snapd openssh-server htop tree exa \
+    zsh git fd-find snapd openssh-server htop tree exa \
+    jq bat fzf ripgrep \
     linux-libc-dev liburing-dev cmake \
     linux-tools-common linux-tools-generic linux-tools-$(uname -r) \
     gdb hyperfine
@@ -60,3 +61,15 @@ fi
 cd $SCRIPT_DIR
 sudo update-ca-certificates
 ./zig.sh
+
+# install websocat from github release
+# https://github.com/vi/websocat/releases
+wget https://github.com/vi/websocat/releases/download/v1.11.0/websocat.aarch64-unknown-linux-musl &&
+    mv websocat.aarch64-unknown-linux-musl ~/.local/bin/websocat &&
+    chmod +x ~/.local/bin/websocat
+
+# Go install
+wget https://go.dev/dl/go1.21.0.linux-arm64.tar.gz
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.21.0.linux-arm64.tar.gz
+go version
+rm go1.21.0.linux-arm64.tar.gz

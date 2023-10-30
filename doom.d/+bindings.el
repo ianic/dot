@@ -1,5 +1,11 @@
 ;;; ~/.doom.d/bindings.el -*- lexical-binding: t; -*-
 
+(define-key local-function-key-map "\033[27;1;108~" [(super l )])
+(define-key local-function-key-map "\033[27;1;112~" [(super p )])
+(define-key local-function-key-map "\033[27;1;118~" [(super v )])
+(define-key local-function-key-map "\033[27;1;120~" [(super x )])
+(define-key local-function-key-map "\033[27;1;122~" [(super z )])
+
 (map!
  ;; window navigation
  "s-]"          (lambda () (interactive) (other-window  1))

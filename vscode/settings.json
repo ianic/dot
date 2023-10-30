@@ -17,5 +17,9 @@
     "workbench.iconTheme": "material-icon-theme",
     "terminal.integrated.fontSize": 14,
     "editor.fontSize": 15,
-    "terminal.external.osxExec": "Warp.app"
+    "terminal.external.osxExec": "Warp.app",
+    "window.confirmBeforeClose": "keyboardOnly",
+    "window.dialogStyle": "custom",
+    "window.restoreFullscreen": true,
+    "window.titleBarStyle": "native"
 }
