@@ -1,6 +1,16 @@
+#!/bin/bash -e
+
+# install parallels tools in vm: https://kb.parallels.com/113394
+# execute:
+# /media/psf/Home/code/dot/ubuntu/server.sh
+
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
+CN='\033[0;32m'
+NC='\033[0m' # No Color
+
 if [[ ! -d ~/host ]]; then
+    printf "${CN}link host folders${NC}\n"
     cd ~
     ln -s /media/psf/Home/ host
     ln -s /media/psf/Home/code code
@@ -9,7 +19,7 @@ fi
 cd $SCRIPT_DIR
 
 if [[ ! -f ~/.ssh/id_rsa ]]; then
-    echo "copy my ssh keys"
+    printf "${CN}copy my ssh keys${NC}\n"
     cd ~
     mkdir -p .ssh
     cd .ssh
@@ -20,13 +30,13 @@ fi
 
 if [[ ! -f /etc/sudoers.d/ianic ]]; then
     cd ~
-    echo "sudo without password for ianic"
+    printf "${CN}sudo without password for ianic${NC}\n"
     echo "ianic ALL=(ALL) NOPASSWD:ALL" >ianic
     sudo mv ianic /etc/sudoers.d/
     sudo chown root:root /etc/sudoers.d/ianic
 fi
 
-echo "install packages"
+printf "${CN}install packages ${NC}\n"
 sudo apt update -y
 sudo apt upgrade -y
 
@@ -37,11 +47,12 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     linux-tools-common linux-tools-generic linux-tools-$(uname -r) \
     gdb hyperfine
 
-# set zsh as default shell
-sudo -E usermod --shell /usr/bin/zsh ianic
 # zsh configuration
 if [[ ! -d ~/.oh-my-zsh ]]; then
-    echo "install zsh"
+    printf "${CN}install zsh${NC}\n"
+    # set zsh as default shell
+    sudo -E usermod --shell /usr/bin/zsh ianic
+
     git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
     export ZSH_CUSTOM=~/.oh-my-zsh/custom
     git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
@@ -50,7 +61,7 @@ if [[ ! -d ~/.oh-my-zsh ]]; then
 fi
 
 if [[ ! -f ~/.zshrc ]]; then
-    echo "link my shell configs"
+    printf "${CN}link my shell configs${NC}\n"
     cd ~
     ln -s ~/host/code/dot/shell/zshrc .zshrc
     ln -s ~/host/code/dot/shell/bash_aliases .bash_aliases
@@ -59,17 +70,27 @@ if [[ ! -f ~/.zshrc ]]; then
 fi
 
 cd $SCRIPT_DIR
+printf "${CN}install zig${NC}\n"
 sudo update-ca-certificates
 ./zig.sh
 
 # install websocat from github release
 # https://github.com/vi/websocat/releases
-wget https://github.com/vi/websocat/releases/download/v1.11.0/websocat.aarch64-unknown-linux-musl &&
-    mv websocat.aarch64-unknown-linux-musl ~/.local/bin/websocat &&
-    chmod +x ~/.local/bin/websocat
+if [ ! -x "$(command -v ~/.local/bin/websocat)" ]; then
+    printf "${CN}install websocat ${NC}\n"
+    wget https://github.com/vi/websocat/releases/download/v1.11.0/websocat.aarch64-unknown-linux-musl &&
+        mv websocat.aarch64-unknown-linux-musl ~/.local/bin/websocat &&
+        chmod +x ~/.local/bin/websocat
+fi
 
 # Go install
-wget https://go.dev/dl/go1.21.0.linux-arm64.tar.gz
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.21.0.linux-arm64.tar.gz
-go version
-rm go1.21.0.linux-arm64.tar.gz
+[ -x "$(command -v /usr/local/go/bin/go)" ] && current_version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
+version=$(curl -s https://go.dev/VERSION?m=text | head -n 1)
+if [[ "$version" != "$current_version" ]]; then
+    echo "install Go version: $version"
+    wget https://go.dev/dl/$version.linux-arm64.tar.gz
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $version.linux-arm64.tar.gz
+    rm $version.linux-arm64.tar.gz
+fi
+
+printf "${CN}done ${NC}\n"

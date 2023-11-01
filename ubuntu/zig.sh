@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 #installs zig into /usr/local/bin
 #works for Linux and macOS arm machines
@@ -8,33 +8,26 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     arch=macos
 fi
 
-echo "before zig version: $(zig version)"
+# echo "before zig version: $(zig version)"
 
-stable=https://ziglang.org/download/0.10.0/zig-$arch-aarch64-0.10.0.tar.xz
+stable_version=0.11.0
+stable=$(curl -s https://ziglang.org/download/index.json | jq ".\"$stable_version\".\"aarch64-$arch\".tarball" -r)
 # find the latest build
 latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"aarch64-$arch\".tarball" -r)
 
-# latest known good before stage1 changes
-# latest="https://ziglang.org/builds/zig-$arch-aarch64-0.11.0-dev.2666+1e207f1ed.tar.xz"
-
-#
-#specific=0.11.0-dev.1855+18e6d1e81
-#specific="https://ziglang.org/builds/zig-$arch-aarch64-$specific.tar.xz"
-#echo $specific
-
-urls=( "$stable" "$latest")
+urls=("$stable" "$latest")
 for url in "${urls[@]}"; do
-  fn=$(basename $url)
-  dir=${fn%.tar.xz}
-  if [[ ! -d /usr/local/zig/$dir ]]; then
-      wget $url
-      tar xvf $fn
-      sudo mkdir -p /usr/local/zig
-      sudo mv $dir  /usr/local/zig
-      sudo rm -f /usr/local/bin/zig
-      sudo ln -s /usr/local/zig/$dir/zig /usr/local/bin/
-      rm -f $fn
-  fi
+    fn=$(basename $url)
+    dir=${fn%.tar.xz}
+    if [[ ! -d /usr/local/zig/$dir ]]; then
+        wget $url
+        tar xvf $fn
+        sudo mkdir -p /usr/local/zig
+        sudo mv $dir /usr/local/zig
+        sudo rm -f /usr/local/bin/zig
+        sudo ln -s /usr/local/zig/$dir/zig /usr/local/bin/
+        rm -f $fn
+    fi
 done
 
 # zls install from source
