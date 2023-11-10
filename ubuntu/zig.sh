@@ -31,8 +31,9 @@ for url in "${urls[@]}"; do
 done
 
 # zls install from source
-cd ~ && mkdir -p src && cd src
-if [[ ! -d ~/src/zls ]]; then
+build_root=~/.build
+cd ~ && mkdir -p $build_root && cd $build_root
+if [[ ! -d $build_root/zls ]]; then
     git clone --recurse-submodules https://github.com/zigtools/zls
     cd zls
 else

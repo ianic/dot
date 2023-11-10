@@ -1,32 +1,26 @@
 #!/bin/bash -e
 
-# install parallels tools in vm: https://kb.parallels.com/113394
-# execute:
-# /media/psf/Home/code/dot/ubuntu/server.sh
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    scp ~/.ssh/authorized_keys2 thinkpad:~/.ssh/authorized_keys
+    scp ~/.ssh/id_rsa thinkpad:~/.ssh/
+    scp ~/.ssh/id_rsa.pub thinkpad:~/.ssh/
 
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+    scp ~/code/dot/ubuntu/thinkpad.sh thinkpad:~
 
-CN='\033[0;32m'
-NC='\033[0m' # No Color
-
-if [[ ! -d ~/host ]]; then
-    printf "${CN}link host folders${NC}\n"
-    cd ~
-    ln -s /media/psf/Home/ host
-    ln -s /media/psf/Home/code code
+    exit 0
 fi
 
+if [[ ! -d ~/host/code/dot ]]; then
+    mkdir -p ~/host/code
+    cd ~/host/code
+    git clone git@github.com:ianic/dot.git .
+else
+    cd ~/host/code/dot
+    git pull
+fi
+
+SCRIPT_DIR=~/host/code/ubuntu/
 cd $SCRIPT_DIR
-
-if [[ ! -f ~/.ssh/id_rsa ]]; then
-    printf "${CN}copy my ssh keys${NC}\n"
-    cd ~
-    mkdir -p .ssh
-    cd .ssh
-    cp ~/host/.ssh/authorized_keys2 .
-    cp ~/host/.ssh/id_rsa .
-    cp ~/host/.ssh/id_rsa.pub .
-fi
 
 if [[ ! -f /etc/sudoers.d/ianic ]]; then
     cd ~
@@ -70,30 +64,9 @@ if [[ ! -f ~/.zshrc ]]; then
 fi
 
 cd $SCRIPT_DIR
-printf "${CN}install zig${NC}\n"
+echo install zig
 sudo update-ca-certificates
 ./zig.sh
 
-# install websocat from github release
-# https://github.com/vi/websocat/releases
-if [ ! -x "$(command -v ~/.local/bin/websocat)" ]; then
-    printf "${CN}install websocat ${NC}\n"
-    wget https://github.com/vi/websocat/releases/download/v1.11.0/websocat.aarch64-unknown-linux-musl &&
-        mv websocat.aarch64-unknown-linux-musl ~/.local/bin/websocat &&
-        chmod +x ~/.local/bin/websocat
-fi
-
-# Go install
-[ -x "$(command -v /usr/local/go/bin/go)" ] && current_version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
-version=$(curl -s https://go.dev/VERSION?m=text | head -n 1)
-if [[ "$version" != "$current_version" ]]; then
-    echo "install Go version: $version"
-    wget https://go.dev/dl/$version.linux-arm64.tar.gz
-    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $version.linux-arm64.tar.gz
-    rm $version.linux-arm64.tar.gz
-fi
-
 # experimental
 sudo systemctl stop snapd
-
-printf "${CN}done ${NC}\n"
