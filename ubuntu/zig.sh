@@ -3,17 +3,15 @@
 #installs zig into /usr/local/bin
 #works for Linux and macOS arm machines
 
-arch=linux
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    arch=macos
-fi
-
-# echo "before zig version: $(zig version)"
+os=linux
+[[ "$OSTYPE" == "darwin"* ]] && os=macos
+arch=aarch64-$os
+arch | grep x86_64 >>/dev/null && arch=x86_64-$os
 
 stable_version=0.11.0
-stable=$(curl -s https://ziglang.org/download/index.json | jq ".\"$stable_version\".\"aarch64-$arch\".tarball" -r)
+stable=$(curl -s https://ziglang.org/download/index.json | jq ".\"$stable_version\".\"$arch\".tarball" -r)
 # find the latest build
-latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"aarch64-$arch\".tarball" -r)
+latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"$arch\".tarball" -r)
 
 urls=("$stable" "$latest")
 for url in "${urls[@]}"; do
