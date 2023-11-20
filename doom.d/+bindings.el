@@ -185,11 +185,11 @@
   (let (
         (old-pnt (point-marker)))
 
-        (re-search-backward "^test.*\"\\(.*\\)\".*{")
-        (message "Nearest test function: %s" (match-string 1))
-        (goto-char old-pnt)
+    (re-search-backward "^test.*\"\\(.*\\)\".*{")
+    (message "Nearest test function: %s" (match-string 1))
+    (goto-char old-pnt)
 
-        (zig--run-cmd "test" (buffer-file-name) "--test-filter" (match-string 1) "-O" zig-test-optimization-mode)
+    (zig--run-cmd "test" (buffer-file-name) "--test-filter" (match-string 1) "-O" zig-test-optimization-mode)
     )
   )
 

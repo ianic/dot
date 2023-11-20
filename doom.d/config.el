@@ -64,15 +64,15 @@
 
 ;;(setq doom-font (font-spec :family "SauceCodePro" :size 15)
 (if (eq system-type 'darwin)
-  ;;(setq doom-font "-*-Iosevka Term-semibold-normal-expanded-*-15-*-*-*-m-0-iso10646-1")
-  ;;(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15))
-  (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
-        doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15)
-	)
+    ;;(setq doom-font "-*-Iosevka Term-semibold-normal-expanded-*-15-*-*-*-m-0-iso10646-1")
+    ;;(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15))
+    (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
+          doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15)
+	  )
   ;;for Linux retina display
   ;;(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15))
   (setq doom-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 31))
-)
+  )
 
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -98,12 +98,12 @@
   (push "[/\\\\]\\fork\\'" lsp-file-watch-ignored-directories)
 
   (lsp-register-client
-    (make-lsp-client :new-connection (lsp-tramp-connection "zls")
-                     :major-modes '(zig-mode)
-                     :remote? t
-                     :server-id 'zls-remote))
+   (make-lsp-client :new-connection (lsp-tramp-connection "zls")
+                    :major-modes '(zig-mode)
+                    :remote? t
+                    :server-id 'zls-remote))
 
-)
+  )
 
 (setq uniquify-buffer-name-style 'forward)
 
@@ -150,7 +150,7 @@
   ;; it was original #D8DEE9 which is almost white
   ;; this is same as comment block
   '(font-lock-doc-face :foreground "#9099AB")
-)
+  )
 
 
 
@@ -181,44 +181,44 @@
 
 (if (eq system-type 'darwin)
     (setq doom-modeline-height 35)
-    (setq doom-modeline-height 70)
-    )
+  (setq doom-modeline-height 70)
+  )
 
 
 ;; ref: https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
 (setq treesit-language-source-alist
-   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-     (cmake "https://github.com/uyha/tree-sitter-cmake")
-     (css "https://github.com/tree-sitter/tree-sitter-css")
-     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-     (go "https://github.com/tree-sitter/tree-sitter-go")
-     (go-mod "https://github.com/camdencheek/tree-sitter-go-mod")
-     (html "https://github.com/tree-sitter/tree-sitter-html")
-     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-     (json "https://github.com/tree-sitter/tree-sitter-json")
-     (make "https://github.com/alemuller/tree-sitter-make")
-     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-     (python "https://github.com/tree-sitter/tree-sitter-python")
-     (toml "https://github.com/tree-sitter/tree-sitter-toml")
-     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-     (yaml "https://github.com/ikatyang/tree-sitter-yaml")
-     (zig "https://github.com/maxxnino/tree-sitter-zig")
-     (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
-     )
-   )
+      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+        (cmake "https://github.com/uyha/tree-sitter-cmake")
+        (css "https://github.com/tree-sitter/tree-sitter-css")
+        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+        (go "https://github.com/tree-sitter/tree-sitter-go")
+        ;;(gomod "https://github.com/camdencheek/tree-sitter-go-mod")
+        (html "https://github.com/tree-sitter/tree-sitter-html")
+        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+        (json "https://github.com/tree-sitter/tree-sitter-json")
+        (make "https://github.com/alemuller/tree-sitter-make")
+        (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+        (python "https://github.com/tree-sitter/tree-sitter-python")
+        (toml "https://github.com/tree-sitter/tree-sitter-toml")
+        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+        (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+        (zig "https://github.com/maxxnino/tree-sitter-zig")
+        (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
+        )
+      )
 ;; to install them all:
 ;; (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
 
 (setq major-mode-remap-alist
- '((yaml-mode . yaml-ts-mode)
-   (bash-mode . bash-ts-mode)
-   (js2-mode . js-ts-mode)
-   (typescript-mode . typescript-ts-mode)
-   (json-mode . json-ts-mode)
-   (css-mode . css-ts-mode)
-   (python-mode . python-ts-mode)
-   (ruby-mode . ruby-ts-mode)
-   (go-mode . go-ts-mode)
-   )
- )
+      '((yaml-mode . yaml-ts-mode)
+        (bash-mode . bash-ts-mode)
+        (js2-mode . js-ts-mode)
+        (typescript-mode . typescript-ts-mode)
+        (json-mode . json-ts-mode)
+        (css-mode . css-ts-mode)
+        (python-mode . python-ts-mode)
+        (ruby-mode . ruby-ts-mode)
+        (go-mode . go-ts-mode)
+        )
+      )
