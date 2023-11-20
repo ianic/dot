@@ -83,5 +83,5 @@
 (setq lsp-zig-zls-executable "~/.local/bin/zls")
 
 ;; set transparent background
-(custom-theme-set-faces! 'doom-nord
-  '(default :background "ARGBBB000000"))
+;; (custom-theme-set-faces! 'doom-nord
+;;  '(default :background "ARGBBB000000"))
