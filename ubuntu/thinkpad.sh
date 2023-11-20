@@ -13,13 +13,13 @@ fi
 if [[ ! -d ~/host/code/dot ]]; then
     mkdir -p ~/host/code
     cd ~/host/code
-    git clone git@github.com:ianic/dot.git .
+    git clone git@github.com:ianic/dot.git
 else
     cd ~/host/code/dot
     git pull
 fi
 
-SCRIPT_DIR=~/host/code/ubuntu/
+SCRIPT_DIR=~/host/code/dot/ubuntu/
 cd $SCRIPT_DIR
 
 if [[ ! -f /etc/sudoers.d/ianic ]]; then
@@ -39,7 +39,7 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     jq bat fzf ripgrep \
     linux-libc-dev liburing-dev cmake \
     linux-tools-common linux-tools-generic linux-tools-$(uname -r) \
-    gdb hyperfine emacs-nox
+    gdb hyperfine emacs-nox acpi lm-sensors
 
 # zsh configuration
 if [[ ! -d ~/.oh-my-zsh ]]; then
@@ -70,3 +70,23 @@ sudo update-ca-certificates
 
 # experimental
 sudo systemctl stop snapd
+sudo apt install -y network-manager
+
+curl -LO https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu22.04.deb
+sudo apt install -y ./wezterm-nightly.Ubuntu22.04.deb
+rm wezterm-nightly.Ubuntu22.04.deb
+
+exit 0
+# ethernet: 3c:97:0e:46:6b:c7
+# wifi:     52:54:00:4c:69:3f
+
+wakeonlan 3c:97:0e:46:6b:c7 && sleep 20 && ssh thinkpad
+
+# show battery
+acpi -b
+
+upower --enumerate
+upower -i /org/freedesktop/UPower/devices/battery_BAT0
+
+# cpu temperatur and fan speed
+watch sensors

@@ -97,3 +97,6 @@ fi
 sudo systemctl stop snapd
 
 printf "${CN}done ${NC}\n"
+
+# clanup
+# pkill zig; pkill test; pkill node; pkill code-insiders
