@@ -196,7 +196,7 @@ export SPACESHIP_ZIG_PREFIX=
 export SPACESHIP_DIR_PREFIX="%{%B%F{cyan}%}\uf115 "
 export SPACESHIP_USER_SHOW=needed
 export SPACESHIP_HOST_PREFIX="%{%B%F{blue}%}\ue711 " # apple
-# export SPACESHIP_HOST_SHOW=always
+export SPACESHIP_HOST_SHOW=always
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
    # remove user from prompt on remote machine
