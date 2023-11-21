@@ -82,6 +82,10 @@
 (setq zig-format-show-buffer nil)
 (setq lsp-zig-zls-executable "~/.local/bin/zls")
 
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+
 ;; set transparent background
 ;; (custom-theme-set-faces! 'doom-nord
 ;;  '(default :background "ARGBBB000000"))

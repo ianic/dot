@@ -5,14 +5,24 @@
 (define-key local-function-key-map "\033[27;1;120~" [(super x )])
 (define-key local-function-key-map "\033[27;1;122~" [(super z )])
 (define-key local-function-key-map "\033[27;1;97~"  [(super a )])
+(define-key local-function-key-map "\033[27;1;91~"  [(super ?\x5B )]) ;; [ is ascii 91 0x5B
+(define-key local-function-key-map "\033[27;1;93~"  [(super ?\x5D )]) ;; ] is ascii 93 0x5D
+(define-key local-function-key-map "\033[27;1;79~"  [(super o )])
 
 (map!
  ;; window navigation
  "s-]"          (lambda () (interactive) (other-window  1))
  "s-["          (lambda () (interactive) (other-window -1))
 
- "s-{"          (lambda () (interactive) (other-window  1))
- "s-}"          (lambda () (interactive) (other-window -1))
+ ;;"s-{"          (lambda () (interactive) (other-window  1))
+ ;; "s-}"          (lambda () (interactive) (other-window -1))
+
+ ;;"M-o"          (lambda () (interactive) (other-window  1))
+ ;;"C-o"          (lambda () (interactive) (other-window  1))
+ ;;"C-]"          (lambda () (interactive) (other-window 1))
+
+ ;;"M-]"          (lambda () (interactive) (other-window  1))
+ ;;"M-{"          (lambda () (interactive) (other-window -1))
 
  ;; tabs/workspaces navigation
  ;; "s-{"          #'+workspace/switch-left
@@ -39,7 +49,7 @@
 
  "C-x C-m"      #'execute-extended-command
  "C-x m"        #'execute-extended-command
- "M-s-."        #'+lookup/definition-other-window
+ ;;"M-s-."        #'+lookup/definition-other-window
  "C-x C-o"      #'other-window
 
  ;; comment line or region; do what I mean
