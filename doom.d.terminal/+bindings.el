@@ -1,28 +1,21 @@
-;; map terminal keycodes to super (command) key
-(define-key local-function-key-map "\033[27;1;108~" [(super l )])
-(define-key local-function-key-map "\033[27;1;112~" [(super p )])
-(define-key local-function-key-map "\033[27;1;118~" [(super v )])
-(define-key local-function-key-map "\033[27;1;120~" [(super x )])
-(define-key local-function-key-map "\033[27;1;122~" [(super z )])
-(define-key local-function-key-map "\033[27;1;97~"  [(super a )])
-(define-key local-function-key-map "\033[27;1;91~"  [(super ?\x5B )]) ;; [ is ascii 91 0x5B
-(define-key local-function-key-map "\033[27;1;93~"  [(super ?\x5D )]) ;; ] is ascii 93 0x5D
-(define-key local-function-key-map "\033[27;1;79~"  [(super o )])
+
+(unless (display-graphic-p)
+  ;; map terminal keycodes to super (command) key
+  (define-key local-function-key-map "\033[27;1;108~" [(super l )])
+  (define-key local-function-key-map "\033[27;1;112~" [(super p )])
+  (define-key local-function-key-map "\033[27;1;118~" [(super v )])
+  (define-key local-function-key-map "\033[27;1;120~" [(super x )])
+  (define-key local-function-key-map "\033[27;1;122~" [(super z )])
+  (define-key local-function-key-map "\033[27;1;97~"  [(super a )])
+  (define-key local-function-key-map "\033[27;1;91~"  [(super ?\x5B )]) ;; [ is ascii 91 0x5B
+  (define-key local-function-key-map "\033[27;1;93~"  [(super ?\x5D )]) ;; ] is ascii 93 0x5D
+  (define-key local-function-key-map "\033[27;1;79~"  [(super o )])
+  )
 
 (map!
  ;; window navigation
  "s-]"          (lambda () (interactive) (other-window  1))
  "s-["          (lambda () (interactive) (other-window -1))
-
- ;;"s-{"          (lambda () (interactive) (other-window  1))
- ;; "s-}"          (lambda () (interactive) (other-window -1))
-
- ;;"M-o"          (lambda () (interactive) (other-window  1))
- ;;"C-o"          (lambda () (interactive) (other-window  1))
- ;;"C-]"          (lambda () (interactive) (other-window 1))
-
- ;;"M-]"          (lambda () (interactive) (other-window  1))
- ;;"M-{"          (lambda () (interactive) (other-window -1))
 
  ;; tabs/workspaces navigation
  ;; "s-{"          #'+workspace/switch-left
@@ -66,20 +59,24 @@
  "s-c"          #'copy-region-as-kill
  "s-v"          #'yank
  "s-a"          #'mark-whole-buffer
- "s-l"          #'consult-goto-line
 
  ;; like pallete in vscode and warp
  "s-p"          #'find-file ;;+ivy/projectile-find-file
  "s-P"          #'execute-extended-command
+ "s-O"          #'imenu
 
  "s-0"          #'doom/reset-font-size
+ "s-="          #'doom/increase-font-size
+ "s--"          #'doom/decrease-font-size
+
  "s-r"          #'query-replace
+ "s-l"          #'consult-goto-line
 
- "s-f"          #'+default/search-buffer
- "s-F"          #'+default/search-project
-
- "s-E"          #'treemacs-select-window   ;; TODO treemacs not active
- "s-O"          #'imenu
-)
+ ;; rethink this
+ ;;"s-f"          #'+default/search-buffer
+ ;;"s-F"          #'+default/search-project
+ ;;"s-E"          #'treemacs-select-window   ;; TODO treemacs not active
+ )
 
 (setq doom-localleader-alt-key "C-j")
+(xterm-mouse-mode 1)

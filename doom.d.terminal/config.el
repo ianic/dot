@@ -36,7 +36,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type nil)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -82,10 +82,40 @@
 (setq zig-format-show-buffer nil)
 (setq lsp-zig-zls-executable "~/.local/bin/zls")
 
+;; Themes
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
+;; italic comments and keywords
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
+;; Modeline
+(if (eq system-type 'darwin)
+    (setq doom-modeline-height 35)
+  (setq doom-modeline-height 70)
+  )
 
-;; set transparent background
-;; (custom-theme-set-faces! 'doom-nord
-;;  '(default :background "ARGBBB000000"))
+
+;;(setq default-directory "~/zig")
+
+;; Projectile
+(after! projectile
+  (mapc (lambda (item)
+          (add-to-list 'projectile-globally-ignored-directories item))
+        '("^zig-out$" "^zig-cache$")))
+
+
+;; Balance windows width on split and close
+(advice-add 'split-window-right :after #'balance-windows)
+(advice-add '+workspace/close-window-or-workspace :after #'balance-windows)
+
+
+;; show which-key faster (default i 1.0 seconds)
+;; ref: https://github.com/doomemacs/doomemacs/issues/1465
+(setq which-key-idle-delay 0.2)
+
+
+(if (eq system-type 'darwin)
+    (setq doom-font (font-spec :family "JetBrains Mono" :size 15) doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15))
+  (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 31)))
