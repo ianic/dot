@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-root=ianic@callisto:/Users/ianic/backups/linux-dev
+root=ianic@callisto:/Users/ianic/backups/linux/$(hostname)
 
 echo backup ~/zig
 rsync -av --delete --exclude zig-out/ --exclude zig-cache/ ~/zig $root

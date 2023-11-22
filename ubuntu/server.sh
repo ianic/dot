@@ -6,11 +6,8 @@
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
-CN='\033[0;32m'
-NC='\033[0m' # No Color
-
 if [[ ! -d ~/host ]]; then
-    printf "${CN}link host folders${NC}\n"
+    echo "link host folders"
     cd ~
     ln -s /media/psf/Home/ host
     ln -s /media/psf/Home/code code
@@ -19,7 +16,7 @@ fi
 cd $SCRIPT_DIR
 
 if [[ ! -f ~/.ssh/id_rsa ]]; then
-    printf "${CN}copy my ssh keys${NC}\n"
+    echo "copy my ssh keys"
     cd ~
     mkdir -p .ssh
     cd .ssh
@@ -30,15 +27,14 @@ fi
 
 if [[ ! -f /etc/sudoers.d/ianic ]]; then
     cd ~
-    printf "${CN}sudo without password for ianic${NC}\n"
+    echo "sudo without password for ianic"
     echo "ianic ALL=(ALL) NOPASSWD:ALL" >ianic
     sudo mv ianic /etc/sudoers.d/
     sudo chown root:root /etc/sudoers.d/ianic
 fi
 
-printf "${CN}install packages ${NC}\n"
-sudo apt update -y
-sudo apt upgrade -y
+echo "install packages"
+sudo apt update -y && sudo apt upgrade -y
 
 sudo -E apt install -y curl net-tools unzip make build-essential \
     zsh git fd-find snapd openssh-server htop tree exa \
@@ -49,7 +45,7 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
 
 # zsh configuration
 if [[ ! -d ~/.oh-my-zsh ]]; then
-    printf "${CN}install zsh${NC}\n"
+    echo "install zsh"
     # set zsh as default shell
     sudo -E usermod --shell /usr/bin/zsh ianic
 
@@ -61,7 +57,7 @@ if [[ ! -d ~/.oh-my-zsh ]]; then
 fi
 
 if [[ ! -f ~/.zshrc ]]; then
-    printf "${CN}link my shell configs${NC}\n"
+    echo "link my shell configs"
     cd ~
     ln -s ~/host/code/dot/shell/zshrc .zshrc
     ln -s ~/host/code/dot/shell/bash_aliases .bash_aliases
@@ -70,14 +66,14 @@ if [[ ! -f ~/.zshrc ]]; then
 fi
 
 cd $SCRIPT_DIR
-printf "${CN}install zig${NC}\n"
+echo "install zig"
 sudo update-ca-certificates
 ./zig.sh
 
 # install websocat from github release
 # https://github.com/vi/websocat/releases
 if [ ! -x "$(command -v ~/.local/bin/websocat)" ]; then
-    printf "${CN}install websocat ${NC}\n"
+    echo "install websocat"
     wget https://github.com/vi/websocat/releases/download/v1.11.0/websocat.aarch64-unknown-linux-musl &&
         mv websocat.aarch64-unknown-linux-musl ~/.local/bin/websocat &&
         chmod +x ~/.local/bin/websocat
@@ -93,10 +89,29 @@ if [[ "$version" != "$current_version" ]]; then
     rm $version.linux-arm64.tar.gz
 fi
 
-# experimental
-sudo systemctl stop snapd
+# Wezterm
+# https://wezfurlong.org/wezterm/install/linux.html#installing-on-linux-using-appimage
+if [ ! -x "$(command -v wezterm)" ]; then
+    echo "install wezterm"
+    curl -LO https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu22.04.arm64.deb
+    sudo apt install -y ./wezterm-nightly.Ubuntu22.04.arm64.deb
+    rm wezterm-nightly.Ubuntu22.04.arm64.deb
+fi
 
-printf "${CN}done ${NC}\n"
+
+if ! crontab -l ; then
+    echo "adding crontab"
+    tmpfile=$(mktemp /tmp/crontab-XXXXXX); echo $tmpfile;
+    echo "*/5 * * * * /home/ianic/code/dot/ubuntu/backup.sh 2>&1 >> /dev/null" > $tmpfile
+    crontab $tmpfile
+    rm $tmpfile
+fi
+
+
+# experimental
+# sudo systemctl stop snapd
+
+# echo "done"
 
 # clanup
 # pkill zig; pkill test; pkill node; pkill code-insiders
@@ -104,7 +119,5 @@ printf "${CN}done ${NC}\n"
 # Notes, o tome sto fali
 # dodao sam jos i wezterm: wget deb package i onda apt get toga
 #
-# doom emacs sam instalirao kako on kaze u .local i onda linkao moj config tamo u local
-# rm ~/config/doom && ln -s ~/code/dot/doom.d.terminal ~/.confg/doom
 #
 # dodao sam i cron job koji kopira sve sto je bitno u backup da to ode u cloud
