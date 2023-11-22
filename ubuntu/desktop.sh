@@ -47,3 +47,10 @@ if [[ ! -f /usr/share/xsessions/exwm.desktop ]] ; then
 fi
 
 ./emacs.sh
+
+# fix Ubuntu login screen scaling
+dpi_fix=/usr/share/glib-2.0/schemas/93_hidpi.gschema.override
+if [[ ! -f  $dpi_fix ]]; then
+    echo "[org.gnome.desktop.interface]\nscaling-factor=2\n" | sudo tee -a $dpi_fix
+    sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+fi
