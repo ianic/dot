@@ -82,3 +82,31 @@ referece: https://askubuntu.com/questions/177348/how-do-i-disable-the-screensave
 
 # set keyboar repeat to my feeling
 $ xset r rate 300 30k
+
+
+21.11.2023 krenio iznova od Ubuntu server
+
+# Parallels tools
+sudo mount /dev/cdrom /media/cdrom
+cd /media/cdrom
+sudo ./install
+sudo reboot
+
+# server install
+/media/psf/Home/code/dot/ubuntu/server.sh
+
+# desktop install 41 min
+sudo apt update && sudo apt upgrade
+sudo apt install ubuntu-desktop # ovo traje jakooo dugo
+sudo reboot
+
+# install parallels tools again from gui
+# izabrao u Parallels menu pa nasao mountani disk
+
+# postavljam exwm, ovo mi fali
+sudo apt install dbus-x11
+
+na kraju sam maknio .Xmodmap
+
+
+code/dot/ubuntu/emacs.sh

@@ -7,6 +7,7 @@ end
 
 return {
   --ako zelis viditi sto ce napraviti na neku kombinaciju, koji je escape code, ukljuci:
+  --i onda tail -f .local/share/wezterm/wezterm-gui-log-xxxxxx.txt
   --debug_key_events = true,
   use_ime = false,
   use_dead_keys = false,
@@ -21,6 +22,7 @@ return {
   font_size = 15,
   color_scheme = "nord",  
   window_background_image = "/Users/ianic/Pictures/10-15-Night.jpg",
+  native_macos_fullscreen_mode = true,
 
   window_background_image_hsb = {
     -- Darken the background image 

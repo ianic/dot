@@ -45,7 +45,7 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     jq bat fzf ripgrep \
     linux-libc-dev liburing-dev cmake \
     linux-tools-common linux-tools-generic linux-tools-$(uname -r) \
-    gdb hyperfine emacs-nox
+    gdb hyperfine emacs-nox libtool libtool-bin
 
 # zsh configuration
 if [[ ! -d ~/.oh-my-zsh ]]; then
@@ -100,3 +100,11 @@ printf "${CN}done ${NC}\n"
 
 # clanup
 # pkill zig; pkill test; pkill node; pkill code-insiders
+
+# Notes, o tome sto fali
+# dodao sam jos i wezterm: wget deb package i onda apt get toga
+#
+# doom emacs sam instalirao kako on kaze u .local i onda linkao moj config tamo u local
+# rm ~/config/doom && ln -s ~/code/dot/doom.d.terminal ~/.confg/doom
+#
+# dodao sam i cron job koji kopira sve sto je bitno u backup da to ode u cloud

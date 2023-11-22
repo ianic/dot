@@ -32,7 +32,7 @@ fi
 if [[ ! -d ~/.fonts ]]; then
     echo "install fonts"
     cd ~
-    version=v3.0.1
+    version=v3.1.0
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/UbuntuMono.zip
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/Hack.zip
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/Meslo.zip

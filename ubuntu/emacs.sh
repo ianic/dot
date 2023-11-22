@@ -1,25 +1,30 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 # install doom emacs
 if [[ ! -d ~/.doom.d ]]; then
-    echo "doom emacs"
-    cd ~
-    rm -rf .emacs.d
-    git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
-    ~/.emacs.d/bin/doom install
+    echo "install doom emacs"
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
 
-    rm -rf .doom.d
-    ln -s ~/host/code/dot/doom.d .doom.d
-    ~/.emacs.d/bin/doom sync
+    rm -rf ~/.emacs.d
+    ln -s ~/.config/emacs ~/.emacs.d
+
+    rm -rf ~/config/doom
+    ln -s ~/host/code/dot/doom.d.terminal ~/.config/doom
+    ~/.config/emacs/bin/doom sync
 fi
 
 # start emacs daemon
 if [[ ! -f ~/.config/systemd/user/emacs.service ]]; then
+    echo "configure emacs daemon"
     mkdir -p ~/.config/systemd/user
-    ln -s ~/host/code/dot/ubuntu/emacs.service ~/.config/systemd/user
-    systemctl --user daemon-reload
-    systemctl start --user emacs
-    systemctl --user enable emacs
+    ln -s ~/host/code/dot/ubuntu/emacs-snap.service ~/.config/systemd/user/emacs.service
+
+    # uncomment to enable
+    # systemctl --user daemon-reload
+    # systemctl start --user emacs
+    # systemctl --user enable emacs
+
     # commnads to view logs, stop server, view status:
     # journalctl --user -u emacs -f
     # systemctl stop --user emacs
