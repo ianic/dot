@@ -5,7 +5,6 @@ alias ll="ls -lGh"
 alias cls="clear"
 alias c="clear"
 
-#alias d="lsd -l"
 alias d="exa -l --icons"
 alias ll="ls -l"
 
@@ -16,9 +15,9 @@ alias mp="multipass"
 # emacs shortcuts
 alias e="emacsclient -n" # send file to emacs
 alias et="emacsclient -t" # open emacs in terminal
-alias emacs="emacs -nw  --eval '(menu-bar-mode -1)' -Q" # open pure emacs in terminal
 alias doom="~/.emacs.d/bin/doom"
-alias emacs-daemon="launchctl start gnu.emacs.daemon"
+# alias emacs="emacs -nw  --eval '(menu-bar-mode -1)' -Q" # open pure emacs in terminal
+# alias emacs-daemon="launchctl start gnu.emacs.daemon"
 
 # git helpers
 alias gpp="gup && gp"
@@ -61,9 +60,10 @@ function run() {
 function cd-git-root() {
     cd $(git rev-parse --show-toplevel)
 }
-alias cdr="cd-git-root"
 
-alias stm_cli=/Applications/STMicroelectronics/STM32Cube/STM32CubeProgrammer/STM32CubeProgrammer.app/Contents/MacOs/bin/STM32_Programmer_CLI
+# alias stm_cli=/Applications/STMicroelectronics/STM32Cube/STM32CubeProgrammer/STM32CubeProgrammer.app/Contents/MacOs/bin/STM32_Programmer_CLIe
+
+alias cdr="cd-git-root"
 alias cdz="cd ~/code/zig"
 alias cdc="cd ~/code"
 alias cdd="cd ~/code/dot"
