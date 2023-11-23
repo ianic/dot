@@ -77,11 +77,6 @@
 
 (load! "+bindings.el")
 
-;; Zig
-(setq zig-return-to-buffer-after-format t)
-(setq zig-format-show-buffer nil)
-(setq lsp-zig-zls-executable "~/.local/bin/zls")
-
 ;; Themes
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -96,8 +91,14 @@
   (setq doom-modeline-height 70)
   )
 
+(if (eq system-type 'darwin)
+    (setq doom-font (font-spec :family "JetBrains Mono" :size 15) doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15))
+  (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 31)))
 
-;;(setq default-directory "~/zig")
+;; Zig
+(setq zig-return-to-buffer-after-format t)
+(setq zig-format-show-buffer nil)
+(setq lsp-zig-zls-executable "~/.local/bin/zls")
 
 ;; Projectile
 (after! projectile
@@ -110,12 +111,15 @@
 (advice-add 'split-window-right :after #'balance-windows)
 (advice-add '+workspace/close-window-or-workspace :after #'balance-windows)
 
-
 ;; show which-key faster (default i 1.0 seconds)
 ;; ref: https://github.com/doomemacs/doomemacs/issues/1465
 (setq which-key-idle-delay 0.2)
 
+(if (display-graphic-p)
+    (load! "exwm.el")
+  )
 
-(if (eq system-type 'darwin)
-    (setq doom-font (font-spec :family "JetBrains Mono" :size 15) doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15))
-  (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 31)))
+;; mode line is hidden in vterm, making it hard to see which window has focus
+;; this disables hide in all buffers
+;; ref: https://github.com/doomemacs/doomemacs/issues/6209
+(advice-add 'hide-mode-line-mode :around (lambda (orig &optional args) nil))

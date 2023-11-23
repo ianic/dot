@@ -1,7 +1,8 @@
 [Desktop Entry]
 Name=EXWM
 Comment=Emacs Window Manager
-Exec=sh /home/ianic/.config/exwm/start-exwm.sh
+Exec=/home/ianic/.config/exwm/start-exwm.sh
 TryExec=sh
 Type=Application
 X-LightDM-DesktopName=exwm
+DesktopNames=exwm

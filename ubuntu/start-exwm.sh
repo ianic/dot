@@ -1,5 +1,6 @@
 #!/bin/sh
 
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
 
 # "Parallels Control Center"
 # naming of other prl* tools https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/parallels-guest.nix

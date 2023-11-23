@@ -1,4 +1,3 @@
-
 (unless (display-graphic-p)
   ;; map terminal keycodes to super (command) key
   (define-key local-function-key-map "\033[27;1;108~" [(super l )])
@@ -10,35 +9,16 @@
   (define-key local-function-key-map "\033[27;1;91~"  [(super ?\x5B )]) ;; [ is ascii 91 0x5B
   (define-key local-function-key-map "\033[27;1;93~"  [(super ?\x5D )]) ;; ] is ascii 93 0x5D
   (define-key local-function-key-map "\033[27;1;79~"  [(super o )])
+
+  (xterm-mouse-mode 1)
   )
 
 (map!
  ;; window navigation
  "s-]"          (lambda () (interactive) (other-window  1))
  "s-["          (lambda () (interactive) (other-window -1))
-
- ;; tabs/workspaces navigation
- ;; "s-{"          #'+workspace/switch-left
- ;; "s-}"          #'+workspace/switch-right
-
- ;; "M-["          #'+workspace/switch-left
- ;; "M-]"          #'+workspace/switch-right
-
- ;; "s-1"          #'+workspace/switch-to-0
- ;; "s-2"          #'+workspace/switch-to-1
- ;; "s-3"          #'+workspace/switch-to-2
- ;; "s-4"          #'+workspace/switch-to-3
- ;; "s-5"          #'+workspace/switch-to-4
- ;; "s-6"          #'+workspace/switch-to-5
- ;; "s-9"          #'+workspace/switch-to
- ;; "s-i"          #'lsp-ui-imenu
-
- ;; "M-1"          #'+workspace/switch-to-0
- ;; "M-2"          #'+workspace/switch-to-1
- ;; "M-3"          #'+workspace/switch-to-2
- ;; "M-4"          #'+workspace/switch-to-3
- ;; "M-5"          #'+workspace/switch-to-4
- ;; "M-6"          #'+workspace/switch-to-5
+ "s-}"          #'exwm/workspace-next
+ "s-{"          #'exwm/workspace-previous
 
  "C-x C-m"      #'execute-extended-command
  "C-x m"        #'execute-extended-command
@@ -64,6 +44,7 @@
  "s-p"          #'find-file ;;+ivy/projectile-find-file
  "s-P"          #'execute-extended-command
  "s-O"          #'imenu
+ "s-w"          #'kill-this-buffer
 
  "s-0"          #'doom/reset-font-size
  "s-="          #'doom/increase-font-size
@@ -72,6 +53,7 @@
  "s-r"          #'query-replace
  "s-l"          #'consult-goto-line
 
+ [s-return]     #'+vterm/here
  ;; rethink this
  ;;"s-f"          #'+default/search-buffer
  ;;"s-F"          #'+default/search-project
@@ -79,4 +61,3 @@
  )
 
 (setq doom-localleader-alt-key "C-j")
-(xterm-mouse-mode 1)
