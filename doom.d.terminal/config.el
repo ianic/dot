@@ -123,3 +123,6 @@
 ;; this disables hide in all buffers
 ;; ref: https://github.com/doomemacs/doomemacs/issues/6209
 (advice-add 'hide-mode-line-mode :around (lambda (orig &optional args) nil))
+
+
+(load! "dired.el")

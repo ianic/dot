@@ -20,6 +20,17 @@
  "s-}"          #'exwm/workspace-next
  "s-{"          #'exwm/workspace-previous
 
+ "s-1"          #'winum-select-window-1
+ "s-2"          #'winum-select-window-2
+ "s-3"          #'winum-select-window-3
+ "s-4"          #'winum-select-window-4
+ "s-5"          #'winum-select-window-5
+
+ "M-s-["        #'windmove-swap-states-left
+ "M-s-]"        #'windmove-swap-states-right
+ "M-s-o"        #'occur
+
+
  "C-x C-m"      #'execute-extended-command
  "C-x m"        #'execute-extended-command
  ;;"M-s-."        #'+lookup/definition-other-window
@@ -44,7 +55,7 @@
  "s-p"          #'find-file ;;+ivy/projectile-find-file
  "s-P"          #'execute-extended-command
  "s-O"          #'imenu
- "s-w"          #'kill-this-buffer
+ ;; "s-w"          #'kill-this-buffer ;; dangerous if I miss a key
 
  "s-0"          #'doom/reset-font-size
  "s-="          #'doom/increase-font-size
@@ -58,6 +69,80 @@
  ;;"s-f"          #'+default/search-buffer
  ;;"s-F"          #'+default/search-project
  ;;"s-E"          #'treemacs-select-window   ;; TODO treemacs not active
+
+ ;;; remove smartparens mapping
+ ;;; ref: https://github.com/doomemacs/doomemacs/blob/d509d8bea1ad27ab9b7e9ddca329f494686b336e/modules/config/default/%2Bemacs-bindings.el#L616
+ ;;"C-M-a"           nil
+ ;;"C-M-e"           nil
+ "C-M-f"           #'forward-sexp
+ "C-M-b"           #'backward-sexp
+ "C-M-n"           #'next-sexp
+ "C-M-p"           #'previous-sexp
+ "C-M-u"           #'up-sexp
+ "C-M-d"           #'down-sexp
+ "C-M-k"           #'kill-sexp
+ "C-M-t"           #'transpose-sexp
+ "C-M-<backspace>" #'splice-sexp
  )
 
 (setq doom-localleader-alt-key "C-j")
+
+(defun zig-test-project ()
+  "Run projects tests"
+  (interactive)
+  (zig--run-cmd "build" "test")
+  )
+
+(defun zig-test-single-test ()
+  "Run single function test"
+  (interactive)
+  (let (
+        (old-pnt (point-marker)))
+
+    (re-search-backward "^test.*\"\\(.*\\)\".*{")
+
+    (when-let ((test-name (match-string 1)))
+      (message "Nearest test function: %s" test-name)
+      (setq zig-test-last-test test-name)
+      (zig--run-cmd "test" (buffer-file-name) "--test-filter" test-name "-O" zig-test-optimization-mode)
+      (goto-char old-pnt)
+      )
+    )
+  )
+
+(defun zig-test-run-last-test ()
+  "Run last single function test"
+  (interactive)
+  (zig--run-cmd "test" (buffer-file-name) "--test-filter" zig-test-last-test "-O" zig-test-optimization-mode)
+  )
+
+
+;; ref: https://github.com/doomemacs/doomemacs/blob/master/modules/lang/zig/config.el
+(map! :localleader
+      :map zig-mode-map
+      :desc "Build"         "b" #'zig-compile
+      :desc "Recompile"     "c" #'recompile
+      :desc "Format buffer" "f" #'zig-format-buffer
+      :desc "Run"           "r" #'zig-run
+      :desc "Test buffer"   "t" #'zig-test-buffer
+      :desc "Test project"  "p" #'zig-test-project
+      :desc "Test function" "s" #'zig-test-single-test
+      :desc "Test last function" "d" #'zig-test-run-last-test
+      :desc "Rename"        "n" #'lsp-rename
+
+      (:prefix-map ("l" . "lsp")
+                   "p" #'lsp-ui-peek-find-references
+                   "r" #'lsp-find-references
+                   ;;"f" #'lsp-find-references
+                   "[" #'lsp-ui-find-prev-reference
+                   "]" #'lsp-ui-find-next-reference
+                   "n" #'lsp-rename
+                   ))
+
+(map! :after zig-mode
+      :map zig-mode-map
+      "C-M-a" #'zig-beginning-of-defun
+      "C-M-e" #'zig-end-of-defun
+      )
+
+

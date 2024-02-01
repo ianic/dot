@@ -38,7 +38,7 @@
            (read-shell-command "$ ")))
          (start-process-shell-command command nil command))
         ,@(mapcar (lambda (i)
-                    `(,(kbd (format "s-%d" (+ i 1))) .
+                    `(,(kbd (format "M-s-%d" (+ i 1))) .
                       (lambda ()
                         (interactive)
                         (exwm-workspace-switch-create ,i))))
@@ -77,3 +77,8 @@
 ;; ref :https://github.com/systemd/systemd/issues/5247
 (setenv "DBUS_SESSION_BUS_ADDRESS" (format "unix:path=%s/bus" (getenv "XDG_RUNTIME_DIR")))
 (message "new value %s" (getenv "DBUS_SESSION_BUS_ADDRESS" ))
+;; config new session
+(start-process-shell-command "fix right alt" "*Messages*" "xmodmap -e 'clear mod5'; xmodmap -e 'keycode 108 = Alt_L'")
+(start-process-shell-command "set key rate" "*Messages*" "xset r rate 300 30")
+
+(message nil)

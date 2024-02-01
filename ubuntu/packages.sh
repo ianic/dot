@@ -7,7 +7,8 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     jq bat fzf ripgrep \
     linux-libc-dev liburing-dev cmake \
     linux-tools-common linux-tools-generic linux-tools-$(uname -r) \
-    gdb hyperfine emacs-nox libtool libtool-bin
+    gdb hyperfine emacs-nox libtool libtool-bin \
+    qemu-user-static
 
 sudo snap install emacs --classic
 
@@ -28,6 +29,8 @@ if [[ "$version" != "$current_version" ]]; then
     wget https://go.dev/dl/$version.linux-arm64.tar.gz
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $version.linux-arm64.tar.gz
     rm $version.linux-arm64.tar.gz
+
+    go install golang.org/x/tools/gopls@latest
 fi
 
 # Wezterm
@@ -38,3 +41,27 @@ if [ ! -x "$(command -v wezterm)" ]; then
     sudo apt install -y ./wezterm-nightly.Ubuntu22.04.arm64.deb
     rm wezterm-nightly.Ubuntu22.04.arm64.deb
 fi
+
+# wasmtime
+curl https://wasmtime.dev/install.sh -sSf | bash
+
+
+sudo apt install -y fswatch
+
+# ethernal terminal
+sudo apt install -y libboost-dev libsodium-dev libncurses5-dev \
+	libprotobuf-dev protobuf-compiler libgflags-dev libutempter-dev libcurl4-openssl-dev \
+    build-essential ninja-build cmake git zip
+
+cd ~/.build
+
+git clone --recurse-submodules https://github.com/MisterTea/EternalTerminal.git
+cd EternalTerminal
+mkdir build
+cd build
+# For ARM (including OS/X with apple silicon):
+if [[ $(uname -a | grep arm) ]]; then export VCPKG_FORCE_SYSTEM_BINARIES=1; fi
+cmake ../
+make package
+sudo dpkg --install *.deb
+sudo cp ../etc/et.cfg /etc/

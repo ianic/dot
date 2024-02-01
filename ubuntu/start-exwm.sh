@@ -13,5 +13,5 @@ xmodmap -e "clear mod5"
 xmodmap -e "keycode 108 = Alt_L"
 
 # Fire it up
-exec dbus-launch --exit-with-session /snap/bin/emacs -mm --debug-init
+exec dbus-launch --exit-with-session /snap/bin/emacs -mm #--debug-init
 # exec /snap/bin/emacs -mm

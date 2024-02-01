@@ -48,3 +48,14 @@ cp ./zig-out/bin/zls ~/.local/bin
 # [[ -f ~/zls.json ]] || echo '{"zig_exe_path":"/usr/local/bin/zig","enable_snippets":true,"warn_style":true,"enable_semantic_tokens":true,"operator_completions":true,"include_at_in_builtins":false,"max_detail_length":1048576}' > ~/zls.json
 
 echo "after zig version: $(zig version)"
+
+# run test on different platforms
+# zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target wasm32-wasi    --test-cmd wasmtime         --test-cmd-bin         --test-filter "tar "
+# zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target x86-linux-none --test-cmd qemu-i386-static --test-cmd-bin         --test-filter "tar "
+# zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target x86-linux-gnu  --test-cmd qemu-i386-static --test-cmd-bin         --test-filter "tar "
+# zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target x86-linux-musl --test-cmd qemu-i386-static --test-cmd-bin         --test-filter "tar "
+# zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target powerpc-linux-none --test-cmd qemu-powerpc-static --test-cmd-bin  --test-filter "tar "
+# zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target powerpc-linux-musl --test-cmd qemu-powerpc-static --test-cmd-bin  --test-filter "tar "
+# zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target arm-linux-musleabihf --test-cmd qemu-arm-static   --test-cmd-bin  --test-filter "tar "
+# zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target arm-linux-none       --test-cmd qemu-arm-static   --test-cmd-bin  --test-filter "tar "
+#

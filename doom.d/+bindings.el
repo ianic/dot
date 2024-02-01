@@ -188,10 +188,18 @@
     (re-search-backward "^test.*\"\\(.*\\)\".*{")
     (message "Nearest test function: %s" (match-string 1))
     (goto-char old-pnt)
-
+    (setq zig-test-last-test (match-string 1))
     (zig--run-cmd "test" (buffer-file-name) "--test-filter" (match-string 1) "-O" zig-test-optimization-mode)
     )
   )
+
+
+(defun zig-test-run-last-test ()
+  "Run last single function test"
+  (interactive)
+  (zig--run-cmd "test" (buffer-file-name) "--test-filter" zig-test-last-test "-O" zig-test-optimization-mode)
+  )
+
 
 (setq doom-localleader-alt-key "C-j")
 
@@ -205,6 +213,7 @@
       :desc "Test buffer"   "t" #'zig-test-buffer
       :desc "Test project"  "p" #'zig-test-project
       :desc "Test function" "s" #'zig-test-single-test
+      :desc "Test last function" "d" #'zig-test-run-last-test
       ;;:desc "Rename"        "n" #'lsp-rename
       :desc "Rename"        "n" #'eglot-rename
       ;; (:prefix-map ("l" . "lsp")
