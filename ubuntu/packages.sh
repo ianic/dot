@@ -8,7 +8,8 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     linux-libc-dev liburing-dev cmake \
     linux-tools-common linux-tools-generic linux-tools-$(uname -r) \
     gdb hyperfine emacs-nox libtool libtool-bin \
-    qemu-user-static
+    qemu-user-static \
+    ruby-full
 
 sudo snap install emacs --classic
 
@@ -35,33 +36,17 @@ fi
 
 # Wezterm
 # https://wezfurlong.org/wezterm/install/linux.html#installing-on-linux-using-appimage
-if [ ! -x "$(command -v wezterm)" ]; then
-    echo "install wezterm"
-    curl -LO https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu22.04.arm64.deb
-    sudo apt install -y ./wezterm-nightly.Ubuntu22.04.arm64.deb
-    rm wezterm-nightly.Ubuntu22.04.arm64.deb
-fi
+# if [ ! -x "$(command -v wezterm)" ]; then
+#     echo "install wezterm"
+#     curl -LO https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu22.04.arm64.deb
+#     sudo apt install -y ./wezterm-nightly.Ubuntu22.04.arm64.deb
+#     rm wezterm-nightly.Ubuntu22.04.arm64.deb
+# fi
 
 # wasmtime
 curl https://wasmtime.dev/install.sh -sSf | bash
 
+# sudo apt install -y fswatch
 
-sudo apt install -y fswatch
-
-# ethernal terminal
-sudo apt install -y libboost-dev libsodium-dev libncurses5-dev \
-	libprotobuf-dev protobuf-compiler libgflags-dev libutempter-dev libcurl4-openssl-dev \
-    build-essential ninja-build cmake git zip
-
-cd ~/.build
-
-git clone --recurse-submodules https://github.com/MisterTea/EternalTerminal.git
-cd EternalTerminal
-mkdir build
-cd build
-# For ARM (including OS/X with apple silicon):
-if [[ $(uname -a | grep arm) ]]; then export VCPKG_FORCE_SYSTEM_BINARIES=1; fi
-cmake ../
-make package
-sudo dpkg --install *.deb
-sudo cp ../etc/et.cfg /etc/
+# za Zig build
+sudo apt-get -y install clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev

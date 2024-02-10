@@ -144,5 +144,3 @@
       "C-M-a" #'zig-beginning-of-defun
       "C-M-e" #'zig-end-of-defun
       )
-
-

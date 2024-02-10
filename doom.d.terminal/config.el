@@ -126,3 +126,5 @@
 
 
 (load! "dired.el")
+
+(setq isearch-allow-motion t)
