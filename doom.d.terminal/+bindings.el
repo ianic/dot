@@ -25,6 +25,7 @@
  "s-3"          #'winum-select-window-3
  "s-4"          #'winum-select-window-4
  "s-5"          #'winum-select-window-5
+ "s-6"          #'winum-select-window-6
 
  "M-s-["        #'windmove-swap-states-left
  "M-s-]"        #'windmove-swap-states-right
@@ -42,7 +43,7 @@
  "C-;"          #'comment-dwim
 
  "M-;"          #'+company/complete
- "M-'"          #'imenu
+ "M-i"          #'imenu
 
  ;; copy paste
  "s-z"          #'undo-fu-only-undo
