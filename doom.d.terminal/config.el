@@ -115,15 +115,15 @@
 ;; ref: https://github.com/doomemacs/doomemacs/issues/1465
 (setq which-key-idle-delay 0.2)
 
-(if (display-graphic-p)
-    (load! "exwm.el")
-  )
+;; exwm window manager
+;; (if (display-graphic-p)
+;;     (load! "exwm.el")
+;;   )
 
 ;; mode line is hidden in vterm, making it hard to see which window has focus
 ;; this disables hide in all buffers
 ;; ref: https://github.com/doomemacs/doomemacs/issues/6209
 (advice-add 'hide-mode-line-mode :around (lambda (orig &optional args) nil))
-
 
 (load! "dired.el")
 
@@ -136,3 +136,13 @@
   :side 'bottom :width 0.3 :height 0.4 :ttl nil :modeline nil :quit t :select: nil
   :actions '(display-buffer-below-selected)
   )
+
+;; customize theme
+(custom-theme-set-faces! 'doom-nord-aurora
+  ;; it was original #D8DEE9 which is almost white
+  ;; this is same as comment block
+  '(font-lock-doc-face :foreground "#9099AB" :slant italic)
+  )
+
+;; Emacs 29 ships with an improved global minor mode for scrolling with a mouse or a touchpad
+(pixel-scroll-precision-mode)

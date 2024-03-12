@@ -29,7 +29,7 @@
         ;;              (interactive)
         ;;              (start-process "" nil "firefox")))
 
-        ;; Bind "s-0" to "s-9" to switch to a workspace by its index.
+        ;; Bind "s-1" to "s-9" to switch to a workspace by its index.
         ([?\s- ]
          lambda
          (command)
@@ -38,13 +38,13 @@
            (read-shell-command "$ ")))
          (start-process-shell-command command nil command))
         ,@(mapcar (lambda (i)
-                    `(,(kbd (format "M-s-%d" (+ i 1))) .
+                    `(,(kbd (format "s-%d" (+ i 1))) .
                       (lambda ()
                         (interactive)
                         (exwm-workspace-switch-create ,i))))
                   (number-sequence 0 8))))
 
-(push ?\  exwm-input-prefix-keys)
+;; (push ?\  exwm-input-prefix-keys) ;; space pa zasto to poboga
 (exwm-enable)
 
 
@@ -82,3 +82,22 @@
 (start-process-shell-command "set key rate" "*Messages*" "xset r rate 300 30")
 
 (message nil)
+
+
+;; These keys should always pass through to Emacs
+(setq exwm-input-prefix-keys
+      '(?\C-x
+        ?\M-x
+        ?\s-[
+             ?\s-]
+        ?\s-{
+        ?\s-}
+        ?\C-h
+
+        ;; ?\C-u
+        ;; ?\M-`
+        ;; ?\M-&
+        ;; ?\M-:
+        ;; ?\C-\M-j  ;; Buffer list
+        ;; ?\C-\
+        ))

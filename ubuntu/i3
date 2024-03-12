@@ -26,7 +26,7 @@ set_from_resource $yellow		i3wm.color11	#F0C674
 set_from_resource $red			i3wm.color9		#CC6666
 set_from_resource $darkred		i3wm.color1		#A54242
 set_from_resource $green		i3wm.color10	#B5BD56
-set_from_resource $blue	i3wm.color4	    #5F819D
+set_from_resource $blue	        i3wm.color4	    #5F819D
 
 #class                  border      backgr.     text        split
 client.focused          $blue       $blue       $black      $red
@@ -40,7 +40,7 @@ client.background       $back
 #----------------------------------------------------------------------
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # No background
 exec --no-startup-id xsetroot -solid $back
@@ -56,14 +56,16 @@ exec --no-startup-id xsetroot -solid $back
 floating_modifier $mod
 
 bindsym $mod+o exec --no-startup-id rofi -dpi 220 -show run -no-config
-bindsym $mod+less exec --no-startup-id rofi -dpi 220 -show window -no-config
+# bindsym $mod+less exec --no-startup-id rofi -dpi 220 -show window -no-config
 # bindsym $mod+o exec --no-startup-id dmenu_run
 
 # start a terminal
-bindsym $mod+T exec --no-startup-id alacritty #i3-sensible-terminal
+# bindsym $mod+T exec --no-startup-id ghostty #i3-sensible-terminal
+# command to start emacs
+# bindsym $mod+e exec --no-startup-id emacsclient -nc
 
-bindsym $mod+d split h
-bindsym $mod+Shift+d split v
+# bindsym $mod+d split h
+# bindsym $mod+Shift+d split v
 
 # kill focused window
 bindsym $mod+q kill
@@ -73,13 +75,13 @@ bindsym $mod+q kill
 #bindsym $mod+bracketright focus right
 bindsym $mod+Shift+bracketleft focus left
 bindsym $mod+Shift+bracketright focus right
-bindsym $mod+Shift+o focus down
-bindsym $mod+Shift+p focus up
+# bindsym $mod+Shift+o focus down
+# bindsym $mod+Shift+p focus up
 
-bindsym $mod+Shift+j focus left
-bindsym $mod+Shift+k focus down
-bindsym $mod+Shift+l focus up
-bindsym $mod+Shift+semicolon focus right
+# bindsym $mod+Shift+j focus left
+# bindsym $mod+Shift+k focus down
+# bindsym $mod+Shift+l focus up
+# bindsym $mod+Shift+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -88,10 +90,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-#bindsym $mod+Shift+j move left
-#bindsym $mod+Shift+k move down
-#bindsym $mod+Shift+l move up
-#bindsym $mod+Shift+semicolon move right
+# bindsym $mod+Shift+j move left
+# bindsym $mod+Shift+k move down
+# bindsym $mod+Shift+l move up
+# bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -108,13 +110,13 @@ bindsym $mod+Shift+t layout tabbed
 bindsym $mod+Shift+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+# bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+Shift+a focus parent
+# bindsym $mod+Shift+a focus parent
 
 # focus the child container
 # bindsym $mod+Shift+d focus child
@@ -122,7 +124,7 @@ bindsym $mod+Shift+a focus parent
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 # Copy font icon from: https://fontawesome.com/v5/cheatsheet/free/regular
-set $ws1 "1 Terminals "
+set $ws1 "1 Terminal "
 set $ws2 "2 Emacs "
 set $ws3 "3"
 set $ws4 "4"
@@ -237,6 +239,29 @@ mode "$mode_system" {
 
 bindsym $mod+BackSpace mode "$mode_system"
 
+
+#----------------------------------------------------------------------
+# Application start mode
+#----------------------------------------------------------------------
+set $mode_app   (t) terminal | (e) emacs | (c) emacsclient | (o) open
+
+mode "$mode_app" {
+     # start a terminal
+     bindsym t exec --no-startup-id ghostty         , mode "default"
+     bindsym c exec --no-startup-id /usr/local/bin/emacsclient -nc , mode "default"
+     bindsym e exec --no-startup-id /usr/local/bin/emacs           , mode "default"
+     # bindsym o exec --no-startup-id rofi -dpi 220 -show run -no-config , mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym Ctrl+g mode "default"
+    bindsym $mod+less mode "default"
+}
+
+bindsym $mod+less mode "$mode_app"
+
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -261,13 +286,11 @@ exec --no-startup-id /usr/bin/prlcc
 # exec --no-startup-id '/run/current-system/sw/bin/xrandr -s 6720x3732'
 
 # put two terminals in workspace 1
-exec --no-startup-id alacritty
-exec --no-startup-id alacritty
+#exec --no-startup-id alacritty
+#exec --no-startup-id alacritty
 #exec emacsclient -nc
 #assign [class="Emacs"] $ws2
 
-# command to start emacs
-bindsym $mod+e exec --no-startup-id emacsclient -nc
 
 # foucs emacs window when I type e [filename]
 focus_on_window_activation focus #smart|urgent|focus|none

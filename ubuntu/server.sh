@@ -35,6 +35,7 @@ fi
 # zsh configuration
 if [[ ! -d ~/.oh-my-zsh ]]; then
     echo "install zsh"
+    sudo -E apt install -y zsh git
     # set zsh as default shell
     sudo -E usermod --shell /usr/bin/zsh ianic
 

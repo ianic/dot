@@ -49,4 +49,7 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
 
-(package! exwm)
+;; (package! exwm)
+;;
+(unpin! zig-mode)
+(package! zig-mode :pin "b6f5375efeb97026410190f352f1044214fa0289b6f5375efeb97026410190f352f1044214fa0")

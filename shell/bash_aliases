@@ -5,7 +5,7 @@ alias ll="ls -lGh"
 alias cls="clear"
 alias c="clear"
 
-alias d="exa -l --icons"
+alias d="eza -l --icons"
 alias ll="ls -l"
 
 alias df="df -h"
@@ -64,6 +64,10 @@ function cd-git-root() {
 # alias stm_cli=/Applications/STMicroelectronics/STM32Cube/STM32CubeProgrammer/STM32CubeProgrammer.app/Contents/MacOs/bin/STM32_Programmer_CLIe
 
 alias cdr="cd-git-root"
-alias cdz="cd ~/code/zig"
-alias cdc="cd ~/code"
-alias cdd="cd ~/code/dot"
+#alias cdc="cd ~/code"
+#alias cdd="cd ~/code/dot"
+
+# Zig shortcuts
+alias zb="zig build"
+alias zbf="zig build -Doptimize=ReleaseFast"
+alias cdz="cd ~/zig/zig"

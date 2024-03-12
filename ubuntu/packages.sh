@@ -3,15 +3,16 @@
 sudo apt update -y && sudo apt upgrade -y
 
 sudo -E apt install -y curl net-tools unzip make build-essential \
-    zsh git fd-find snapd openssh-server htop tree exa \
+    zsh git fd-find snapd openssh-server htop tree eza \
     jq bat fzf ripgrep \
     linux-libc-dev liburing-dev cmake \
     linux-tools-common linux-tools-generic linux-tools-$(uname -r) \
     gdb hyperfine emacs-nox libtool libtool-bin \
     qemu-user-static \
-    ruby-full
+    ruby-full \
+    i3 rofi dzen2 feh
 
-sudo snap install emacs --classic
+# sudo snap install emacs --classic
 
 # install websocat from github release
 # https://github.com/vi/websocat/releases
@@ -31,7 +32,7 @@ if [[ "$version" != "$current_version" ]]; then
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $version.linux-arm64.tar.gz
     rm $version.linux-arm64.tar.gz
 
-    go install golang.org/x/tools/gopls@latest
+    /usr/local/go/bin/go install golang.org/x/tools/gopls@latest
 fi
 
 # Wezterm
@@ -50,3 +51,16 @@ curl https://wasmtime.dev/install.sh -sSf | bash
 
 # za Zig build
 sudo apt-get -y install clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev
+
+# ghostty terminal
+if [ ! -x "$(command -v ghostty)" ]; then
+    cd .build
+    git clone https://github.com/mitchellh/ghostty.git
+    cd ghostty
+    zig build -Doptimize=ReleaseFast
+    sudo cp zig-out/bin/ghostty /usr/local/bin
+
+    mkdir -p .config/ghostty
+    rm .config/ghostty/config
+    ln -s ~/host/code/dot/ubuntu/ghostty ~/.config/ghostty/config
+fi

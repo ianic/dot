@@ -110,3 +110,30 @@ na kraju sam maknio .Xmodmap
 
 
 code/dot/ubuntu/emacs.sh
+
+
+
+
+
+# Samba install
+nisam to automatizirao, ovdje je kuvarica
+ref: https://superuser.com/questions/1081542/how-to-allow-guest-access-in-samba
+
+sudo apt install samba
+sudo emacs /etc/samba/smb.conf
+
+[home]
+    comment = Samba on Ubuntu
+    path = /home/ianic
+    read only = no
+    browsable = yes
+    guest ok = yes
+    writable = yes
+    guest account = ianic
+    create mask = 0775
+    directory mask = 0755
+
+sudo service smbd restart
+sudo ufw allow samba
+sudo smbpasswd -a ianic
+sudo service smbd restart

@@ -17,15 +17,16 @@
  ;; window navigation
  "s-]"          (lambda () (interactive) (other-window  1))
  "s-["          (lambda () (interactive) (other-window -1))
- "s-}"          #'exwm/workspace-next
- "s-{"          #'exwm/workspace-previous
+ ;; prebacio se na i3 pa on ima ovaj keybinding, exwm je disabled
+ ;; "s-}"          #'exwm/workspace-next
+ ;; "s-{"          #'exwm/workspace-previous
 
- "s-1"          #'winum-select-window-1
- "s-2"          #'winum-select-window-2
- "s-3"          #'winum-select-window-3
- "s-4"          #'winum-select-window-4
- "s-5"          #'winum-select-window-5
- "s-6"          #'winum-select-window-6
+ ;; "s-1"          #'winum-select-window-1
+ ;; "s-2"          #'winum-select-window-2
+ ;; "s-3"          #'winum-select-window-3
+ ;; "s-4"          #'winum-select-window-4
+ ;; "s-5"          #'winum-select-window-5
+ ;; "s-6"          #'winum-select-window-6
 
  "M-s-["        #'windmove-swap-states-left
  "M-s-]"        #'windmove-swap-states-right
@@ -65,7 +66,7 @@
  "s-r"          #'query-replace
  "s-l"          #'consult-goto-line
 
- [s-return]     #'+vterm/here
+ [s-return]     #'start-ghostty
  ;; rethink this
  ;;"s-f"          #'+default/search-buffer
  ;;"s-F"          #'+default/search-project
@@ -87,6 +88,12 @@
  )
 
 (setq doom-localleader-alt-key "C-j")
+
+(defun start-ghostty ()
+  "Start ghostty terminal"
+  (interactive)
+  (start-process-shell-command "ghostty" nil "ghostty")
+  )
 
 (defun zig-test-project ()
   "Run projects tests"

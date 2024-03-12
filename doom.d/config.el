@@ -149,7 +149,7 @@
 (custom-theme-set-faces! 'doom-nord-aurora
   ;; it was original #D8DEE9 which is almost white
   ;; this is same as comment block
-  '(font-lock-doc-face :foreground "#9099AB")
+  '(font-lock-doc-face :foreground "#9099AB" :slant italic)
   )
 
 
