@@ -17,23 +17,23 @@ hide_edge_borders smart
 #gaps inner 10
 
 # Reading colors from resources (defined in Xresources file)
-set_from_resource $back			i3wm.background #1D1F21
-set_from_resource $black		i3wm.color0		#282A2E
-set_from_resource $grey			i3wm.color8		#373B41
-set_from_resource $lightgrey	i3wm.color7		#707880
-set_from_resource $white		i3wm.color15	#C5C8C6
-set_from_resource $yellow		i3wm.color11	#F0C674
-set_from_resource $red			i3wm.color9		#CC6666
-set_from_resource $darkred		i3wm.color1		#A54242
-set_from_resource $green		i3wm.color10	#B5BD56
-set_from_resource $blue	        i3wm.color4	    #5F819D
+# set_from_resource $back			i3wm.background #1D1F21
+# set_from_resource $black		i3wm.color0		#282A2E
+# set_from_resource $grey			i3wm.color8		#373B41
+# set_from_resource $lightgrey	i3wm.color7		#707880
+# set_from_resource $white		i3wm.color15	#C5C8C6
+# set_from_resource $yellow		i3wm.color11	#F0C674
+# set_from_resource $red			i3wm.color9		#CC6666
+# set_from_resource $darkred		i3wm.color1		#A54242
+# set_from_resource $green		i3wm.color10	#B5BD56
+# set_from_resource $blue	        i3wm.color4	    #5F819D
 
-#class                  border      backgr.     text        split
-client.focused          $blue       $blue       $black      $red
-client.focused_inactive $grey       $grey       $lightgrey  $grey
-client.unfocused        $grey       $grey       $lightgrey  $grey
-client.urgent           $red        $red        $black      $red
-client.background       $back
+# #class                  border      backgr.     text        split
+# client.focused          $blue       $blue       $black      $red
+# client.focused_inactive $grey       $grey       $lightgrey  $grey
+# client.unfocused        $grey       $grey       $lightgrey  $grey
+# client.urgent           $red        $red        $black      $red
+# client.background       $back
 
 #----------------------------------------------------------------------
 # Startup
@@ -43,7 +43,7 @@ client.background       $back
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # No background
-exec --no-startup-id xsetroot -solid $back
+# exec --no-startup-id xsetroot -solid $back
 
 #----------------------------------------------------------------------
 # Keybindings
@@ -55,7 +55,7 @@ exec --no-startup-id xsetroot -solid $back
 
 floating_modifier $mod
 
-bindsym $mod+o exec --no-startup-id rofi -dpi 220 -show run -no-config
+bindsym $mod+o exec --no-startup-id rofi -dpi 220 -show run
 # bindsym $mod+less exec --no-startup-id rofi -dpi 220 -show window -no-config
 # bindsym $mod+o exec --no-startup-id dmenu_run
 
@@ -71,10 +71,10 @@ bindsym $mod+o exec --no-startup-id rofi -dpi 220 -show run -no-config
 bindsym $mod+q kill
 
 # change focus
-#bindsym $mod+bracketleft focus left
-#bindsym $mod+bracketright focus right
-bindsym $mod+Shift+bracketleft focus left
-bindsym $mod+Shift+bracketright focus right
+# bindsym $mod+bracketleft focus left
+# bindsym $mod+bracketright focus right
+# bindsym $mod+Shift+bracketleft focus left
+# bindsym $mod+Shift+bracketright focus right
 # bindsym $mod+Shift+o focus down
 # bindsym $mod+Shift+p focus up
 
@@ -105,9 +105,9 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+Shift+Return fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Shift+s layout stacking
-bindsym $mod+Shift+t layout tabbed
-bindsym $mod+Shift+e layout toggle split
+# bindsym $mod+Shift+s layout stacking
+# bindsym $mod+Shift+t layout tabbed
+# bindsym $mod+Shift+e layout toggle split
 
 # toggle tiling / floating
 # bindsym $mod+Shift+space floating toggle
@@ -164,7 +164,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # assign [class="Emacs"] $ws2
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 # bindsym $mod+Shift+r restart
 
@@ -243,14 +243,15 @@ bindsym $mod+BackSpace mode "$mode_system"
 #----------------------------------------------------------------------
 # Application start mode
 #----------------------------------------------------------------------
-set $mode_app   (t) terminal | (e) emacs | (c) emacsclient | (o) open
+set $mode_app   (t) terminal | (e) emacs | (c) emacsclient | (o) open | (w) window
 
 mode "$mode_app" {
      # start a terminal
      bindsym t exec --no-startup-id ghostty         , mode "default"
      bindsym c exec --no-startup-id /usr/local/bin/emacsclient -nc , mode "default"
      bindsym e exec --no-startup-id /usr/local/bin/emacs           , mode "default"
-     # bindsym o exec --no-startup-id rofi -dpi 220 -show run -no-config , mode "default"
+     bindsym o exec --no-startup-id rofi -dpi 220 -show run        , mode "default"
+     bindsym w exec --no-startup-id rofi -dpi 220 -show window     , mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -265,12 +266,12 @@ bindsym $mod+less mode "$mode_app"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    #status_command i3status
+    # status_command i3status
 
-    font pango:Fira Code 12
-    colors {
-        background $back
-    }
+    font pango:Fira Code 10
+    # colors {
+    #     background $back
+    # }
 
     mode hide
     position top
@@ -291,10 +292,19 @@ exec --no-startup-id /usr/bin/prlcc
 #exec emacsclient -nc
 #assign [class="Emacs"] $ws2
 
+exec --no-startup-id emacsclient -nc
+exec --no-startup-id emacsclient -nc
+exec --no-startup-id emacsclient -nc
 
 # foucs emacs window when I type e [filename]
 focus_on_window_activation focus #smart|urgent|focus|none
 
 # Set wallpaper
 exec_always --no-startup-id feh --bg-scale ~/host/Pictures/Big\ Sur\ Road.jpg
-exec --no-startup-id picom -CGb
+# exec --no-startup-id picom -CGb
+
+exec --no-startup-id xset r rate 300 30
+
+# NOTE
+# resize window by mouse:
+# Just hold the modifier key and right-click on the window. i3 will use the border closest to the cursor for resizing.
