@@ -44,11 +44,10 @@ if [[ -d ~/.config/emacs ]]; then
     ~/.config/emacs/bin/doom sync
 fi
 
-
 # Reference:
 # https://batsov.com/articles/2021/12/19/building-emacs-from-source-with-pgtk/
 # https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
 #
 # This flag is for wayland
-# --with-pgtk
+# ./configure --with-tree-sitter --with-native-compilation --without-pop --with-json --with-pgtk CC=gcc-13
 # ./configure --help
