@@ -16,11 +16,11 @@ focus_follows_mouse yes
 hide_edge_borders smart
 #gaps inner 10
 
-set $bg-color 	         #2f343f
-set $inactive-bg-color   #2f343f
+set $bg-color 	         #2f343fff
+set $inactive-bg-color   #2f343fff
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935
+set $urgent-bg-color     #E53935ff
 
 # window colors
 #                       border              background         text                 indicator
@@ -68,7 +68,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 floating_modifier $mod
 
-bindsym $mod+o exec --no-startup-id rofi -dpi 220 -show run
+# bindsym $mod+o exec --no-startup-id rofi -dpi 220 -show run
 # bindsym $mod+less exec --no-startup-id rofi -dpi 220 -show window -no-config
 # bindsym $mod+o exec --no-startup-id dmenu_run
 
@@ -91,10 +91,10 @@ bindsym $mod+q kill
 # bindsym $mod+Shift+o focus down
 # bindsym $mod+Shift+p focus up
 
-# bindsym $mod+Shift+j focus left
-# bindsym $mod+Shift+k focus down
-# bindsym $mod+Shift+l focus up
-# bindsym $mod+Shift+semicolon focus right
+# bindsym $mod+j focus left
+# bindsym $mod+k focus down
+# bindsym $mod+l focus up
+# bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -235,29 +235,31 @@ mode "$mode_resize" {
 #----------------------------------------------------------------------
 # shutdown / restart / suspend...
 set $mode_system   (r) restart i3 | (l) reload i3 | (o) logout | (Ctrl+r) reboot | (Ctrl+s) shutdown
+bindsym $mod+BackSpace mode "$mode_system"
 
 mode "$mode_system" {
-    bindsym o exec --no-startup-id i3-msg exit, mode "default"
-    bindsym Ctrl+r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Ctrl+s exec --no-startup-id systemctl poweroff -i, mode "default"
+    bindsym o      exec --no-startup-id i3-msg exit           , mode "default"
+    bindsym Ctrl+r exec --no-startup-id systemctl reboot      , mode "default"
+    bindsym Ctrl+s exec --no-startup-id systemctl poweroff -i , mode "default"
 
-    bindsym l reload, mode "default"
+    bindsym l reload , mode "default"
     bindsym r restart, mode "default"
 
-    # back to normal: Enter or Escape
+    # back to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
     bindsym Ctrl+g mode "default"
+    bindsym Ctrl+g mode "default"
+    bindsym Ctrl+c mode "default"
+    bindsym $mod+BackSpace mode "default"
+    bindsym $mod+o mode "$mode_app"
 }
 
-bindsym $mod+BackSpace mode "$mode_system"
-
-
 #----------------------------------------------------------------------
-# Application start mode
+# Launcher mode
 #----------------------------------------------------------------------
-set $mode_app  (t) terminal | (c) emacsclient | (o) open | (w) window
-# (e) emacs | -c | (n) emacsclient -nc
+set $mode_app (t) terminal | (c) emacsclient | (o) open | (w) window
+bindsym $mod+o mode "$mode_app"
 
 mode "$mode_app" {
      # start a terminal
@@ -266,39 +268,42 @@ mode "$mode_app" {
      #bindsym n exec --no-startup-id /usr/local/bin/emacsclient -nc , mode "default"
      #bindsym e exec --no-startup-id /usr/local/bin/emacs           , mode "default"
      bindsym o exec --no-startup-id rofi -dpi 220 -show run        , mode "default"
+     bindsym $mod+o exec --no-startup-id rofi -dpi 220 -show run        , mode "default"
      bindsym w exec --no-startup-id rofi -dpi 220 -show window     , mode "default"
 
-    # back to normal: Enter or Escape
+    # back to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
     bindsym Ctrl+g mode "default"
+    bindsym Ctrl+c mode "default"
     bindsym $mod+less mode "default"
+    bindsym $mod+BackSpace mode "$mode_system"
 }
-
-bindsym $mod+less mode "$mode_app"
-
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
     # status_command i3blocks -c ~/.config/i3/i3blocks.conf
 
-    font pango:Fira Code 14
+    font pango:Fira Code 11
+    # padding 2px
+    # i3bar_command i3bar --transparency
 
     colors {
-		background $bg-color
-	    	separator #757575
-		#                  border             background         text
-		focused_workspace  $bg-color          $bg-color          $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-	}
+        background $bg-color
+        #tbackground #2f343fff
+        separator #757575
+        #                  border             background         text
+        focused_workspace  $bg-color          $bg-color          $text-color
+        inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+        urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+    }
 
     # colors {
     #     background $back
     # }
 
-    mode hide
+    #mode hide
     position top
     # modifier Mod1
     # workspace_buttons no
@@ -315,7 +320,7 @@ exec --no-startup-id /usr/bin/prlcc
 #exec --no-startup-id alacritty
 #exec --no-startup-id alacritty
 #exec emacsclient -nc
-#assign [class="Emacs"] $ws2
+# assign [class="Emacs"] $ws2
 
 exec --no-startup-id emacsclient -c
 exec --no-startup-id emacsclient -nc
@@ -323,12 +328,13 @@ exec --no-startup-id emacsclient -nc
 # foucs emacs window when I type e [filename]
 focus_on_window_activation focus #smart|urgent|focus|none
 
-# Set wallpaper
-exec_always --no-startup-id feh --bg-scale ~/host/Pictures/Big\ Sur\ Road.jpg
+
+exec_always --no-startup-id ~/host/code/dot/ubuntu/in_parallels.sh
 # exec --no-startup-id picom -CGb
 
-exec --no-startup-id xset r rate 300 30
 
+
+# exec --no-startup-id compton --config ./compton.conf
 # NOTE
 # resize window by mouse:
 # Just hold the modifier key and right-click on the window. i3 will use the border closest to the cursor for resizing.

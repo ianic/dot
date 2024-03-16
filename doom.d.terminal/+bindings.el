@@ -37,6 +37,7 @@
  "C-x m"        #'execute-extended-command
  ;;"M-s-."        #'+lookup/definition-other-window
  "C-x C-o"      #'other-window
+ "C-o"          (lambda () (interactive) (other-window  1))
 
  ;; comment line or region; do what I mean
  "C-c ;"        #'comment-dwim

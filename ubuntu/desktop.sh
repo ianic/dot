@@ -68,7 +68,7 @@ if [[ ! -f  $dpi_fix ]]; then
     sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 fi
 
-if [[ ! -f ~/host/code/dot/ubuntu/i3 ]] ; then
+if [[ ! -f ~/.config/i3/config ]] ; then
     echo "install i3"
     cd ~
     mkdir -p .config/i3
@@ -77,7 +77,7 @@ if [[ ! -f ~/host/code/dot/ubuntu/i3 ]] ; then
     ln -s ~/host/code/dot/ubuntu/i3 config
 
     mkdir -p ~/.config/rofi
-    rm ~/.config/rofi/config.rasi
+    rm -f ~/.config/rofi/config.rasi
     ln -s ~/host/code/dot/ubuntu/rofi ~/.config/rofi/config.rasi
 fi
 

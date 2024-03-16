@@ -1,5 +1,8 @@
 font-size = 10
 
+copy-on-select = true
+gtk-titlebar = false
+
 keybind = super+alt+right=goto_split:right
 keybind = super+plus=increase_font_size:1
 keybind = super+physical:six=goto_tab:6

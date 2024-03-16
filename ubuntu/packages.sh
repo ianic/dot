@@ -10,7 +10,7 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     gdb hyperfine emacs-nox libtool libtool-bin \
     qemu-user-static \
     ruby-full \
-    i3 rofi dzen2 feh
+    i3 rofi dzen2 feh compton
 
 # sudo snap install emacs --classic
 
@@ -23,6 +23,7 @@ if [ ! -x "$(command -v ~/.local/bin/websocat)" ]; then
         chmod +x ~/.local/bin/websocat
 fi
 
+# TODO   pa ovo radi samo za arm
 # Go install
 [ -x "$(command -v /usr/local/go/bin/go)" ] && current_version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
 version=$(curl -s https://go.dev/VERSION?m=text | head -n 1)
@@ -55,13 +56,14 @@ sudo apt-get -y install clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev
 # ghostty terminal
 if [ ! -x "$(command -v ghostty)" ]; then
     cd .build
-    git clone https://github.com/mitchellh/ghostty.git
+    #git clone https://github.com/mitchellh/ghostty.git
+    git clone git@github.com:mitchellh/ghostty.git
     cd ghostty
     zig build -Doptimize=ReleaseFast
     sudo cp zig-out/bin/ghostty /usr/local/bin
 
     mkdir -p .config/ghostty
-    rm .config/ghostty/config
+    rm -f .config/ghostty/config
     ln -s ~/host/code/dot/ubuntu/ghostty ~/.config/ghostty/config
 fi
 
