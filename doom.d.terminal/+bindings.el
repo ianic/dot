@@ -14,9 +14,22 @@
   )
 
 (map!
- ;; window navigation
- "s-]"          (lambda () (interactive) (other-window  1))
+ ;; window navigation with super
  "s-["          (lambda () (interactive) (other-window -1))
+ "s-]"          (lambda () (interactive) (other-window  1))
+
+ "M-s-["        #'windmove-swap-states-left
+ "M-s-]"        #'windmove-swap-states-right
+
+ ;; "M-s-o"        #'occur
+
+ ;; window navigation with control
+ "<C-lsb>"      (lambda () (interactive) (other-window  -1))
+ "C-]"          (lambda () (interactive) (other-window 1))
+
+ "C-M-["        #'windmove-swap-states-left
+ "C-M-]"        #'windmove-swap-states-right
+
  ;; prebacio se na i3 pa on ima ovaj keybinding, exwm je disabled
  ;; "s-}"          #'exwm/workspace-next
  ;; "s-{"          #'exwm/workspace-previous
@@ -28,24 +41,23 @@
  ;; "s-5"          #'winum-select-window-5
  ;; "s-6"          #'winum-select-window-6
 
- "M-s-["        #'windmove-swap-states-left
- "M-s-]"        #'windmove-swap-states-right
- "M-s-o"        #'occur
-
 
  "C-x C-m"      #'execute-extended-command
  "C-x m"        #'execute-extended-command
+ "<C-m>"        #'execute-extended-command
  ;;"M-s-."        #'+lookup/definition-other-window
  "C-x C-o"      #'other-window
- "C-o"          (lambda () (interactive) (other-window  1))
+ "M-o"          #'other-window
+ "<C-i>"        #'other-window
+ ;; "C-o"          (lambda () (interactive) (other-window  1))
 
  ;; comment line or region; do what I mean
  "C-c ;"        #'comment-dwim
  "C-c C-;"      #'comment-dwim
  "C-;"          #'comment-dwim
 
- "M-;"          #'+company/complete
- "M-i"          #'imenu
+ ;;"M-;"          #'+company/complete
+ ;;"M-i"          #'imenu
 
  ;; copy paste
  "s-z"          #'undo-fu-only-undo
@@ -55,9 +67,9 @@
  "s-a"          #'mark-whole-buffer
 
  ;; like pallete in vscode and warp
- "s-p"          #'find-file ;;+ivy/projectile-find-file
- "s-P"          #'execute-extended-command
- "s-O"          #'imenu
+ ;;"s-p"          #'find-file ;;+ivy/projectile-find-file
+ ;;"s-P"          #'execute-extended-command
+ ;;"s-O"          #'imenu
  ;; "s-w"          #'kill-this-buffer ;; dangerous if I miss a key
 
  "s-0"          #'doom/reset-font-size
@@ -66,6 +78,9 @@
 
  "s-r"          #'query-replace
  "s-l"          #'consult-goto-line
+
+ "C-c r"          #'query-replace
+ "C-c l"          #'consult-goto-line
 
  [s-return]     #'start-ghostty
  ;; rethink this
