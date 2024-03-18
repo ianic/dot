@@ -1,11 +1,10 @@
-@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
-
-
-//@theme "/home/ianic/.local/share/rofi/themes/rounded-blue-dark.rasi"
-
-
+//@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
 
 configuration {
-    dpi: 220;
+    dpi: 192;
     show-icons: true;
+    modi: [window,run,ssh,drun];
 }
+
+// themes taken from: https://github.com/newmanls/rofi-themes-collection
+@theme "/home/ianic/.local/share/rofi/themes/rounded-nord-dark.rasi"

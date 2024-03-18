@@ -12,3 +12,7 @@ killall ibus-ui-gtk3
 
 # Set wallpaper
 feh --bg-scale ~/host/Pictures/Big\ Sur\ Road.jpg
+
+# Compton
+killall compton
+compton --config ~/.config/i3/compton.conf -b

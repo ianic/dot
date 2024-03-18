@@ -76,9 +76,15 @@ if [[ ! -f ~/.config/i3/config ]] ; then
     rm -f config
     ln -s ~/host/code/dot/ubuntu/i3 config
 
+    rm -f compton.conf
+    ln -s ~/host/code/dot/ubuntu/compton.conf compton.conf
+
     mkdir -p ~/.config/rofi
     rm -f ~/.config/rofi/config.rasi
     ln -s ~/host/code/dot/ubuntu/rofi ~/.config/rofi/config.rasi
+
+
+
 fi
 
 cd $script_dir

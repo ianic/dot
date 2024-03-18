@@ -16,11 +16,15 @@ focus_follows_mouse yes
 hide_edge_borders smart
 #gaps inner 10
 
-set $bg-color 	         #2f343fff
-set $inactive-bg-color   #2f343fff
+# Strted from https://www.youtube.com/watch?v=ARKIwOlazKI&list=PL5ze0DjYv5DbCv9vNEzFmP6sU7ZmkGzcf&index=3
+# then changed something little using Nord colors from: https://www.nordtheme.com/docs/colors-and-palettes
+#
+set $bg-color            #4C566A
+set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935ff
+set $urgent-bg-color     #5E81AC
+set $bar-bg-color        #282C35
 
 # window colors
 #                       border              background         text                 indicator
@@ -29,59 +33,15 @@ client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-co
 client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
 client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
 
-# Reading colors from resources (defined in Xresources file)
-# set_from_resource $back			i3wm.background #1D1F21
-# set_from_resource $black		i3wm.color0		#282A2E
-# set_from_resource $grey			i3wm.color8		#373B41
-# set_from_resource $lightgrey	i3wm.color7		#707880
-# set_from_resource $white		i3wm.color15	#C5C8C6
-# set_from_resource $yellow		i3wm.color11	#F0C674
-# set_from_resource $red			i3wm.color9		#CC6666
-# set_from_resource $darkred		i3wm.color1		#A54242
-# set_from_resource $green		i3wm.color10	#B5BD56
-# set_from_resource $blue	        i3wm.color4	    #5F819D
-
-# #class                  border      backgr.     text        split
-# client.focused          $blue       $blue       $black      $red
-# client.focused_inactive $grey       $grey       $lightgrey  $grey
-# client.unfocused        $grey       $grey       $lightgrey  $grey
-# client.urgent           $red        $red        $black      $red
-# client.background       $back
-
-#----------------------------------------------------------------------
-# Startup
-#----------------------------------------------------------------------
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
-# No background
-# exec --no-startup-id xsetroot -solid $back
-
 #----------------------------------------------------------------------
 # Keybindings
 #----------------------------------------------------------------------
-# Use Mouse+$mod to drag floating windows to their wanted position
-#  ( parensleft
-#  [ bracketleft
-#  { braceleft
 
-floating_modifier $mod
-
-# bindsym $mod+o exec --no-startup-id rofi -dpi 220 -show run
-# bindsym $mod+less exec --no-startup-id rofi -dpi 220 -show window -no-config
-# bindsym $mod+o exec --no-startup-id dmenu_run
-
-# start a terminal
-# bindsym $mod+T exec --no-startup-id ghostty #i3-sensible-terminal
-# command to start emacs
-# bindsym $mod+e exec --no-startup-id emacsclient -nc
-
-# bindsym $mod+d split h
-# bindsym $mod+Shift+d split v
-
-# kill focused window
+# Kill focused window
 bindsym $mod+q kill
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+Shift+Return fullscreen toggle
 
 # change focus
 # bindsym $mod+bracketleft focus left
@@ -97,9 +57,9 @@ bindsym $mod+q kill
 # bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 
 # move focused window
@@ -114,26 +74,6 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# enter fullscreen mode for the focused container
-bindsym $mod+Shift+Return fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-# bindsym $mod+Shift+s layout stacking
-# bindsym $mod+Shift+t layout tabbed
-# bindsym $mod+Shift+e layout toggle split
-
-# toggle tiling / floating
-# bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-# bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-# bindsym $mod+Shift+a focus parent
-
-# focus the child container
-# bindsym $mod+Shift+d focus child
-
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 # Copy font icon from: https://fontawesome.com/v5/cheatsheet/free/regular
@@ -146,7 +86,7 @@ set $ws6 "6 "
 set $ws7 "7 "
 set $ws8 "8 "
 set $ws9 "9 "
-set $ws10 "10 "
+# set $ws10 "10 "
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -170,65 +110,7 @@ bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
-
-# To find class run xprop in the terminal click on window and use WM_CLASS second argument
-# ref: https://youtu.be/8-S0cWnLBKg?list=PL5ze0DjYv5DbCv9vNEzFmP6sU7ZmkGzcf&t=1483
-# assign [class="Emacs"] $ws2
-
-# reload the configuration file
-# bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-# bindsym $mod+Shift+r restart
-
-#----------------------------------------------------------------------
-# Resize Mode
-#----------------------------------------------------------------------
-set $mode_resize Resize / Move
-
-# This mode will make it easier to resize and move workspaces without
-# having to bind a bunch of obscure bindings.
-mode "$mode_resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Focus parent and child
-        bindsym a focus parent
-        bindsym $mod+a focus parent
-        bindsym c focus child
-        bindsym $mod+c focus child
-
-        # Move containers
-        bindsym 1 move container to workspace number $ws1; workspace number $ws1
-        bindsym 2 move container to workspace number $ws2; workspace number $ws2
-        bindsym 3 move container to workspace number $ws3; workspace number $ws3
-        bindsym 4 move container to workspace number $ws4; workspace number $ws4
-        bindsym 5 move container to workspace number $ws5; workspace number $ws5
-        bindsym 6 move container to workspace number $ws6; workspace number $ws6
-        bindsym 7 move container to workspace number $ws7; workspace number $ws7
-        bindsym 8 move container to workspace number $ws8; workspace number $ws8
-        bindsym 9 move container to workspace number $ws9; workspace number $ws9
-        bindsym 0 move container to workspace number $ws10; workspace number $ws10
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
-
-        bindsym Up resize grow width 10 px or 10 ppt
-        bindsym Down resize shrink width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
-
-# disabled I never use this
-# bindsym $mod+Shift+r mode "$mode_resize"
+# bindsym $mod+Shift+0 move container to workspace $ws10
 
 #----------------------------------------------------------------------
 # System Mode
@@ -263,64 +145,49 @@ bindsym $mod+o mode "$mode_app"
 
 mode "$mode_app" {
      # start a terminal
-     bindsym t exec --no-startup-id ghostty         , mode "default"
-     bindsym c exec --no-startup-id /usr/local/bin/emacsclient -nc  , mode "default"
-     #bindsym n exec --no-startup-id /usr/local/bin/emacsclient -nc , mode "default"
-     #bindsym e exec --no-startup-id /usr/local/bin/emacs           , mode "default"
-     bindsym o exec --no-startup-id rofi -dpi 220 -show run        , mode "default"
-     bindsym $mod+o exec --no-startup-id rofi -dpi 220 -show run        , mode "default"
-     bindsym w exec --no-startup-id rofi -dpi 220 -show window     , mode "default"
+     bindsym t exec --no-startup-id ghostty                        , mode "default"
+     bindsym c exec --no-startup-id /usr/local/bin/emacsclient -nc , mode "default"
+     #bindsym o exec --no-startup-id rofi -dpi 192 -show drun        , mode "default"
+     bindsym w exec --no-startup-id rofi -dpi 192 -show window     , mode "default"
+
+     bindsym o exec --no-startup-id "rofi -show combi drun,window" , mode "default"
 
     # back to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
     bindsym Ctrl+g mode "default"
     bindsym Ctrl+c mode "default"
-    bindsym $mod+less mode "default"
+    bindsym $mod+o mode "default"
     bindsym $mod+BackSpace mode "$mode_system"
 }
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-    # status_command i3blocks -c ~/.config/i3/i3blocks.conf
+bindsym $mod+Shift+bracketright workspace next
+bindsym $mod+Shift+bracketleft workspace prev
 
+# Start i3bar to display a workspace bar
+bar {
     font pango:Fira Code 11
     # padding 2px
-    # i3bar_command i3bar --transparency
+
 
     colors {
-        background $bg-color
-        #tbackground #2f343fff
-        separator #757575
+        background $bar-bg-color
+        separator  #757575
         #                  border             background         text
         focused_workspace  $bg-color          $bg-color          $text-color
         inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
         urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
     }
 
-    # colors {
-    #     background $back
-    # }
-
-    #mode hide
     position top
-    # modifier Mod1
-    # workspace_buttons no
 }
 
+#----------------------------------------------------------------------
+# Startup
+#----------------------------------------------------------------------
 
-# start parallels copy client
+# Start parallels copy client
 exec --no-startup-id /usr/bin/prlcc
-
-# try to set resolution on startup
-# exec --no-startup-id '/run/current-system/sw/bin/xrandr -s 6720x3732'
-
-# put two terminals in workspace 1
-#exec --no-startup-id alacritty
-#exec --no-startup-id alacritty
-#exec emacsclient -nc
-# assign [class="Emacs"] $ws2
 
 exec --no-startup-id emacsclient -c
 exec --no-startup-id emacsclient -nc
@@ -328,13 +195,15 @@ exec --no-startup-id emacsclient -nc
 # foucs emacs window when I type e [filename]
 focus_on_window_activation focus #smart|urgent|focus|none
 
-
 exec_always --no-startup-id ~/host/code/dot/ubuntu/in_parallels.sh
-# exec --no-startup-id picom -CGb
 
-
-
-# exec --no-startup-id compton --config ./compton.conf
-# NOTE
-# resize window by mouse:
+#----------------------------------------------------------------------
+# Notes
+#----------------------------------------------------------------------
+#
+# Resize window by mouse:
 # Just hold the modifier key and right-click on the window. i3 will use the border closest to the cursor for resizing.
+
+# To find class run xprop in the terminal click on window and use WM_CLASS second argument
+# ref: https://youtu.be/8-S0cWnLBKg?list=PL5ze0DjYv5DbCv9vNEzFmP6sU7ZmkGzcf&t=1483
+# assign [class="Emacs"] $ws2
