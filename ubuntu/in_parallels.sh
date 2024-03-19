@@ -8,7 +8,7 @@ setxkbmap -model "macbook79" -layout us  -option "ctrl:swapcaps"
 xrandr --output Virtual-1 --mode 6720x3780
 
 # Removes icon (keyboard switch) EN from top right
-killall ibus-ui-gtk3
+# killall ibus-ui-gtk3
 
 # Set wallpaper
 feh --bg-scale ~/host/Pictures/Big\ Sur\ Road.jpg

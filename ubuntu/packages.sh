@@ -55,7 +55,7 @@ sudo apt-get -y install clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev
 
 # ghostty terminal
 if [ ! -x "$(command -v ghostty)" ]; then
-    cd .build
+    cd ~/.build
     #git clone https://github.com/mitchellh/ghostty.git
     git clone git@github.com:mitchellh/ghostty.git
     cd ghostty

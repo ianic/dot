@@ -40,8 +40,11 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 # Kill focused window
 bindsym $mod+q kill
 
+bindsym $mod+Return exec --no-startup-id ghostty
+bindsym $mod+e exec --no-startup-id /usr/local/bin/emacsclient -nc
+
 # Enter fullscreen mode for the focused container
-bindsym $mod+Shift+Return fullscreen toggle
+#bindsym $mod+Shift+Return fullscreen toggle
 
 # change focus
 # bindsym $mod+bracketleft focus left
@@ -77,8 +80,8 @@ bindsym $mod+Shift+Right move right
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 # Copy font icon from: https://fontawesome.com/v5/cheatsheet/free/regular
-set $ws1 "1 "
-set $ws2 "2 "
+set $ws1 "1 "
+set $ws2 "2 "
 set $ws3 "3 "
 set $ws4 "4 "
 set $ws5 "5 "
@@ -120,7 +123,8 @@ set $mode_system   (r) restart i3 | (l) reload i3 | (o) logout | (Ctrl+r) reboot
 bindsym $mod+BackSpace mode "$mode_system"
 
 mode "$mode_system" {
-    bindsym o      exec --no-startup-id i3-msg exit           , mode "default"
+    bindsym o      exec --no-startup-id "systemctl stop --user emacs; sleep 1 ;i3-msg exit" , mode "default"
+    #bindsym o     exec --no-startup-id i3-msg exit"          , mode "default"
     bindsym Ctrl+r exec --no-startup-id systemctl reboot      , mode "default"
     bindsym Ctrl+s exec --no-startup-id systemctl poweroff -i , mode "default"
 
@@ -161,14 +165,21 @@ mode "$mode_app" {
     bindsym $mod+BackSpace mode "$mode_system"
 }
 
-bindsym $mod+Shift+bracketright workspace next
-bindsym $mod+Shift+bracketleft workspace prev
+#bindsym $mod+Shift+bracketright workspace next
+#bindsym $mod+Shift+bracketleft workspace prev
+#bindsym $mod+Mod1+bracketleft  focus left
+#bindsym $mod+Mod1+bracketright focus right
+bindsym Mod1+Tab workspace next
+bindsym Mod1+Shift+Tab workspace prev
+# bindsym Mod1+less workspace back_and_forth
+
+bindsym $mod+i workspace next
+bindsym Mod1+i focus right
 
 # Start i3bar to display a workspace bar
 bar {
-    font pango:Fira Code 11
+    font pango:Fira Code 13
     # padding 2px
-
 
     colors {
         background $bar-bg-color
@@ -189,6 +200,7 @@ bar {
 # Start parallels copy client
 exec --no-startup-id /usr/bin/prlcc
 
+exec --no-startup-id systemctl start --user emacs
 exec --no-startup-id emacsclient -c
 exec --no-startup-id emacsclient -nc
 

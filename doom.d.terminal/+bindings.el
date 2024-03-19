@@ -15,11 +15,11 @@
 
 (map!
  ;; window navigation with super
- "s-["          (lambda () (interactive) (other-window -1))
- "s-]"          (lambda () (interactive) (other-window  1))
+ ;; "s-["          (lambda () (interactive) (other-window -1))
+ ;; "s-]"          (lambda () (interactive) (other-window  1))
 
- "M-s-["        #'windmove-swap-states-left
- "M-s-]"        #'windmove-swap-states-right
+ ;; "M-s-["        #'windmove-swap-states-left
+ ;; "M-s-]"        #'windmove-swap-states-right
 
  ;; "M-s-o"        #'occur
 
@@ -42,13 +42,14 @@
  ;; "s-6"          #'winum-select-window-6
 
 
+ "C-x <C-m>"    #'execute-extended-command
  "C-x C-m"      #'execute-extended-command
  "C-x m"        #'execute-extended-command
  "<C-m>"        #'execute-extended-command
  ;;"M-s-."        #'+lookup/definition-other-window
  "C-x C-o"      #'other-window
  "M-o"          #'other-window
- "<C-i>"        #'other-window
+ ;;"<C-i>"        #'other-window
  ;; "C-o"          (lambda () (interactive) (other-window  1))
 
  ;; comment line or region; do what I mean
@@ -79,10 +80,10 @@
  "s-r"          #'query-replace
  "s-l"          #'consult-goto-line
 
- "C-c r"          #'query-replace
- "C-c l"          #'consult-goto-line
+ "C-c r"        #'query-replace
+ "C-c l"        #'consult-goto-line
 
- [s-return]     #'start-ghostty
+ ;; [s-return]     #'start-ghostty
  ;; rethink this
  ;;"s-f"          #'+default/search-buffer
  ;;"s-F"          #'+default/search-project

@@ -167,7 +167,7 @@
        ;; - `Ctrl-[' and 'Esc' keys are different
        ;;
        ;; The three C keys are the bonus keys.
-       (define-key input-decode-map (kbd "C-i") [C-i])
+       ;; (define-key input-decode-map (kbd "C-i") [C-i])
        (define-key input-decode-map (kbd "C-[") [C-lsb]) ; left square bracket
        (define-key input-decode-map (kbd "C-m") [C-m])
        ;; You can replace `C-' above with `BLAH-' or
@@ -175,4 +175,12 @@
        ;;
        ;; C is merely a symbol / name; feel free to change
        ;; it to whatever you like .
+       ;;
+       ;; Found that above remaps tab also, trying different approach.
+       ;; https://stackoverflow.com/questions/4512075/how-to-use-ctrl-i-for-an-emacs-shortcut-without-breaking-tabs
+       ;; Translate the problematic keys to the function key Hyper,
+       ;; then bind this to the desired ctrl-i behavior
+       (keyboard-translate ?\C-i ?\H-i)
+       (global-set-key [?\H-i] 'other-window)
+
        ))))
