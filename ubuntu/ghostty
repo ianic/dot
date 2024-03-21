@@ -1,7 +1,7 @@
 font-size = 11
 
 copy-on-select = true
-# gtk-titlebar = false
+gtk-titlebar = false
 # macos-option-as-alt = true
 
 keybind = super+left_bracket=goto_split:previous
@@ -55,7 +55,7 @@ keybind = super+physical:nine=goto_tab:9
 keybind = super+shift+right_bracket=next_tab
 keybind = super+shift+left_bracket=previous_tab
 
-keybind = ctrl+shift+i=next_tab
+keybind = ctrl+shift+i=previous_tab
 keybind = ctrl+i=next_tab
 
 keybind = super+v=paste_from_clipboard

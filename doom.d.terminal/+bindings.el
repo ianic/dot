@@ -153,8 +153,18 @@
       :desc "Test project"  "p" #'zig-test-project
       :desc "Test function" "s" #'zig-test-single-test
       :desc "Test last function" "d" #'zig-test-run-last-test
-      :desc "Rename"        "n" #'lsp-rename
 
+      :desc "Rename"        "n" #'eglot-rename
+      (:prefix-map ("e" . "eglot")
+                   "a" #'eglot-code-actions
+                   "d" #'eglot-find-declaration
+                   "i" #'eglot-find-implementation
+                   "t" #'eglot-find-typeDefinition
+                   "i" #'eglot-code-action-organize-imports
+                   "f" #'eglot-format-buffer
+                   "n" #'eglot-rename
+                   )
+      ;; :desc "Rename"        "n" #'lsp-rename
       (:prefix-map ("l" . "lsp")
                    "p" #'lsp-ui-peek-find-references
                    "r" #'lsp-find-references
@@ -162,7 +172,8 @@
                    "[" #'lsp-ui-find-prev-reference
                    "]" #'lsp-ui-find-next-reference
                    "n" #'lsp-rename
-                   ))
+                   )
+      )
 
 (map! :after zig-mode
       :map zig-mode-map

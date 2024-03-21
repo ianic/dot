@@ -174,7 +174,9 @@ bindsym Mod1+Shift+Tab workspace prev
 # bindsym Mod1+less workspace back_and_forth
 
 bindsym $mod+i workspace next
+bindsym $mod+Shift+i workspace prev
 bindsym Mod1+i focus right
+bindsym Mod1+Shift+i focus left
 
 # Start i3bar to display a workspace bar
 bar {

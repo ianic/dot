@@ -206,16 +206,19 @@
 ;; ref: https://github.com/doomemacs/doomemacs/blob/master/modules/lang/zig/config.el
 (map! :localleader
       :map zig-mode-map
-      :desc "Build"         "b" #'zig-compile
-      :desc "Recompile"     "c" #'recompile
-      :desc "Format buffer" "f" #'zig-format-buffer
-      :desc "Run"           "r" #'zig-run
-      :desc "Test buffer"   "t" #'zig-test-buffer
-      :desc "Test project"  "p" #'zig-test-project
-      :desc "Test function" "s" #'zig-test-single-test
+      :desc "Build"              "b" #'zig-compile
+      :desc "Recompile"          "c" #'recompile
+      :desc "Format buffer"      "f" #'zig-format-buffer
+      :desc "Run"                "x" #'zig-run
+      :desc "Test buffer"        "t" #'zig-test-buffer
+      :desc "Test project"       "p" #'zig-test-project
+      :desc "Test function"      "s" #'zig-test-single-test
       :desc "Test last function" "d" #'zig-test-run-last-test
+
+      :desc "Rename"             "n" #'eglot-rename
+      :desc "Find references"    "r" #'xref-find-references
+
       ;;:desc "Rename"        "n" #'lsp-rename
-      :desc "Rename"        "n" #'eglot-rename
       ;; (:prefix-map ("l" . "lsp")
       ;;              "p" #'lsp-ui-peek-find-references
       ;;              "r" #'lsp-find-references
