@@ -1,9 +1,10 @@
 #!/bin/bash -e
 #
 # Na novom stroju prvo napravim:
-# $ sudo apt install openssh-server git
-# $ ./copy_ssh_keys.sh ip-address-of-new-server
-# $ mkdir -p .config && cd config && git clone git@github.com:ianic/dot.git
+# r$ sudo apt install openssh-server git
+# l$ ./copy_ssh_keys.sh ip-address-of-new-server
+# r$ mkdir -p .config && cd config && git clone git@github.com:ianic/dot.git
+# r$ ~/.config/dot/ubuntu/desktop.sh
 
 script_dir=$(dirname "${BASH_SOURCE[0]}" )
 source $script_dir/functions.sh
@@ -57,6 +58,7 @@ if [[ ! -f ~/.config/i3/config ]] ; then
 fi
 
 # fix Ubuntu login screen scaling
+# fails with [org.gnome.desktop.interface]\nscaling-factor=2\n/usr/share/glib-2.0/schemas/93_hidpi.gschema.override: Key file does not start with a group.  Ignoring this file.
 dpi_fix=/usr/share/glib-2.0/schemas/93_hidpi.gschema.override
 if [[ ! -f  $dpi_fix ]]; then
     echo -n "[org.gnome.desktop.interface]\nscaling-factor=2\n" | sudo tee -a $dpi_fix

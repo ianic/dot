@@ -10,13 +10,13 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     gdb hyperfine emacs-nox libtool libtool-bin \
     qemu-user-static \
     ruby-full \
-    i3 rofi dzen2 feh compton
+    i3 rofi dzen2 feh compton \
+    clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev # za Zig build
 
-# wasmtime
-curl https://wasmtime.dev/install.sh -sSf | bash
-
-# za Zig build
-sudo apt-get -y install clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev
+if [[ ! -d ~/.wasmtime ]]; then
+    # wasmtime
+    curl https://wasmtime.dev/install.sh -sSf | bash
+fi
 
 # eza install
 # ref: https://github.com/eza-community/eza/blob/main/INSTALL.md

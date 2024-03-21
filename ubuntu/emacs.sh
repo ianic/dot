@@ -10,7 +10,7 @@ if [[ ! -d ~/.config/emacs ]]; then
     ln -s ~/.config/emacs ~/.emacs.d
 
     rm -rf ~/.config/doom
-    ln -s ~/.config/dot/doom.d.terminal ~/.config/doom
+    ln -s ~/.config/dot/doom.d ~/.config/doom
     ~/.config/emacs/bin/doom sync
 fi
 

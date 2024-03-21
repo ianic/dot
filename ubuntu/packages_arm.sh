@@ -1,5 +1,6 @@
 #!/bin/bash -e
-
+# TODO   pa ovo radi samo za arm
+#
 # install websocat from github release
 # https://github.com/vi/websocat/releases
 if [ ! -x "$(command -v ~/.local/bin/websocat)" ]; then
@@ -9,7 +10,6 @@ if [ ! -x "$(command -v ~/.local/bin/websocat)" ]; then
         chmod +x ~/.local/bin/websocat
 fi
 
-# TODO   pa ovo radi samo za arm
 # Go install
 [ -x "$(command -v /usr/local/go/bin/go)" ] && current_version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
 version=$(curl -s https://go.dev/VERSION?m=text | head -n 1)
