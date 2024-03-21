@@ -55,12 +55,12 @@ fi
 
 echo "install packages"
 $script_dir/packages.sh
-$script_dir/ghostty.sh
 
 echo "install zig"
 sudo update-ca-certificates
 $script_dir/zig.sh
 $script_dir/fuzzing_stack.sh
+$script_dir/ghostty.sh
 
 if ! crontab -l ; then
     echo "adding crontab"
