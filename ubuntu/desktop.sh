@@ -1,17 +1,9 @@
 #!/bin/bash -e
 
-script_dir=$(dirname "${BASH_SOURCE[0]}" ) # this script dir
+script_dir=$(dirname "${BASH_SOURCE[0]}" )
+source $script_dir/functions.sh
 
-cd $script_dir
-./server.sh
-
-# upgrade server to desktop, don't work on 24.04 desktop
-# if ! dpkg --no-pager -l ubuntu-desktop | grep ubuntu-desktop; then
-#     echo "install desktop environment"
-#     sudo apt update && sudo apt upgrade
-#     sudo apt install ubuntu-desktop # ovo traje jakooo dugo
-#     sudo reboot
-# fi
+$script_dir/server.sh
 
 if [[ -d ~/Videos ]]; then
     echo "remove home folder clutter"
@@ -41,18 +33,23 @@ if [[ ! -d ~/.fonts ]]; then
 fi
 
 if [[ ! -f ~/.Xmodmap ]] ; then
-    # ovo mapiranje na 24.04 vise nije potrebno
-    # ln -s ~/.config/dot/ubuntu/Xmodmap ~/.Xmodmap
-    # xmodmap ~/.Xmodmap
-    ln -s ~/.config/dot/ubuntu/Xresources ~/.Xresources
-
+    link ~/.config/dot/ubuntu/Xresources ~/.Xresources
     sudo cp ~/.config/dot/ubuntu/etc-default-keyboard /etc/default/keyboard
-    sudo cp ~/.config/dot/ubuntu/01-fixkeyboard /etc/dconf/db/ibus.d/
+    sudo cp ~/.config/dot/ubuntu/01-fixkeyboard       /etc/dconf/db/ibus.d/
 fi
 
-cd $script_dir
-./build-emacs.sh
-./emacs.sh
+# emacs
+$script_dir/build-emacs.sh
+$script_dir/emacs.sh
+
+if [[ ! -f ~/.config/i3/config ]] ; then
+    # i3
+    link ~/.config/dot/ubuntu/i3               ~/.config/i3/config
+    link ~/.config/dot/ubuntu/compton.conf     ~/.config/i3/compton.conf
+    # rofi
+    link ~/.config/dot/ubuntu/rofi/config.rasi ~/.config/rofi/config.rasi
+    link ~/.config/dot/ubuntu/rofi/themes      ~/.local/share/rofi/themes
+fi
 
 # fix Ubuntu login screen scaling
 dpi_fix=/usr/share/glib-2.0/schemas/93_hidpi.gschema.override
@@ -60,25 +57,3 @@ if [[ ! -f  $dpi_fix ]]; then
     echo -n "[org.gnome.desktop.interface]\nscaling-factor=2\n" | sudo tee -a $dpi_fix
     sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 fi
-
-if [[ ! -f ~/.config/i3/config ]] ; then
-    echo "install i3"
-    cd ~
-    mkdir -p .config/i3
-    cd .config/i3
-    rm -f config
-    ln -s ~/.config/dot/ubuntu/i3 config
-
-    rm -f compton.conf
-    ln -s ~/.config/dot/ubuntu/compton.conf compton.conf
-
-    mkdir -p ~/.config/rofi
-    rm -f ~/.config/rofi/config.rasi
-    ln -s ~/.config/dot/ubuntu/rofi ~/.config/rofi/config.rasi
-
-
-
-fi
-
-cd $script_dir
-./fuzzing_stack.sh

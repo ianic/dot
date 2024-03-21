@@ -12,8 +12,6 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     ruby-full \
     i3 rofi dzen2 feh compton
 
-# sudo snap install emacs --classic
-
 # install websocat from github release
 # https://github.com/vi/websocat/releases
 if [ ! -x "$(command -v ~/.local/bin/websocat)" ]; then
@@ -36,36 +34,11 @@ if [[ "$version" != "$current_version" ]]; then
     /usr/local/go/bin/go install golang.org/x/tools/gopls@latest
 fi
 
-# Wezterm
-# https://wezfurlong.org/wezterm/install/linux.html#installing-on-linux-using-appimage
-# if [ ! -x "$(command -v wezterm)" ]; then
-#     echo "install wezterm"
-#     curl -LO https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu22.04.arm64.deb
-#     sudo apt install -y ./wezterm-nightly.Ubuntu22.04.arm64.deb
-#     rm wezterm-nightly.Ubuntu22.04.arm64.deb
-# fi
-
 # wasmtime
 curl https://wasmtime.dev/install.sh -sSf | bash
 
-# sudo apt install -y fswatch
-
 # za Zig build
 sudo apt-get -y install clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev
-
-# ghostty terminal
-if [ ! -x "$(command -v ghostty)" ]; then
-    cd ~/.build
-    #git clone https://github.com/mitchellh/ghostty.git
-    git clone git@github.com:mitchellh/ghostty.git
-    cd ghostty
-    zig build -Doptimize=ReleaseFast
-    sudo cp zig-out/bin/ghostty /usr/local/bin
-
-    mkdir -p .config/ghostty
-    rm -f .config/ghostty/config
-    ln -s ~/.config/dot/ubuntu/ghostty ~/.config/ghostty/config
-fi
 
 # eza install
 # ref: https://github.com/eza-community/eza/blob/main/INSTALL.md

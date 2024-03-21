@@ -4,14 +4,13 @@
 # execute:
 # /media/psf/Home/code/dot/ubuntu/server.sh
 
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-cd $SCRIPT_DIR
+script_dir=$(dirname "${BASH_SOURCE[0]}" ) # this script dir
+source $script_dir/functions.sh
 
-if [[ ! -d ~/host ]]; then
+if [[ ! -d ~/host ]] && [[ -d /media/psf/Home ]]; then
     echo "link host folders"
-    cd ~
-    ln -s /media/psf/Home/ host
-    ln -s /media/psf/Home/code code
+    link /media/psf/Home/     ~/host
+    link /media/psf/Home/code ~/code
 fi
 
 if [[ ! -f ~/.ssh/id_rsa ]]; then
@@ -48,41 +47,25 @@ fi
 
 if [[ ! -f ~/.zshrc ]]; then
     echo "link my shell configs"
-    cd ~
-    ln -s ~/.config/dot/shell/zshrc .zshrc
-    ln -s ~/.config/dot/shell/bash_aliases .bash_aliases
-    ln -s ~/.config/dot/shell/gitconfig .gitconfig
-    ln -s ~/.config/dot/shell/gitignore .gitignore
+    link ~/.config/dot/shell/zshrc        ~/.zshrc
+    link ~/.config/dot/shell/bash_aliases ~/.bash_aliases
+    link ~/.config/dot/shell/gitconfig    ~/.gitconfig
+    link ~/.config/dot/shell/gitignore    ~/.gitignore
 fi
 
-cd $SCRIPT_DIR
-
 echo "install packages"
-./packages.sh
+$script_dir/packages.sh
+$script_dir/ghostty.sh
 
 echo "install zig"
 sudo update-ca-certificates
-./zig.sh
+$script_dir/zig.sh
+$script_dir/fuzzing_stack.sh
 
 if ! crontab -l ; then
     echo "adding crontab"
     tmpfile=$(mktemp /tmp/crontab-XXXXXX); echo $tmpfile;
-    echo "*/5 * * * * /home/ianic/code/dot/ubuntu/backup.sh 2>&1 >> /dev/null" > $tmpfile
+    echo "*/5 * * * * /home/ianic/.config/dot/ubuntu/backup.sh 2>&1 >> /dev/null" > $tmpfile
     crontab $tmpfile
     rm $tmpfile
 fi
-
-
-# experimental
-# sudo systemctl stop snapd
-
-# echo "done"
-
-# clanup
-# pkill zig; pkill test; pkill node; pkill code-insiders
-
-# Notes, o tome sto fali
-# dodao sam jos i wezterm: wget deb package i onda apt get toga
-#
-#
-# dodao sam i cron job koji kopira sve sto je bitno u backup da to ode u cloud
