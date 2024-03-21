@@ -22,7 +22,7 @@ fi
 if [[ ! -d ~/.fonts ]]; then
     echo "install fonts"
     cd ~
-    version=v3.1.0
+    version=v3.1.1
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/UbuntuMono.zip
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/Hack.zip
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/$version/Meslo.zip
@@ -49,13 +49,6 @@ if [[ ! -f ~/.Xmodmap ]] ; then
     sudo cp ~/.config/dot/ubuntu/etc-default-keyboard /etc/default/keyboard
     sudo cp ~/.config/dot/ubuntu/01-fixkeyboard /etc/dconf/db/ibus.d/
 fi
-
-# if [[ ! -f /usr/share/xsessions/exwm.desktop ]] ; then
-#     sudo cp  ~/.config/dot/ubuntu/exwm.desktop /usr/share/xsessions/exwm.desktop
-
-#     mkdir -p .config/exwm
-#     ln -s ~/.config/dot/ubuntu/start-exwm.sh .config/exwm/start-exwm.sh
-# fi
 
 cd $script_dir
 ./build-emacs.sh
