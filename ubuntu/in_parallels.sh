@@ -9,7 +9,7 @@ setxkbmap -model "macbook79" -layout us  -option "ctrl:nocaps"
 xrandr --output Virtual-1 --mode 6720x3780
 
 # Set wallpaper
-feh --bg-scale ~/host/Pictures/Big\ Sur\ Road.jpg
+feh --bg-scale ~/.config/dot/wallpaper/big_sur_road.jpg
 
 # Compton
 killall compton
