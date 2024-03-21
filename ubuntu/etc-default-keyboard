@@ -4,5 +4,6 @@
 
 XKBMODEL="macbook79"
 XKBLAYOUT="us(mac)"
+XKBOPTIONS="ctrl:nocaps"
 
 BACKSPACE="guess"
