@@ -16,4 +16,4 @@ zig build -p $HOME/.local -Doptimize=ReleaseFast
 
 mkdir -p ~/.config/ghostty
 rm -f ~/.config/ghostty/config
-ln -s ~/host/code/dot/ubuntu/ghostty ~/.config/ghostty/config
+ln -s ~/.config/dot/ubuntu/ghostty ~/.config/ghostty/config

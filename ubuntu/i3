@@ -209,7 +209,7 @@ exec --no-startup-id emacsclient -nc
 # foucs emacs window when I type e [filename]
 focus_on_window_activation focus #smart|urgent|focus|none
 
-exec_always --no-startup-id ~/host/code/dot/ubuntu/in_parallels.sh
+exec_always --no-startup-id ~/.config/dot/ubuntu/in_parallels.sh
 
 #----------------------------------------------------------------------
 # Notes

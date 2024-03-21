@@ -42,19 +42,19 @@ fi
 
 if [[ ! -f ~/.Xmodmap ]] ; then
     # ovo mapiranje na 24.04 vise nije potrebno
-    # ln -s ~/host/code/dot/ubuntu/Xmodmap ~/.Xmodmap
+    # ln -s ~/.config/dot/ubuntu/Xmodmap ~/.Xmodmap
     # xmodmap ~/.Xmodmap
-    ln -s ~/host/code/dot/ubuntu/Xresources ~/.Xresources
+    ln -s ~/.config/dot/ubuntu/Xresources ~/.Xresources
 
-    sudo cp ~/host/code/dot/ubuntu/etc-default-keyboard /etc/default/keyboard
-    sudo cp ~/host/code/dot/ubuntu/01-fixkeyboard /etc/dconf/db/ibus.d/
+    sudo cp ~/.config/dot/ubuntu/etc-default-keyboard /etc/default/keyboard
+    sudo cp ~/.config/dot/ubuntu/01-fixkeyboard /etc/dconf/db/ibus.d/
 fi
 
 # if [[ ! -f /usr/share/xsessions/exwm.desktop ]] ; then
-#     sudo cp  ~/host/code/dot/ubuntu/exwm.desktop /usr/share/xsessions/exwm.desktop
+#     sudo cp  ~/.config/dot/ubuntu/exwm.desktop /usr/share/xsessions/exwm.desktop
 
 #     mkdir -p .config/exwm
-#     ln -s ~/host/code/dot/ubuntu/start-exwm.sh .config/exwm/start-exwm.sh
+#     ln -s ~/.config/dot/ubuntu/start-exwm.sh .config/exwm/start-exwm.sh
 # fi
 
 cd $script_dir
@@ -74,14 +74,14 @@ if [[ ! -f ~/.config/i3/config ]] ; then
     mkdir -p .config/i3
     cd .config/i3
     rm -f config
-    ln -s ~/host/code/dot/ubuntu/i3 config
+    ln -s ~/.config/dot/ubuntu/i3 config
 
     rm -f compton.conf
-    ln -s ~/host/code/dot/ubuntu/compton.conf compton.conf
+    ln -s ~/.config/dot/ubuntu/compton.conf compton.conf
 
     mkdir -p ~/.config/rofi
     rm -f ~/.config/rofi/config.rasi
-    ln -s ~/host/code/dot/ubuntu/rofi ~/.config/rofi/config.rasi
+    ln -s ~/.config/dot/ubuntu/rofi ~/.config/rofi/config.rasi
 
 
 

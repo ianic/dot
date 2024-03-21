@@ -10,7 +10,7 @@ if [[ ! -d ~/.config/emacs ]]; then
     ln -s ~/.config/emacs ~/.emacs.d
 
     rm -rf ~/.config/doom
-    ln -s ~/host/code/dot/doom.d.terminal ~/.config/doom
+    ln -s ~/.config/dot/doom.d.terminal ~/.config/doom
     ~/.config/emacs/bin/doom sync
 fi
 
@@ -18,7 +18,7 @@ fi
 if [[ ! -f ~/.config/systemd/user/emacs.service ]]; then
     echo "configure emacs daemon"
     mkdir -p ~/.config/systemd/user
-    ln -s ~/host/code/dot/ubuntu/emacs-snap.service ~/.config/systemd/user/emacs.service
+    ln -s ~/.config/dot/ubuntu/emacs-snap.service ~/.config/systemd/user/emacs.service
 
     # uncomment to enable
     systemctl --user daemon-reload

@@ -4,7 +4,7 @@ sudo apt install -y gcc-13-plugin-dev
 
 # llvm 17
 cd ~/.build
-yes '' | ~/host/code/dot/ubuntu/llvm-update.sh 17 20
+yes '' | ~/.config/dot/ubuntu/llvm-update.sh 17 20
 
 # afl++
 cd ~/.build

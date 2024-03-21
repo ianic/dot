@@ -31,13 +31,13 @@ if [[ ! -f /etc/sudoers.d/ianic ]] ; then
 fi
 
 if [[ ! -f ~/.Xmodmap ]] ; then
-    ln -s ~/host/code/dot/ubuntu/Xmodmap ~/.Xmodmap
+    ln -s ~/.config/dot/ubuntu/Xmodmap ~/.Xmodmap
     xmodmap ~/.Xmodmap
 fi
 
 if [[ ! -f ~/.Xresources ]] ; then
-    ln -s ~/host/code/dot/ubuntu/Xresources ~/.Xresources
+    ln -s ~/.config/dot/ubuntu/Xresources ~/.Xresources
 fi
 
 
-sudo cp ~/host/code/dot/ubuntu/etc-default-keyboard /etc/default/keyboard
+sudo cp ~/.config/dot/ubuntu/etc-default-keyboard /etc/default/keyboard

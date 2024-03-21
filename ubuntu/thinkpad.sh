@@ -19,7 +19,7 @@ else
     git pull
 fi
 
-SCRIPT_DIR=~/host/code/dot/ubuntu/
+SCRIPT_DIR=~/.config/dot/ubuntu/
 cd $SCRIPT_DIR
 
 if [[ ! -f /etc/sudoers.d/ianic ]]; then
@@ -57,10 +57,10 @@ fi
 if [[ ! -f ~/.zshrc ]]; then
     printf "${CN}link my shell configs${NC}\n"
     cd ~
-    ln -s ~/host/code/dot/shell/zshrc .zshrc
-    ln -s ~/host/code/dot/shell/bash_aliases .bash_aliases
-    ln -s ~/host/code/dot/shell/gitconfig .gitconfig
-    ln -s ~/host/code/dot/shell/gitignore .gitignore
+    ln -s ~/.config/dot/shell/zshrc .zshrc
+    ln -s ~/.config/dot/shell/bash_aliases .bash_aliases
+    ln -s ~/.config/dot/shell/gitconfig .gitconfig
+    ln -s ~/.config/dot/shell/gitignore .gitignore
 fi
 
 cd $SCRIPT_DIR

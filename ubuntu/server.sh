@@ -49,10 +49,10 @@ fi
 if [[ ! -f ~/.zshrc ]]; then
     echo "link my shell configs"
     cd ~
-    ln -s ~/host/code/dot/shell/zshrc .zshrc
-    ln -s ~/host/code/dot/shell/bash_aliases .bash_aliases
-    ln -s ~/host/code/dot/shell/gitconfig .gitconfig
-    ln -s ~/host/code/dot/shell/gitignore .gitignore
+    ln -s ~/.config/dot/shell/zshrc .zshrc
+    ln -s ~/.config/dot/shell/bash_aliases .bash_aliases
+    ln -s ~/.config/dot/shell/gitconfig .gitconfig
+    ln -s ~/.config/dot/shell/gitignore .gitignore
 fi
 
 cd $SCRIPT_DIR

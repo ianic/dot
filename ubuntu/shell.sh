@@ -15,16 +15,16 @@ fi
 if [[ ! -f ~/.zshrc ]]; then
     echo "link my shell configs"
     cd ~
-    ln -s ~/host/code/dot/shell/zshrc        .zshrc
-    ln -s ~/host/code/dot/shell/bash_aliases .bash_aliases
-    ln -s ~/host/code/dot/shell/gitconfig    .gitconfig
-    ln -s ~/host/code/dot/shell/gitignore    .gitignore
+    ln -s ~/.config/dot/shell/zshrc        .zshrc
+    ln -s ~/.config/dot/shell/bash_aliases .bash_aliases
+    ln -s ~/.config/dot/shell/gitconfig    .gitconfig
+    ln -s ~/.config/dot/shell/gitignore    .gitignore
 
     mkdir -p ~/.config/i3
-    ln -s ~/host/code/dot/ubuntu/i3 ~/.config/i3/config
+    ln -s ~/.config/dot/ubuntu/i3 ~/.config/i3/config
 
     mkdir -p ~/.config/rofi
-    ln -s ~/host/code/dot/ubuntu/rofi ~/.config/rofi/config.rasi
+    ln -s ~/.config/dot/ubuntu/rofi ~/.config/rofi/config.rasi
     #mkdir -p ~/.config/i3status
     #ln -s /home/ianic/code/dot/ubuntu/i3status ~/.config/i3status/config
 fi

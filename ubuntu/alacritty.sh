@@ -37,6 +37,6 @@ if [ ! -f /usr/local/bin/alacritty ]; then
 
   cd ~
   if [[ ! -f .alacritty.yml ]]; then
-      ln -s ~/host/code/dot/ubuntu/alacritty.yml .alacritty.yml
+      ln -s ~/.config/dot/ubuntu/alacritty.yml .alacritty.yml
   fi
 fi
