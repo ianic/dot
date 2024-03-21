@@ -1,4 +1,9 @@
 #!/bin/bash -e
+#
+# Na novom stroju prvo napravim:
+# $ sudo apt install openssh-server git
+# $ ./copy_ssh_keys.sh ip-address-of-new-server
+# $ mkdir -p .config && cd config && git clone git@github.com:ianic/dot.git
 
 script_dir=$(dirname "${BASH_SOURCE[0]}" )
 source $script_dir/functions.sh
