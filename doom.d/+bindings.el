@@ -1,59 +1,64 @@
-;;; ~/.doom.d/bindings.el -*- lexical-binding: t; -*-
+(unless (display-graphic-p)
+  ;; map terminal keycodes to super (command) key
+  (define-key local-function-key-map "\033[27;1;108~" [(super l )])
+  (define-key local-function-key-map "\033[27;1;112~" [(super p )])
+  (define-key local-function-key-map "\033[27;1;118~" [(super v )])
+  (define-key local-function-key-map "\033[27;1;120~" [(super x )])
+  (define-key local-function-key-map "\033[27;1;122~" [(super z )])
+  (define-key local-function-key-map "\033[27;1;97~"  [(super a )])
+  (define-key local-function-key-map "\033[27;1;91~"  [(super ?\x5B )]) ;; [ is ascii 91 0x5B
+  (define-key local-function-key-map "\033[27;1;93~"  [(super ?\x5D )]) ;; ] is ascii 93 0x5D
+  (define-key local-function-key-map "\033[27;1;79~"  [(super o )])
 
-(define-key local-function-key-map "\033[27;1;108~" [(super l )])
-(define-key local-function-key-map "\033[27;1;112~" [(super p )])
-(define-key local-function-key-map "\033[27;1;118~" [(super v )])
-(define-key local-function-key-map "\033[27;1;120~" [(super x )])
-(define-key local-function-key-map "\033[27;1;122~" [(super z )])
+  (xterm-mouse-mode 1)
+  )
 
 (map!
- ;; window navigation
- "s-]"          (lambda () (interactive) (other-window  1))
- "s-["          (lambda () (interactive) (other-window -1))
+ ;; window navigation with super
+ ;; "s-["          (lambda () (interactive) (other-window -1))
+ ;; "s-]"          (lambda () (interactive) (other-window  1))
 
- "s-{"          (lambda () (interactive) (other-window  1))
- "s-}"          (lambda () (interactive) (other-window -1))
+ ;; "M-s-["        #'windmove-swap-states-left
+ ;; "M-s-]"        #'windmove-swap-states-right
 
- ;; tabs/workspaces navigation
- ;; "s-{"          #'+workspace/switch-left
- ;; "s-}"          #'+workspace/switch-right
+ ;; "M-s-o"        #'occur
 
- ;; "M-["          #'+workspace/switch-left
- ;; "M-]"          #'+workspace/switch-right
+ ;; window navigation with control
+ "<C-lsb>"      (lambda () (interactive) (other-window  -1))
+ "C-]"          (lambda () (interactive) (other-window 1))
 
- ;; "s-1"          #'+workspace/switch-to-0
- ;; "s-2"          #'+workspace/switch-to-1
- ;; "s-3"          #'+workspace/switch-to-2
- ;; "s-4"          #'+workspace/switch-to-3
- ;; "s-5"          #'+workspace/switch-to-4
- ;; "s-6"          #'+workspace/switch-to-5
- ;; "s-9"          #'+workspace/switch-to
- ;; "s-i"          #'lsp-ui-imenu
+ "C-M-["        #'windmove-swap-states-left
+ "C-M-]"        #'windmove-swap-states-right
 
- ;; "M-1"          #'+workspace/switch-to-0
- ;; "M-2"          #'+workspace/switch-to-1
- ;; "M-3"          #'+workspace/switch-to-2
- ;; "M-4"          #'+workspace/switch-to-3
- ;; "M-5"          #'+workspace/switch-to-4
- ;; "M-6"          #'+workspace/switch-to-5
+ ;; prebacio se na i3 pa on ima ovaj keybinding, exwm je disabled
+ ;; "s-}"          #'exwm/workspace-next
+ ;; "s-{"          #'exwm/workspace-previous
 
+ ;; "s-1"          #'winum-select-window-1
+ ;; "s-2"          #'winum-select-window-2
+ ;; "s-3"          #'winum-select-window-3
+ ;; "s-4"          #'winum-select-window-4
+ ;; "s-5"          #'winum-select-window-5
+ ;; "s-6"          #'winum-select-window-6
+
+
+ "C-x <C-m>"    #'execute-extended-command
  "C-x C-m"      #'execute-extended-command
  "C-x m"        #'execute-extended-command
- "M-s-."        #'+lookup/definition-other-window
+ "<C-m>"        #'execute-extended-command
+ ;;"M-s-."        #'+lookup/definition-other-window
+ "C-x C-o"      #'other-window
+ "M-o"          #'other-window
+ ;;"<C-i>"        #'other-window
+ ;; "C-o"          (lambda () (interactive) (other-window  1))
 
-
+ ;; comment line or region; do what I mean
  "C-c ;"        #'comment-dwim
  "C-c C-;"      #'comment-dwim
  "C-;"          #'comment-dwim
 
- "M-;"          #'+company/complete
- "M-'"          #'imenu
- ;; suspended
- ;;"s-f"          #'forward-word
- ;;"s-b"          #'backward-word
- ;; "s-o"          #'+workspace/switch-to
- ;;"C-x e"        #'end-of-buffer
- ;;"C-x t"        #'beginning-of-buffer
+ ;;"M-;"          #'+company/complete
+ ;;"M-i"          #'imenu
 
  ;; copy paste
  "s-z"          #'undo-fu-only-undo
@@ -63,121 +68,55 @@
  "s-a"          #'mark-whole-buffer
 
  ;; like pallete in vscode and warp
- "s-p"          #'find-file ;;+ivy/projectile-find-file
- "s-P"          #'execute-extended-command
+ ;;"s-p"          #'find-file ;;+ivy/projectile-find-file
+ ;;"s-P"          #'execute-extended-command
+ ;;"s-O"          #'imenu
+ ;; "s-w"          #'kill-this-buffer ;; dangerous if I miss a key
 
  "s-0"          #'doom/reset-font-size
+ "s-="          #'doom/increase-font-size
+ "s--"          #'doom/decrease-font-size
+
  "s-r"          #'query-replace
- ;; "C-s"          #'+default/search-buffer
+ "s-l"          #'consult-goto-line
 
- "s-f"          #'+default/search-buffer
- "s-F"          #'+default/search-project
+ "C-c r"        #'query-replace
+ "C-c l"        #'consult-goto-line
 
- "s-E"          #'treemacs-select-window
- "s-O"          #'imenu
+ ;; [s-return]     #'start-ghostty
+ ;; rethink this
+ ;;"s-f"          #'+default/search-buffer
+ ;;"s-F"          #'+default/search-project
+ ;;"s-E"          #'treemacs-select-window   ;; TODO treemacs not active
+
+ ;;; remove smartparens mapping
+ ;;; ref: https://github.com/doomemacs/doomemacs/blob/d509d8bea1ad27ab9b7e9ddca329f494686b336e/modules/config/default/%2Bemacs-bindings.el#L616
+ ;;"C-M-a"           nil
+ ;;"C-M-e"           nil
+ "C-M-f"           #'forward-sexp
+ "C-M-b"           #'backward-sexp
+ "C-M-n"           #'next-sexp
+ "C-M-p"           #'previous-sexp
+ "C-M-u"           #'up-sexp
+ "C-M-d"           #'down-sexp
+ "C-M-k"           #'kill-sexp
+ "C-M-t"           #'transpose-sexp
+ "C-M-<backspace>" #'splice-sexp
  )
 
-(if (eq system-type 'darwin)
-    ;; reference: https://github.com/hlissner/doom-emacs/issues/3952
-    (setq mac-command-modifier       'super
-          ns-command-modifier        'super
-          mac-option-modifier        'meta
-          ns-option-modifier         'meta
-          mac-right-option-modifier  'meta   ;; nil by default
-          ns-right-option-modifier   'meta   ;; nil by default
-          mac-right-command-modifier 'meta
-          )
-  ;; macos specific keybindings
-  ;; from: https://github.com/doomemacs/doomemacs/blob/c44bc81a05f3758ceaa28921dd9c830b9c571e61/modules/config/default/config.el#L298
-  (map! "s-`" #'other-frame  ; fix frame-switching
-        ;; fix OS window/frame navigation/manipulation keys
-        ;; ovaj mi smeta kada fulam desni option i stisnem command
-        ;;"s-w" #'delete-window
-        "s-W" #'delete-frame
-        "s-n" #'+default/new-buffer
-        "s-N" #'make-frame
-        "s-q" (if (daemonp) #'delete-frame #'save-buffers-kill-terminal)
-        "C-s-f" #'toggle-frame-fullscreen
-        ;; Restore somewhat common navigation
-        "s-l" #'goto-line
-        ;; Restore OS undo, save, copy, & paste keys (without cua-mode, because
-        ;; it imposes some other functionality and overhead we don't need)
-        "s-f" (if (modulep! :completion vertico) #'consult-line #'swiper)
-        "s-z" #'undo
-        "s-Z" #'redo
-        "s-c" (if (featurep 'evil) #'evil-yank #'copy-region-as-kill)
-        "s-v" #'yank
-        "s-s" #'save-buffer
-        ;;"s-x" #'execute-extended-command
-        "s-x" #'kill-region
-        ;; Buffer-local font scaling
-        "s-+" #'doom/reset-font-size
-        "s-0" #'doom/reset-font-size
-        "s-=" #'doom/increase-font-size
-        "s--" #'doom/decrease-font-size
-        ;; Conventional text-editing keys & motions
-        "s-a" #'mark-whole-buffer
-        "s-/" (cmd! (save-excursion (comment-line 1)))
-        :n "s-/" #'evilnc-comment-or-uncomment-lines
-        :v "s-/" #'evilnc-comment-operator
-        :gi  [s-backspace] #'doom/backward-kill-to-bol-and-indent
-        :gi  [s-left]      #'doom/backward-to-bol-or-indent
-        :gi  [s-right]     #'doom/forward-to-last-non-comment-or-eol
-        :gi  [M-backspace] #'backward-kill-word
-        :gi  [M-left]      #'backward-word
-        :gi  [M-right]     #'forward-word
-        )
-  )
+(setq doom-localleader-alt-key "C-j")
 
-;; Go hooks
-(defun lsp-go-install-save-hooks ()
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t))
-
-(add-hook! go-mode #'lsp-go-install-save-hooks)
-
-
-;; ;; my private leader key
-(map! "C-z" nil)
-
-;; (require 'general)
-;; (general-create-definer my-leader-def
-;;   :prefix "C-z")
-
-;; (my-leader-def
-;;   ";" 'comment-dwim
-;;   ;; bind nothing but give SPC f a description for which-key
-;;   "r" '(:ignore t :which-key "lsp references")
-;;   "l" '(:ignore t :which-key "local leader")
-;;   "b"  (cmd! (compile "go build"))
-;;   "n" `lsp-rename
-;;   "C-z" `counsel-M-x
-;;   "o" '+workspace/other
-;; )
-
-;; (general-create-definer my-leader-references-def
-;;   :keymaps 'lsp-mode-map
-;;   :prefix "C-z r")
-
-
-;; (my-leader-references-def
-;;   "k" `lsp-ui-peek-find-references
-;;   "r" `lsp-find-references
-;;   "f" `lsp-find-references
-;;   "p" `lsp-ui-find-prev-reference
-;;   "n" `lsp-ui-find-next-reference
-;;  )
-
-;; add zig build flash command, and shortcut
-(defun zig-build-flash ()
-  "Compile and flash microcontroller `zig build flash`."
+(defun start-ghostty ()
+  "Start ghostty terminal"
   (interactive)
-  (zig--run-cmd "build flash"))
+  (start-process-shell-command "ghostty" nil "ghostty")
+  )
 
 (defun zig-test-project ()
   "Run projects tests"
   (interactive)
-  (zig--run-cmd "build" "test"))
+  (zig--run-cmd "build" "test")
+  )
 
 (defun zig-test-single-test ()
   "Run single function test"
@@ -186,13 +125,15 @@
         (old-pnt (point-marker)))
 
     (re-search-backward "^test.*\"\\(.*\\)\".*{")
-    (message "Nearest test function: %s" (match-string 1))
-    (goto-char old-pnt)
-    (setq zig-test-last-test (match-string 1))
-    (zig--run-cmd "test" (buffer-file-name) "--test-filter" (match-string 1) "-O" zig-test-optimization-mode)
+
+    (when-let ((test-name (match-string 1)))
+      (message "Nearest test function: %s" test-name)
+      (setq zig-test-last-test test-name)
+      (zig--run-cmd "test" (buffer-file-name) "--test-filter" test-name "-O" zig-test-optimization-mode)
+      (goto-char old-pnt)
+      )
     )
   )
-
 
 (defun zig-test-run-last-test ()
   "Run last single function test"
@@ -201,32 +142,19 @@
   )
 
 
-(setq doom-localleader-alt-key "C-j")
-
 ;; ref: https://github.com/doomemacs/doomemacs/blob/master/modules/lang/zig/config.el
 (map! :localleader
       :map zig-mode-map
-      :desc "Build"              "b" #'zig-compile
-      :desc "Recompile"          "c" #'recompile
-      :desc "Format buffer"      "f" #'zig-format-buffer
-      :desc "Run"                "x" #'zig-run
-      :desc "Test buffer"        "t" #'zig-test-buffer
-      :desc "Test project"       "p" #'zig-test-project
-      :desc "Test function"      "s" #'zig-test-single-test
+      :desc "Build"         "b" #'zig-compile
+      :desc "Recompile"     "c" #'recompile
+      :desc "Format buffer" "f" #'zig-format-buffer
+      :desc "Run"           "r" #'zig-run
+      :desc "Test buffer"   "t" #'zig-test-buffer
+      :desc "Test project"  "p" #'zig-test-project
+      :desc "Test function" "s" #'zig-test-single-test
       :desc "Test last function" "d" #'zig-test-run-last-test
 
-      :desc "Rename"             "n" #'eglot-rename
-      :desc "Find references"    "r" #'xref-find-references
-
-      ;;:desc "Rename"        "n" #'lsp-rename
-      ;; (:prefix-map ("l" . "lsp")
-      ;;              "p" #'lsp-ui-peek-find-references
-      ;;              "r" #'lsp-find-references
-      ;;              ;;"f" #'lsp-find-references
-      ;;              "[" #'lsp-ui-find-prev-reference
-      ;;              "]" #'lsp-ui-find-next-reference
-      ;;              "n" #'lsp-rename
-      ;;              )
+      :desc "Rename"        "n" #'eglot-rename
       (:prefix-map ("e" . "eglot")
                    "a" #'eglot-code-actions
                    "d" #'eglot-find-declaration
@@ -236,27 +164,19 @@
                    "f" #'eglot-format-buffer
                    "n" #'eglot-rename
                    )
-      ;; "m" #'zig-build-flash
+      ;; :desc "Rename"        "n" #'lsp-rename
+      (:prefix-map ("l" . "lsp")
+                   "p" #'lsp-ui-peek-find-references
+                   "r" #'lsp-find-references
+                   ;;"f" #'lsp-find-references
+                   "[" #'lsp-ui-find-prev-reference
+                   "]" #'lsp-ui-find-next-reference
+                   "n" #'lsp-rename
+                   )
       )
-;; Zig
-(setq zig-return-to-buffer-after-format t)
-(setq zig-format-show-buffer nil)
-(setq lsp-zig-zls-executable "~/.local/bin/zls")
 
-;; Rust
-(setq rustic-test-arguments "--nocapture")
-(setq rustic-default-test-arguments "--benches --tests --all-features -- --nocapture")
-
-(map! :localleader
-      :map ruby-mode-map
-      "r" #'recompile )
-
-;; show which-key faster (default i 1.0 seconds)
-;; ref: https://github.com/doomemacs/doomemacs/issues/1465
-(setq which-key-idle-delay 0.2)
-
-;; fix tooltip with bigger than frame
-(setq company-tooltip-maximum-width 120)
-
-(setq lsp-ui-imenu-buffer-position 'left)
-(setq lsp-ui-imenu-auto-refresh t)
+(map! :after zig-mode
+      :map zig-mode-map
+      "C-M-a" #'zig-beginning-of-defun
+      "C-M-e" #'zig-end-of-defun
+      )

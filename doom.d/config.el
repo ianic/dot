@@ -5,44 +5,58 @@
 
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
-(setq user-full-name "Igor Anić"
-      user-mail-address "igor.anic@gmail.com")
+;; clients, file templates and snippets. It is optional.
+;; (setq user-full-name "John Doe"
+;;       user-mail-address "john@doe.com")
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
+;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;; - `doom-font' -- the primary font to use
+;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
+;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
+;; - `doom-symbol-font' -- for symbols
+;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+;; See 'C-h v doom-font' for documentation and more examples of what they
+;; accept. For example:
+;;
+;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+;;
+;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
+;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
+;; refresh your font settings. If Emacs still can't find your font, it likely
+;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-;; There are two ways to load a themetheme. Both assume the theme is installed and
+;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; Theme gallery: https://github.com/doomemacs/themes/tree/screenshots
-(setq doom-theme 'doom-nord-aurora)
-;;(setq doom-theme 'doom-one-light)
-(doom-themes-visual-bell-config)
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq doom-theme 'doom-nord)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type nil)
 
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+(setq org-directory "~/org/")
 
-(setq dabbrev-case-fold-search nil)
 
-
-;; Here are some additional functions/macros that could help you configure Doom:
+;; Whenever you reconfigure a package, make sure to wrap your config in an
+;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
+;;
+;;   (after! PACKAGE
+;;     (setq x y))
+;;
+;; The exceptions to this rule:
+;;
+;;   - Setting file/directory variables (like `org-directory')
+;;   - Setting variables which explicitly tell you to set them before their
+;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+;;   - Setting doom variables (which start with 'doom-' or '+').
+;;
+;; Here are some additional functions/macros that will help you configure Doom.
 ;;
 ;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package!' for configuring packages
@@ -55,170 +69,118 @@
 ;; To get information about any of these functions/macros, move the cursor over
 ;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
 ;; This will open documentation for it, including demos of how they are used.
+;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+;; etc).
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; reference: https://www.youtube.com/watch?v=Ey54ovJUdQ4
-;; and his config: https://gitlab.com/dwt1/dotfiles/-/blob/master/.doom.d/config.el
+(load! "+bindings.el")
 
-;;(setq doom-font (font-spec :family "SauceCodePro" :size 15)
-(if (eq system-type 'darwin)
-    ;;(setq doom-font "-*-Iosevka Term-semibold-normal-expanded-*-15-*-*-*-m-0-iso10646-1")
-    ;;(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15))
-    (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
-          doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15)
-	  )
-  ;;for Linux retina display
-  ;;(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15))
-  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 31))
-  )
-
+;; Themes
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
+;; italic comments and keywords
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
-
-;; full screen on start
-;;(toggle-frame-fullscreen)
-(load! "+bindings.el")
-
-(setq default-directory "~/code")
-
-;; disable making links of all go import
-(setq lsp-enable-links nil)
-(setq lsp-ui-sideline-diagnostic-max-lines 8)
-(setq lsp-ui-doc-position "top")
-(with-eval-after-load 'lsp-mode
-  (push "[/\\\\]\\tmp\\'" lsp-file-watch-ignored-directories)
-  (push "[/\\\\]\\.terraform\\'" lsp-file-watch-ignored-directories)
-  (push "[/\\\\]\\.state\\'" lsp-file-watch-ignored-directories)
-  (push "[/\\\\]\\fork\\'" lsp-file-watch-ignored-directories)
-
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection "zls")
-                    :major-modes '(zig-mode)
-                    :remote? t
-                    :server-id 'zls-remote))
-
+;; Modeline
+(if (eq system-type 'darwin)
+    (setq doom-modeline-height 35)
+  (setq doom-modeline-height 70)
   )
 
-(setq uniquify-buffer-name-style 'forward)
+(if (eq system-type 'darwin)
+    (setq doom-font (font-spec :family "JetBrains Mono" :size 15) doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15))
+  (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 31)))
 
-(add-hook 'terraform-mode-hook #'terraform-format-on-save-mode)
+;; Zig
+(setq zig-return-to-buffer-after-format t)
+(setq zig-format-show-buffer nil)
+(setq lsp-zig-zls-executable "~/.local/bin/zls")
 
-;; add lookup other window
-;; https://github.com/hlissner/doom-emacs/issues/3397
-(dolist (fn '(definition references))
-  (fset (intern (format "+lookup/%s-other-window" fn))
-        (lambda (identifier &optional arg)
-          "TODO"
-          (interactive (list (doom-thing-at-point-or-region)
-                             current-prefix-arg))
-          (let ((pt (point)))
-            (switch-to-buffer-other-window (current-buffer))
-            (goto-char pt)
-            (funcall (intern (format "+lookup/%s" fn)) identifier arg)))))
-
-
-;;(setq lsp-zig-zls-executable "/usr/local/bin/zls")
-
-;;(add-hook 'zig-mode-hook #'zig-toggle-format-on-save)
-
-
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (set (make-local-variable 'compile-command)
-                 (concat "ruby " buffer-file-name))))
-
-(setq-hook! 'web-mode-hook +format-with :none)
-
+;; Projectile
 (after! projectile
   (mapc (lambda (item)
           (add-to-list 'projectile-globally-ignored-directories item))
         '("^zig-out$" "^zig-cache$")))
 
 
-;; balance windows width on split and close
+;; Balance windows width on split and close
 (advice-add 'split-window-right :after #'balance-windows)
 (advice-add '+workspace/close-window-or-workspace :after #'balance-windows)
 
+;; show which-key faster (default i 1.0 seconds)
+;; ref: https://github.com/doomemacs/doomemacs/issues/1465
+(setq which-key-idle-delay 0.2)
 
+;; exwm window manager
+;; (if (display-graphic-p)
+;;     (load! "exwm.el")
+;;   )
+
+;; mode line is hidden in vterm, making it hard to see which window has focus
+;; this disables hide in all buffers
+;; ref: https://github.com/doomemacs/doomemacs/issues/6209
+(advice-add 'hide-mode-line-mode :around (lambda (orig &optional args) nil))
+
+(load! "dired.el")
+
+(setq isearch-allow-motion t)
+
+;; Display zig compilation below current window
+;; Idea from: https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/
+(set-popup-rule!
+  "^\\*compilation\\*<zig>" ; node dedicated org-roam buffer
+  :side 'bottom :width 0.3 :height 0.4 :ttl nil :modeline nil :quit t :select: nil
+  :actions '(display-buffer-below-selected)
+  )
+
+;; customize theme
 (custom-theme-set-faces! 'doom-nord-aurora
   ;; it was original #D8DEE9 which is almost white
   ;; this is same as comment block
   '(font-lock-doc-face :foreground "#9099AB" :slant italic)
   )
 
+;; Emacs 29 ships with an improved global minor mode for scrolling with a mouse or a touchpad
+(pixel-scroll-precision-mode)
 
 
-;; beframe configuration
-;; ref: https://protesilaos.com/emacs/beframe
-(require 'beframe)
-(beframe-mode 1)
+;; reference:
+;; https://emacsnotes.wordpress.com/2022/09/11/three-bonus-keys-c-i-c-m-and-c-for-your-gui-emacs-all-with-zero-headache/
+(add-hook
+ 'after-make-frame-functions
+ (defun setup-blah-keys (frame)
+   (with-selected-frame frame
+     (when (display-graphic-p) ; don't remove this condition, if you want
+                                        ; terminal Emacs to be usable
+       ;; - When you type `Ctrl-i', Emacs see it as `C-i', and NOT as 'Tab'
+       ;; - When you type `Ctrl-m', Emacs see it as `C-m', and NOT as 'Return'
+       ;; - When you type `Ctrl-[', Emacs see it as `C-lsb', and not as 'Esc'.
+       ;;
+       ;; That is,
+       ;;
+       ;; - `Ctrl-i' and 'Tab' keys are different
+       ;; - `Ctrl-m' and 'Return' keys are different
+       ;; - `Ctrl-[' and 'Esc' keys are different
+       ;;
+       ;; The three C keys are the bonus keys.
+       ;; (define-key input-decode-map (kbd "C-i") [C-i])
+       (define-key input-decode-map (kbd "C-[") [C-lsb]) ; left square bracket
+       (define-key input-decode-map (kbd "C-m") [C-m])
+       ;; You can replace `C-' above with `BLAH-' or
+       ;; `CONTROL-', it doesnt' matter.
+       ;;
+       ;; C is merely a symbol / name; feel free to change
+       ;; it to whatever you like .
+       ;;
+       ;; Found that above remaps tab also, trying different approach.
+       ;; https://stackoverflow.com/questions/4512075/how-to-use-ctrl-i-for-an-emacs-shortcut-without-breaking-tabs
+       ;; Translate the problematic keys to the function key Hyper,
+       ;; then bind this to the desired ctrl-i behavior
+       (keyboard-translate ?\C-i ?\H-i)
+       (global-set-key [?\H-i] 'other-window)
 
-(defvar consult-buffer-sources)
-(declare-function consult--buffer-state "consult")
-
-(with-eval-after-load 'consult
-  (defface beframe-buffer
-    '((t :inherit font-lock-string-face))
-    "Face for `consult' framed buffers.")
-
-  (defvar beframe-consult-source
-    `( :name     "Frame-specific buffers (current frame)"
-       :narrow   ?F
-       :category buffer
-       :face     beframe-buffer
-       :history  beframe-history
-       :items    ,#'beframe-buffer-names
-       :action   ,#'switch-to-buffer
-       :state    ,#'consult--buffer-state))
-
-  )
-
-(if (eq system-type 'darwin)
-    (setq doom-modeline-height 35)
-  (setq doom-modeline-height 70)
-  )
-
-
-;; ref: https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
-(setq treesit-language-source-alist
-      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-        (cmake "https://github.com/uyha/tree-sitter-cmake")
-        (css "https://github.com/tree-sitter/tree-sitter-css")
-        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-        (go "https://github.com/tree-sitter/tree-sitter-go")
-        ;;(gomod "https://github.com/camdencheek/tree-sitter-go-mod")
-        (html "https://github.com/tree-sitter/tree-sitter-html")
-        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-        (json "https://github.com/tree-sitter/tree-sitter-json")
-        (make "https://github.com/alemuller/tree-sitter-make")
-        (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-        (python "https://github.com/tree-sitter/tree-sitter-python")
-        (toml "https://github.com/tree-sitter/tree-sitter-toml")
-        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-        (yaml "https://github.com/ikatyang/tree-sitter-yaml")
-        (zig "https://github.com/maxxnino/tree-sitter-zig")
-        (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
-        )
-      )
-;; to install them all:
-;; (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
-
-(setq major-mode-remap-alist
-      '((yaml-mode . yaml-ts-mode)
-        (bash-mode . bash-ts-mode)
-        (js2-mode . js-ts-mode)
-        (typescript-mode . typescript-ts-mode)
-        (json-mode . json-ts-mode)
-        (css-mode . css-ts-mode)
-        (python-mode . python-ts-mode)
-        (ruby-mode . ruby-ts-mode)
-        (go-mode . go-ts-mode)
-        )
-      )
+       ))))
