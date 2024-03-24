@@ -11,7 +11,8 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     qemu-user-static \
     ruby-full \
     i3 rofi dzen2 feh compton \
-    clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev # za Zig build
+    clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev \
+    libgtk-4-dev libadwaita-1-dev
 
 if [[ ! -d ~/.wasmtime ]]; then
     # wasmtime

@@ -3,7 +3,7 @@
 # Na novom stroju prvo napravim:
 # r$ sudo apt install openssh-server git
 # l$ ./copy_ssh_keys.sh ip-address-of-new-server
-# r$ mkdir -p .config && cd config && git clone git@github.com:ianic/dot.git
+# r$ mkdir -p .config && cd .config && git clone git@github.com:ianic/dot.git
 # r$ ~/.config/dot/ubuntu/desktop.sh
 
 script_dir=$(dirname "${BASH_SOURCE[0]}" )
