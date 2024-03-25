@@ -18,7 +18,7 @@ case $(hostname) in
       xrandr --output Virtual-1 --mode 6720x3780
       ;;
   hydra)
-      setxkbmap -layout us -option "ctrl:nocaps"
+      setxkbmap  -layout "us(mac)" -model "macbook79"  -option "ctrl:nocaps"
       ;;
   *)
       echo else
@@ -31,3 +31,8 @@ feh --bg-scale ~/.config/dot/wallpaper/big_sur_road.jpg
 # Compton
 killall compton
 compton --config ~/.config/i3/compton.conf -b
+
+# Barrier
+# Configuration is in /home/ianic/.local/share/barrier/.barrier.conf
+# logs are visibel with: journalctl -f --user
+/usr/bin/barriers --debug INFO --name hydra --disable-crypto --disable-client-cert-checking
