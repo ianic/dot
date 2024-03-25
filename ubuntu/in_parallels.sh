@@ -17,6 +17,9 @@ case $(hostname) in
       # Monitor resolution
       xrandr --output Virtual-1 --mode 6720x3780
       ;;
+  hydra)
+      setxkbmap -layout us -option "ctrl:nocaps"
+      ;;
   *)
       echo else
       ;;

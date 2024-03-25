@@ -85,15 +85,20 @@
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
+
 ;; Modeline
-(if (eq system-type 'darwin)
-    (setq doom-modeline-height 35)
-  (setq doom-modeline-height 70)
+(if (string-equal (system-name) "io")
+    (setq doom-modeline-height 70) ;; retina display in parallels
+  (setq doom-modeline-height 35)
   )
 
 (if (eq system-type 'darwin)
     (setq doom-font (font-spec :family "JetBrains Mono" :size 15) doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15))
-  (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 31)))
+  (if (string-equal (system-name) "io")
+      (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 31))
+    (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 18))
+    )
+  )
 
 ;; Zig
 (setq zig-return-to-buffer-after-format t)

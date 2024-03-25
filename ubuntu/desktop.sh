@@ -5,6 +5,10 @@
 # l$ ./copy_ssh_keys.sh ip-address-of-new-server
 # r$ mkdir -p .config && cd .config && git clone git@github.com:ianic/dot.git
 # r$ ~/.config/dot/ubuntu/desktop.sh
+#
+# add samba configuration
+# add this host to callisto, add calisto to this /etc/hosts
+# check crontab
 
 script_dir=$(dirname "${BASH_SOURCE[0]}" )
 source $script_dir/functions.sh
