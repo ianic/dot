@@ -180,6 +180,8 @@ bindsym $mod+Shift+i workspace prev
 bindsym Mod1+i focus right
 bindsym Mod1+Shift+i focus left
 
+bindsym $mod+space exec --no-startup-id "rofi -show drun"
+
 ##  Screenshots in files
 bindsym $mod+Shift+3 exec --no-startup-id maim --format=png "/home/$USER/Pictures/screenshot-$(date +'%Y-%m-%d-%H-%M-%S').png"
 bindsym $mod+Shift+4 exec --no-startup-id maim --format=png --select "/home/$USER/Pictures/screenshot-$(date +'%Y-%m-%d-%H-%M-%S').png"

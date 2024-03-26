@@ -15,7 +15,7 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     libgtk-4-dev libadwaita-1-dev \
     maim xclip copyq
 
-if [[ !1 -d ~/.wasmtime ]]; then
+if [[ ! -d ~/.wasmtime ]]; then
     # wasmtime
     curl https://wasmtime.dev/install.sh -sSf | bash
 fi

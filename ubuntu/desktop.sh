@@ -72,3 +72,18 @@ if [ $(hostname) = "io" ]; then
         sudo glib-compile-schemas /usr/share/glib-2.0/schemas
     fi
 fi
+
+# I removed snap because of ~/snap folder
+# ref: https://askubuntu.com/questions/1035915/how-to-remove-snap-from-ubuntu/1114686#1114686
+sudo rm -rf /var/cache/snapd/
+sudo apt autoremove -y --purge snapd gnome-software-plugin-snap
+rm -fr ~/snap
+sudo apt-mark hold snapd
+
+
+# Install Chrome
+cd ~/Download
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install -y ./google-chrome-stable_current_amd64.deb
+
+# Dodao sam .config/zls.json
