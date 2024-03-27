@@ -1,7 +1,7 @@
 font-size = 14
 
 copy-on-select = true
-gtk-titlebar = false
+gtk-titlebar = true
 # macos-option-as-alt = true
 shell-integration-features = sudo
 

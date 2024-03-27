@@ -2,8 +2,16 @@
 
 root=ianic@callisto:/Users/ianic/backups/linux/$(hostname)
 
-echo backup ~/zig
-rsync -av --delete --exclude zig-out/ --exclude zig-cache/ --exclude issues --exclude build  ~/zig $root
+echo backup ~/Code
+rsync -rlpiv --delete \
+    --exclude zig-out \
+    --exclude zig-cache \
+    --exclude issues \
+    --exclude build \
+    --exclude try \
+    --exclude zig-global-cache-master \
+    --exclude zig-global-cache-release \
+    ~/Code $root
 
-echo backup ~/go
-rsync -av --delete --exclude zig-out/ --exclude zig-cache/ --filter=':- .gitignore' ~/go/src $root/go
+#echo backup ~/go
+#rsync -av --delete --exclude zig-out/ --exclude zig-cache/ --filter=':- .gitignore' ~/go/src $root/go

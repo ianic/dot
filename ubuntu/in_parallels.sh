@@ -34,6 +34,8 @@ case $(hostname) in
       setxkbmap -layout "us(mac)" -model "macbook79" -option "ctrl:nocaps"
       # Fix right alt, must be after setxkbmap
       xmodmap .config/dot/ubuntu/hydra/Xmodmap
+
+      # /usr/libexec/gsd-xsettings &
       ;;
   *)
       echo else
