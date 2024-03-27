@@ -9,4 +9,4 @@ setxkbmap -layout "us(mac)" -model "macbook79" -option "ctrl:nocaps"
 xmodmap .config/dot/ubuntu/hydra/Xmodmap
 
 # Start barrier server
-/usr/bin/barriers --debug INFO --name hydra --disable-crypto --disable-client-cert-checking
+/usr/bin/barriers --debug INFO --name hydra --disable-crypto --disable-client-cert-checking --config ~/.config/dot/ubuntu/barrier.conf

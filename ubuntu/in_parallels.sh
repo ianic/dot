@@ -45,4 +45,4 @@ esac
 # Barrier
 # Configuration is in /home/ianic/.local/share/barrier/.barrier.conf
 # logs are visibel with: journalctl -f --user
-/usr/bin/barriers --debug INFO --name hydra --disable-crypto --disable-client-cert-checking
+/usr/bin/barriers --debug INFO --name hydra --disable-crypto --disable-client-cert-checking --config ~/.config/dot/ubuntu/barrier.conf
