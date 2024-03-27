@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=
+GenericName=
+Comment=
+Exec=/home/ianic/.config/dot/ubuntu/gnome/setup.sh
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true

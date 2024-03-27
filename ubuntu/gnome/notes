@@ -1,0 +1,17 @@
+
+Super da nije aktivan, da mi ga ostavi za druge aplikcije.
+Inace prebacivanje tabova u ghostty zavisi koju tipku prvu stisnem shift ili command:
+
+https://askubuntu.com/questions/1121056/change-key-that-launches-dash-in-ubuntu-18-04
+
+Prebacio sam ju na Super-Space ovako:
+$ gsettings set org.gnome.shell.keybindings toggle-overview "['<Super>Space']"
+$ gsettings set org.gnome.mutter overlay-key ''
+
+$ dconf dump / > .config/dot/ubuntu/gnome/dconf-custom.conf
+
+dodao sam autostart skriptu
+
+cd ~/.config/autostart
+rm setup.desktop
+ln -s ~/.config/dot/ubuntu/gnome/setup.desktop
