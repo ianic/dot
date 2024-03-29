@@ -189,3 +189,5 @@
        (global-set-key [?\H-i] 'other-window)
 
        ))))
+
+;; (setq default-directory "~/Code/" )
