@@ -143,7 +143,8 @@
 
 
 ;; ref: https://github.com/doomemacs/doomemacs/blob/master/modules/lang/zig/config.el
-(map! :localleader
+(map! :after zig-mode
+      :localleader
       :map zig-mode-map
       :desc "Build"              "b" #'zig-compile
       :desc "Recompile"          "c" #'recompile
@@ -157,6 +158,9 @@
       :desc "Rename"             "n" #'eglot-rename
       :desc "Find references"    "r" #'xref-find-references
 
+      ;; :desc "Beginning of defun" "a" #'zig-beginning-of-defun
+      ;; :desc "End of defun"       "e" #'zig-end-of-defun
+
       (:prefix-map ("e" . "eglot")
                    "a" #'eglot-code-actions
                    "d" #'eglot-find-declaration
@@ -166,15 +170,6 @@
                    "f" #'eglot-format-buffer
                    "n" #'eglot-rename
                    )
-      ;; :desc "Rename"        "n" #'lsp-rename
-      ;; (:prefix-map ("l" . "lsp")
-      ;;              "p" #'lsp-ui-peek-find-references
-      ;;              "r" #'lsp-find-references
-      ;;              ;;"f" #'lsp-find-references
-      ;;              "[" #'lsp-ui-find-prev-reference
-      ;;              "]" #'lsp-ui-find-next-reference
-      ;;              "n" #'lsp-rename
-      ;;              )
       )
 
 (map! :after zig-mode
