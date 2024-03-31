@@ -10,16 +10,10 @@
 # add this host to callisto, add calisto to this /etc/hosts
 # check crontab
 
-script_dir=$(dirname "${BASH_SOURCE[0]}" )
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source $script_dir/functions.sh
 
 $script_dir/server.sh
-
-if [[ -d ~/Videos ]]; then
-    echo "remove home folder clutter"
-    cd ~
-    rm -rf Desktop Documents Downloads Music Pictures Public Templates Videos
-fi
 
 if [[ ! -d ~/.fonts ]]; then
     echo "install fonts"
@@ -42,22 +36,12 @@ if [[ ! -d ~/.fonts ]]; then
     sudo apt install fonts-firacode
 fi
 
-
 # emacs
 $script_dir/build-emacs.sh
 $script_dir/emacs.sh
 
-if [[ ! -f ~/.config/i3/config ]] ; then
-    # i3
-    link ~/.config/dot/ubuntu/i3               ~/.config/i3/config
-    link ~/.config/dot/ubuntu/compton.conf     ~/.config/i3/compton.conf
-    # rofi
-    link ~/.config/dot/ubuntu/rofi/config.rasi ~/.config/rofi/config.rasi
-    link ~/.config/dot/ubuntu/rofi/themes      ~/.local/share/rofi/themes
-fi
-
+# parallels specific
 if [ $(hostname) = "io" ]; then
-
     if [[ ! -f ~/.Xmodmap ]] ; then
         link ~/.config/dot/ubuntu/Xresources ~/.Xresources
         sudo cp ~/.config/dot/ubuntu/etc-default-keyboard /etc/default/keyboard
@@ -73,17 +57,6 @@ if [ $(hostname) = "io" ]; then
     fi
 fi
 
-# I removed snap because of ~/snap folder
-# ref: https://askubuntu.com/questions/1035915/how-to-remove-snap-from-ubuntu/1114686#1114686
-sudo rm -rf /var/cache/snapd/
-sudo apt autoremove -y --purge snapd gnome-software-plugin-snap
-rm -fr ~/snap
-sudo apt-mark hold snapd
 
-
-# Install Chrome
-cd ~/Download
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
 # Dodao sam .config/zls.json

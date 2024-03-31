@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-script_dir=$(dirname "${BASH_SOURCE[0]}" ) # this script dir
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source $script_dir/functions.sh
 
 git_clone git@github.com:mitchellh/ghostty.git ~/.build/ghostty

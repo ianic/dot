@@ -4,7 +4,7 @@
 # execute:
 # /media/psf/Home/code/dot/ubuntu/server.sh
 
-script_dir=$(dirname "${BASH_SOURCE[0]}" ) # this script dir
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source $script_dir/functions.sh
 
 if [[ ! -d ~/host ]] && [[ -d /media/psf/Home ]]; then
@@ -13,7 +13,7 @@ if [[ ! -d ~/host ]] && [[ -d /media/psf/Home ]]; then
     link /media/psf/Home/code ~/code
 fi
 
-if [[ ! -f ~/.ssh/id_rsa ]]; then
+if [[ ! -f ~/.ssh/id_rsa ]] && [[ -d ~/hosts ]] ; then
     echo "copy my ssh keys"
     cd ~
     mkdir -p .ssh
@@ -33,7 +33,7 @@ fi
 
 # zsh configuration
 if [[ ! -d ~/.oh-my-zsh ]]; then
-    echo "install zsh"
+    echo "install zsh and oh-my-zsh"
     sudo -E apt install -y zsh git
     # set zsh as default shell
     sudo -E usermod --shell /usr/bin/zsh ianic
@@ -56,12 +56,6 @@ fi
 echo "install packages"
 $script_dir/packages.sh
 
-echo "install zig"
-sudo update-ca-certificates
-$script_dir/zig.sh
-$script_dir/fuzzing_stack.sh
-$script_dir/ghostty.sh
-
 if ! crontab -l ; then
     echo "adding crontab"
     tmpfile=$(mktemp /tmp/crontab-XXXXXX); echo $tmpfile;
@@ -69,3 +63,5 @@ if ! crontab -l ; then
     crontab $tmpfile
     rm $tmpfile
 fi
+
+
