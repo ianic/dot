@@ -3,12 +3,10 @@
 root=ianic@callisto:/Users/ianic/backups/linux/$(hostname)
 
 echo backup ~/Code
-rsync -rlpiv --delete \
+rsync -rlptiv --delete \
     --exclude zig-out \
     --exclude zig-cache \
-    --exclude issues \
     --exclude build \
-    --exclude try \
     --exclude zig-global-cache-master \
     --exclude zig-global-cache-release \
     ~/Code $root
