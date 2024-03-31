@@ -18,9 +18,8 @@ if [[ ! -d ~/.wasmtime ]]; then
     curl https://wasmtime.dev/install.sh -sSf | bash
 fi
 
-
+# eza
 if [[ ! -f /etc/apt/keyrings/gierens.gpg ]]; then
-    # eza install
     # ref: https://github.com/eza-community/eza/blob/main/INSTALL.md
     sudo mkdir -p /etc/apt/keyrings
     wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
@@ -36,12 +35,3 @@ if [ ! -x "$(command -v watchexec)" ]; then
     sudo apt install ./watchexec-1.25.1-x86_64-unknown-linux-gnu.deb
     rm watchexec-1.25.1-x86_64-unknown-linux-gnu.deb
 fi
-
-# Note for Ubuntu 24.04 development version
-# Needed to update: /etc/apt/sources.list.d/archive_uri-http_apt_llvm_org_noble_-noble.list to:
-#
-# $ cat /etc/apt/sources.list.d/archive_uri-http_apt_llvm_org_noble_-noble.list
-# deb [trusted=yes] http://apt.llvm.org/noble/ llvm-toolchain-noble main
-# # deb-src http://apt.llvm.org/noble/ llvm-toolchain-noble-17 main
-#
-# Because update was failing.
