@@ -12,32 +12,34 @@ rsync -rlpDi \
     --exclude zig-cache --exclude zig-out \
     --exclude build --exclude .git \
     --exclude tmp --exclude .DS_Store \
+    --exclude zig-global-cache-master \
+    --exclude zig-global-cache-release \
     ~/Code/zig-fetch-test/ callisto:/Users/ianic/code/$(hostname)/zig-fetch-test
 
 
 
 
-echo Windows
+# echo Windows
 
-sudo mount -t cifs -o username=ianic,dir_mode=0777,file_mode=0777 //172.16.145.128/Users/igora/Code /media/win_code || true
+# sudo mount -t cifs -o username=ianic,dir_mode=0777,file_mode=0777 //172.16.145.128/Users/igora/Code /media/win_code || true
 
-# # sudo mount -t cifs -o username=ianic,dir_mode=0777,file_mode=0777 //10.211.55.27/code /media/win_code
+# # # sudo mount -t cifs -o username=ianic,dir_mode=0777,file_mode=0777 //10.211.55.27/code /media/win_code
 
-rsync -ri \
-    --exclude zig-cache --exclude zig-out \
-    --exclude build --exclude .git \
-    --exclude tmp --exclude .DS_Store \
-    --exclude zig-global-cache-master \
-    --exclude zig-global-cache-release \
-    --exclude sample\ \
-    ~/Code/zig-fetch-test/ /media/win_code/zig-fetch-test
+# rsync -ri \
+#     --exclude zig-cache --exclude zig-out \
+#     --exclude build --exclude .git \
+#     --exclude tmp --exclude .DS_Store \
+#     --exclude zig-global-cache-master \
+#     --exclude zig-global-cache-release \
+#     --exclude sample\ \
+#     ~/Code/zig-fetch-test/ /media/win_code/zig-fetch-test
 
-rsync -ri \
-    --exclude zig-cache --exclude zig-out \
-    --exclude build --exclude .git \
-    --exclude tmp --exclude .DS_Store \
-    ~/Code/zig/ /media/win_code/zig
-
+# rsync -ri \
+#     --exclude zig-cache --exclude zig-out \
+#     --exclude build --exclude .git \
+#     --exclude tmp --exclude .DS_Store \
+#     ~/Code/zig/ /media/win_code/zig
+=
 
 
 
