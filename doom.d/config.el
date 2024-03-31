@@ -137,7 +137,7 @@
 ;; Display zig compilation below current window
 ;; Idea from: https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/
 (set-popup-rule!
-  "^\\*compilation\\*<zig>" ; node dedicated org-roam buffer
+  "^\\*compilation\\*" ; node dedicated org-roam buffer
   :side 'bottom :width 0.3 :height 0.4 :ttl nil :modeline nil :quit t :select: nil
   :actions '(display-buffer-below-selected)
   )
