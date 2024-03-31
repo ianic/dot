@@ -10,13 +10,11 @@ sudo -E apt install -y curl net-tools unzip make build-essential \
     gdb hyperfine emacs-nox libtool libtool-bin \
     qemu-user-static \
     ruby-full \
-    i3 rofi dzen2 feh compton \
     clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev \
-    libgtk-4-dev libadwaita-1-dev \
-    maim xclip copyq
+    libgtk-4-dev libadwaita-1-dev 
 
+# wasmtime
 if [[ ! -d ~/.wasmtime ]]; then
-    # wasmtime
     curl https://wasmtime.dev/install.sh -sSf | bash
 fi
 
@@ -32,12 +30,18 @@ if [[ ! -f /etc/apt/keyrings/gierens.gpg ]]; then
     sudo apt install -y eza
 fi
 
+# watchexec file system watcher
+if [ ! -x "$(command -v watchexec)" ]; then
+    wget https://github.com/watchexec/watchexec/releases/download/v1.25.1/watchexec-1.25.1-x86_64-unknown-linux-gnu.deb
+    sudo apt install ./watchexec-1.25.1-x86_64-unknown-linux-gnu.deb
+    rm watchexec-1.25.1-x86_64-unknown-linux-gnu.deb
+fi
 
-# Note.
+# Note for Ubuntu 24.04 development version
 # Needed to update: /etc/apt/sources.list.d/archive_uri-http_apt_llvm_org_noble_-noble.list to:
 #
 # $ cat /etc/apt/sources.list.d/archive_uri-http_apt_llvm_org_noble_-noble.list
 # deb [trusted=yes] http://apt.llvm.org/noble/ llvm-toolchain-noble main
 # # deb-src http://apt.llvm.org/noble/ llvm-toolchain-noble-17 main
 #
-# Vecause update was failing.
+# Because update was failing.
