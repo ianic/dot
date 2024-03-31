@@ -65,9 +65,9 @@ function cd-git-root() {
 
 alias cdr="cd-git-root"
 #alias cdc="cd ~/code"
-#alias cdd="cd ~/code/dot"
+alias cdd="cd ~/.config/dot/ubuntu"
 
 # Zig shortcuts
 alias zb="zig build"
 alias zbf="zig build -Doptimize=ReleaseFast"
-alias cdz="cd ~/zig/zig"
+alias cdz="cd ~/Code/zig"
