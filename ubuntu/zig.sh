@@ -12,6 +12,7 @@ stable_version=0.11.0
 stable=$(curl -s https://ziglang.org/download/index.json | jq ".\"$stable_version\".\"$arch\".tarball" -r)
 # find the latest build
 latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"$arch\".tarball" -r)
+# specific=https://ziglang.org/builds/zig-linux-x86_64-0.12.0-dev.3434+e90583f5d.tar.xz
 
 urls=("$stable" "$latest")
 for url in "${urls[@]}"; do
