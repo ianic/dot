@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+source $script_dir/functions.sh
+
 #installs zig into /usr/local/bin
 #works for Linux and macOS arm machines
 
@@ -44,9 +47,7 @@ zig build -Doptimize=ReleaseSafe
 mkdir -p ~/.local/bin
 rm ~/.local/bin/zls || true
 cp ./zig-out/bin/zls ~/.local/bin
-# ovo je interactive
-# ./zig-out/bin/zls config # Configure ZLS
-# [[ -f ~/zls.json ]] || echo '{"zig_exe_path":"/usr/local/bin/zig","enable_snippets":true,"warn_style":true,"enable_semantic_tokens":true,"operator_completions":true,"include_at_in_builtins":false,"max_detail_length":1048576}' > ~/zls.json
+link ~/.config/dot/ubuntu/zls.json ~/.config/
 
 echo "after zig version: $(zig version)"
 
