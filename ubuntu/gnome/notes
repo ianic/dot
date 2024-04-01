@@ -8,7 +8,9 @@ Prebacio sam ju na Super-Space ovako:
 $ gsettings set org.gnome.shell.keybindings toggle-overview "['<Super>Space']"
 $ gsettings set org.gnome.mutter overlay-key ''
 
-$ dconf dump / > .config/dot/ubuntu/gnome/dconf-custom.conf
+$ dconf dump / > ~/.config/dot/ubuntu/gnome/dconf-custom.conf
+to load:
+$  dconf load / < dconf-custom.conf
 
 dodao sam autostart skriptu
 
