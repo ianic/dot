@@ -12,6 +12,7 @@ if [[ ! -d ~/.config/emacs ]]; then
     rm -rf ~/.config/doom
     ln -s ~/.config/dot/doom.d ~/.config/doom
     ~/.config/emacs/bin/doom sync
+    ~/.config/emacs/bin/doom env
 fi
 
 # start emacs daemon

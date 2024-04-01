@@ -47,7 +47,9 @@ zig build -Doptimize=ReleaseSafe
 mkdir -p ~/.local/bin
 rm ~/.local/bin/zls || true
 cp ./zig-out/bin/zls ~/.local/bin
-link ~/.config/dot/ubuntu/zls.json ~/.config/
+link ~/.config/dot/ubuntu/zls.json ~/.config/.zls.json
+# reload zls in emacs
+killall zls
 
 echo "after zig version: $(zig version)"
 
@@ -61,3 +63,18 @@ echo "after zig version: $(zig version)"
 # zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target arm-linux-musleabihf --test-cmd qemu-arm-static   --test-cmd-bin  --test-filter "tar "
 # zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target arm-linux-none       --test-cmd qemu-arm-static   --test-cmd-bin  --test-filter "tar "
 #
+
+
+cd ~/Code/zig/build2
+ninja install
+stage3/bin/zig build -p stage4 -Denable-llvm -Doptimize=ReleaseFast # -Dno-lib
+
+version=$(stage4/bin/zig version)
+dir=/usr/local/zig/master-$version
+if [[ -d $dir ]]; then
+    sudo rm -rf $dir
+fi
+sudo mv stage4 $dir
+
+sudo rm -f /usr/local/bin/zig
+sudo ln -s $dir/bin/zig /usr/local/bin/
