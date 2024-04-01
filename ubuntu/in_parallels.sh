@@ -22,6 +22,20 @@ case $(hostname) in
       xmodmap -e 'keycode 107 = Alt_R Meta_R Alt_R Meta_R'
       ;;
   io)
+    if [[ ! -f ~/.Xmodmap ]] ; then
+        link ~/.config/dot/ubuntu/Xresources ~/.Xresources
+        sudo cp ~/.config/dot/ubuntu/etc-default-keyboard /etc/default/keyboard
+        sudo cp ~/.config/dot/ubuntu/01-fixkeyboard       /etc/dconf/db/ibus.d/
+    fi
+
+    # fix Ubuntu login screen scaling
+    # fails with [org.gnome.desktop.interface]\nscaling-factor=2\n/usr/share/glib-2.0/schemas/93_hidpi.gschema.override: Key file does not start with a group.  Ignoring this file.
+    dpi_fix=/usr/share/glib-2.0/schemas/93_hidpi.gschema.override
+    if [[ ! -f  $dpi_fix ]]; then
+        echo "[org.gnome.desktop.interface]\nscaling-factor=2" | sudo tee -a $dpi_fix
+        sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+    fi
+
       setxkbmap  -layout "us" -model "macbook79"  -option "ctrl:nocaps"
       # Monitor resolution
       xrandr --output Virtual-1 --mode 6720x3780

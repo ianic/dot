@@ -51,6 +51,8 @@ if [[ ! -f ~/.zshrc ]]; then
     link ~/.config/dot/shell/bash_aliases ~/.bash_aliases
     link ~/.config/dot/shell/gitconfig    ~/.gitconfig
     link ~/.config/dot/shell/gitignore    ~/.gitignore
+
+    link ~/.config/dot/ubuntu/gnome/setup.desktop ~/.config/autostart/setup.desktop
 fi
 
 echo "install packages"

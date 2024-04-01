@@ -52,3 +52,7 @@ if [[ ! -f google-chrome-stable_current_amd64.deb ]]; then
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     sudo apt install -y ./google-chrome-stable_current_amd64.deb
 fi
+
+echo "install emacs"
+$script_dir/build-emacs.sh
+$script_dir/emacs.sh

@@ -1,8 +1,15 @@
 font-size = 14
+font-family = JetBrainsMono Nerd Font Mono
 
-copy-on-select = true
-gtk-titlebar = true
-shell-integration-features = sudo
+background-opacity = 0.95
+background-blur-radius = 20
+macos-non-native-fullscreen = visible-menu
+macos-option-as-alt = left
+mouse-hide-while-typing = true
+
+#copy-on-select = true
+#gtk-titlebar = true
+#shell-integration-features = sudo
 
 keybind = super+left_bracket=goto_split:previous
 keybind = super+right_bracket=goto_split:next

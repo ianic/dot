@@ -35,28 +35,3 @@ if [[ ! -d ~/.fonts ]]; then
     fc-cache -fv
     sudo apt install fonts-firacode
 fi
-
-# emacs
-$script_dir/build-emacs.sh
-$script_dir/emacs.sh
-
-# parallels specific
-if [ $(hostname) = "io" ]; then
-    if [[ ! -f ~/.Xmodmap ]] ; then
-        link ~/.config/dot/ubuntu/Xresources ~/.Xresources
-        sudo cp ~/.config/dot/ubuntu/etc-default-keyboard /etc/default/keyboard
-        sudo cp ~/.config/dot/ubuntu/01-fixkeyboard       /etc/dconf/db/ibus.d/
-    fi
-
-    # fix Ubuntu login screen scaling
-    # fails with [org.gnome.desktop.interface]\nscaling-factor=2\n/usr/share/glib-2.0/schemas/93_hidpi.gschema.override: Key file does not start with a group.  Ignoring this file.
-    dpi_fix=/usr/share/glib-2.0/schemas/93_hidpi.gschema.override
-    if [[ ! -f  $dpi_fix ]]; then
-        echo "[org.gnome.desktop.interface]\nscaling-factor=2" | sudo tee -a $dpi_fix
-        sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-    fi
-fi
-
-
-
-# Dodao sam .config/zls.json
