@@ -21,3 +21,7 @@ ln -s ~/.config/dot/ubuntu/gnome/setup.desktop
 # Iskljucio sam cmd-shift-{num} koji me je nervirao kada krenem na screen shot
 # reference: https://askubuntu.com/questions/968103/disable-the-default-app-key-supernum-functionality-on-ubuntu-17-10-and-later
 for i in $(seq 1 10);  dconf write /org/gnome/shell/extensions/dash-to-dock/app-shift-hotkey-$i "['']"
+
+# A ova dva su bila namjestena na Super+q pa mi dolaze u koliziju s onim sto sam ja namjestio
+dconf write /org/gnome/shell/extensions/dash-to-dock/shortcut "['']"
+dconf write /org/gnome/shell/extensions/dash-to-dock/shortcut-text "''"
