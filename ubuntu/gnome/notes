@@ -25,3 +25,25 @@ for i in $(seq 1 10);  dconf write /org/gnome/shell/extensions/dash-to-dock/app-
 # A ova dva su bila namjestena na Super+q pa mi dolaze u koliziju s onim sto sam ja namjestio
 dconf write /org/gnome/shell/extensions/dash-to-dock/shortcut "['']"
 dconf write /org/gnome/shell/extensions/dash-to-dock/shortcut-text "''"
+
+# Na kraju iskljucio sve te dash shortcuts:
+https://askubuntu.com/questions/968103/disable-the-default-app-key-supernum-functionality-on-ubuntu-17-10-and-later
+
+gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
+
+
+# Postavljenje shortcuts s keyd
+References:
+https://medium.com/@canadaduane/key-remapping-in-linux-2021-edition-47320999d2aa
+https://github.com/canadaduane/my-pop-os-conf/blob/main/keyboard/keyd/app.conf
+https://github.com/rvaiya/keyd
+
+Moje konfiguracije su u ubuntu/keyd, linkam ih na prava mjesta:
+
+ln -s ~/.config/dot/ubuntu/keyd/app.conf ~/.config/keyd/app.conf
+sudo ln -s ~/.config/dot/ubuntu/keyd/default.conf /etc/keyd/
+
+sudo systemctl enable keyd && sudo systemctl restart keyd &&  setxkbmap -layout "us(mac)" -model "macbook79"
+
+To find application class use:
+$ xprop | grep "WM_CLASS(STRING)"
