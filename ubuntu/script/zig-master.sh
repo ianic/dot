@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-source $script_dir/functions.sh
+source $script_dir/../functions.sh
 
 echo "before zig version: $(zig version)"
 

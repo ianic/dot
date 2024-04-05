@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-source $script_dir/functions.sh
+source $script_dir/../functions.sh
 
 #installs zig into /usr/local/bin
 #works for Linux and macOS arm machines
@@ -63,18 +63,3 @@ echo "after zig version: $(zig version)"
 # zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target arm-linux-musleabihf --test-cmd qemu-arm-static   --test-cmd-bin  --test-filter "tar "
 # zig test  lib/std/std.zig  --zig-lib-dir lib --main-mod-path lib/std  -target arm-linux-none       --test-cmd qemu-arm-static   --test-cmd-bin  --test-filter "tar "
 #
-
-
-cd ~/Code/zig/build2
-ninja install
-stage3/bin/zig build -p stage4 -Denable-llvm -Doptimize=ReleaseFast # -Dno-lib
-
-version=$(stage4/bin/zig version)
-dir=/usr/local/zig/master-$version
-if [[ -d $dir ]]; then
-    sudo rm -rf $dir
-fi
-sudo mv stage4 $dir
-
-sudo rm -f /usr/local/bin/zig
-sudo ln -s $dir/bin/zig /usr/local/bin/
