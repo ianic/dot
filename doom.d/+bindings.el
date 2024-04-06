@@ -15,32 +15,24 @@
 
 (map!
  ;; window navigation with super
- ;; "s-["          (lambda () (interactive) (other-window -1))
- ;; "s-]"          (lambda () (interactive) (other-window  1))
+ "s-{"          (lambda () (interactive) (other-window -1))
+ "s-}"          (lambda () (interactive) (other-window  1))
 
- ;; "M-s-["        #'windmove-swap-states-left
- ;; "M-s-]"        #'windmove-swap-states-right
+ "M-s-["        #'windmove-swap-states-left
+ "M-s-]"        #'windmove-swap-states-right
 
- ;; "M-s-o"        #'occur
+ "M-s-o"        #'occur
+
+ ;; cmd-shift-{ / cmd-shift-} is mapped to control-tab / control-shift-tab system wide
+ ;; so this is: s-{ s-}
+ "C-<iso-lefttab>"  (lambda () (interactive) (other-window  -1))
+ "C-<tab>"          (lambda () (interactive) (other-window 1))
 
  ;; window navigation with control
- "<C-lsb>"      (lambda () (interactive) (other-window  -1))
- "C-]"          (lambda () (interactive) (other-window 1))
-
- "C-M-["        #'windmove-swap-states-left
- "C-M-]"        #'windmove-swap-states-right
-
- ;; prebacio se na i3 pa on ima ovaj keybinding, exwm je disabled
- ;; "s-}"          #'exwm/workspace-next
- ;; "s-{"          #'exwm/workspace-previous
-
- ;; "s-1"          #'winum-select-window-1
- ;; "s-2"          #'winum-select-window-2
- ;; "s-3"          #'winum-select-window-3
- ;; "s-4"          #'winum-select-window-4
- ;; "s-5"          #'winum-select-window-5
- ;; "s-6"          #'winum-select-window-6
-
+ ;; "<C-lsb>"      (lambda () (interactive) (other-window  -1))
+ ;; "C-]"          (lambda () (interactive) (other-window 1))
+ ;; "C-M-["        #'windmove-swap-states-left
+ ;; "C-M-]"        #'windmove-swap-states-right
 
  "C-x <C-m>"    #'execute-extended-command
  "C-x C-m"      #'execute-extended-command
