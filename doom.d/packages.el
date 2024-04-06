@@ -50,6 +50,8 @@
                                         ;(unpin! t)
 
 ;; (package! exwm)
-;;
+
+
+;; Call doom sync -u when you change this hashs
 (unpin! zig-mode)
-(package! zig-mode :pin "b6f5375efeb97026410190f352f1044214fa0289b6f5375efeb97026410190f352f1044214fa0")
+(package! zig-mode :pin "a0ab9636b8b2560a4b1fa3bd83582a706b9ce190")

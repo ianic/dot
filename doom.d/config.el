@@ -96,7 +96,7 @@
     (setq doom-font (font-spec :family "JetBrains Mono" :size 15) doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15))
   (if (string-equal (system-name) "io")
       (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 31))
-    (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 18))
+    (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 16))
     )
   )
 
