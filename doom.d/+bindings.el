@@ -71,6 +71,7 @@
 
  "s-r"          #'query-replace
  "s-l"          #'consult-goto-line
+ "s-t"          #'+vterm/here
 
  "C-c r"        #'query-replace
  "C-c l"        #'consult-goto-line
@@ -168,4 +169,16 @@
       :map zig-mode-map
       "C-M-a" #'zig-beginning-of-defun
       "C-M-e" #'zig-end-of-defun
+      )
+
+(map! :after vterm
+      :map vterm-mode-map
+      "s-k" #'vterm-clear
+      )
+
+;; Disable C-tab in magit
+;; https://emacs.stackexchange.com/questions/24903/disable-c-tab-in-magit-mode
+(map! :after magit
+      :map magit-mode-map
+      "C-<tab>" nil
       )
