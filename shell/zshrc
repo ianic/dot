@@ -1,5 +1,4 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -153,11 +152,12 @@ source $ZSH/oh-my-zsh.sh
 
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 [[ -f ~/.secrets ]] && source ~/.secrets
-export PATH=~/go/bin:~/.local/bin:$PATH
 export DEFAULT_USER=ianic
 export EDITOR="emacs"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+   export PATH=~/go/bin:~/.local/bin:$PATH
+
    # set homebrew env variables
    eval "$(/opt/homebrew/bin/brew shellenv)"
    # prepend go path to be before homebrew go
@@ -208,7 +208,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
    export SPACESHIP_HOST_PREFIX="\uebc6 "                # linux
    export SPACESHIP_HOST_PREFIX="\uf31b "                # ubuntu
    export SPACESHIP_HOST_PREFIX="%{%B%F{green}%}\uf31b " # ubuntu in color
-   export PATH=$PATH:/usr/local/go/bin
+   #export PATH=$PATH:/usr/local/go/bin
 fi
 
 fpath=(~/.oh-my-zsh/custom/plugins/zig "${fpath[@]}")
@@ -234,14 +234,23 @@ else
    alias e=$code_bin
 fi
 
-export WASMTIME_HOME="$HOME/.wasmtime"
-
-export PATH="$WASMTIME_HOME/bin:$PATH"
+# https://unix.stackexchange.com/questions/62579/is-there-a-way-to-add-a-directory-to-my-path-in-zsh-only-if-its-not-already-pre
+typeset -U path PATH
+path+=("$HOME/.wasmtime/bin")
 
 # vterm shell integration
 # https://github.com/akermu/emacs-libvterm/tree/ae4ae1aef2fcae98a37aad83f2a6aeeaeacedd4f
 if [[ "$INSIDE_EMACS" = 'vterm' ]] \
     && [[ -n ${EMACS_VTERM_PATH} ]] \
-    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh ]]; then
-	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh
+    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+   source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
+
+   # Integrate vterm with spaceship.
+   # Add section to spaceship prompt.
+   # Reference: https://spaceship-prompt.sh/config/loading-sections/
+   spaceship_vterm() {
+      spaceship::section::v4 "%{$(vterm_prompt_end)%}"
+   }
+   spaceship add vterm
+   # add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
 fi

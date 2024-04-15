@@ -16,8 +16,8 @@ sudo -E apt install -y curl net-tools unzip make ninja-build build-essential \
     ruby-full \
     clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev \
     libgtk-4-dev libadwaita-1-dev \
-    dconf-editor
-
+    dconf-editor \
+    tidy binaryen
 
 if [[ ! -d ~/.wasmtime ]]; then
     echo "install wasmtime"
@@ -57,3 +57,10 @@ fi
 echo "install emacs"
 $script_dir/build-emacs.sh
 $script_dir/emacs.sh
+
+
+cd ~/.build
+if [[ ! -f pandoc-3.1.13-1-amd64.deb ]]; then
+    wget https://github.com/jgm/pandoc/releases/download/3.1.13/pandoc-3.1.13-1-amd64.deb
+    sudo apt install -y ./pandoc-3.1.13-1-amd64.deb
+fi

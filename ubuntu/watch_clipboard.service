@@ -1,0 +1,10 @@
+[Unit]
+Description=Add file content to clipboard
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/watchexec -p -w /home/ianic/.clipboard 'cat /home/ianic/.clipboard | xsel -b'
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

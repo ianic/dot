@@ -191,3 +191,20 @@
        ))))
 
 ;; (setq default-directory "~/Code/" )
+
+
+;;(setq vertico-posframe-poshandler #'posframe-poshandler-window-center)
+;;(setq vertico-posframe-width 128)
+(setq vertico-posframe-width 192)
+(setq vertico-posframe-height 40)
+;;(setq vertico-posframe-min-height 32)
+(setq vertico-count 40)
+
+(setq vertico-posframe-parameters
+      '((left-fringe . 8)
+        (right-fringe . 8)
+        (top-fringe . 8)
+        ))
+
+;; ref: https://github.com/doomemacs/doomemacs/issues/6651
+(setq vterm-buffer-name-string "vterm %s")
