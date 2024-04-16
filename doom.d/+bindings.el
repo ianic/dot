@@ -72,6 +72,7 @@
  "s-r"          #'query-replace
  "s-l"          #'consult-goto-line
  "s-t"          #'+vterm/here
+ "s-<return>"   #'+vterm/here
 
  "C-c r"        #'query-replace
  "C-c l"        #'consult-goto-line
