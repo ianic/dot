@@ -11,7 +11,7 @@ os=linux
 arch=aarch64-$os
 arch | grep x86_64 >>/dev/null && arch=x86_64-$os
 
-stable_version=0.11.0
+stable_version=0.12.0
 stable=$(curl -s https://ziglang.org/download/index.json | jq ".\"$stable_version\".\"$arch\".tarball" -r)
 # find the latest build
 latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"$arch\".tarball" -r)

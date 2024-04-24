@@ -208,7 +208,6 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
    export SPACESHIP_HOST_PREFIX="\uebc6 "                # linux
    export SPACESHIP_HOST_PREFIX="\uf31b "                # ubuntu
    export SPACESHIP_HOST_PREFIX="%{%B%F{green}%}\uf31b " # ubuntu in color
-   #export PATH=$PATH:/usr/local/go/bin
 fi
 
 fpath=(~/.oh-my-zsh/custom/plugins/zig "${fpath[@]}")
@@ -238,6 +237,7 @@ fi
 typeset -U path PATH
 path+=("$HOME/.wasmtime/bin")
 path+=("$HOME/.config/dot/ubuntu/script")
+path+=("/usr/local/go/bin")
 
 # vterm shell integration
 # https://github.com/akermu/emacs-libvterm/tree/ae4ae1aef2fcae98a37aad83f2a6aeeaeacedd4f

@@ -21,3 +21,17 @@ if [[ "$version" != "$current_version" ]]; then
 
     /usr/local/go/bin/go install golang.org/x/tools/gopls@latest
 fi
+
+
+
+# Go install
+[ -x "$(command -v /usr/local/go/bin/go)" ] && current_version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
+version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
+if [[ "$version" != "$current_version" ]]; then
+    echo "install Go version: $version"
+    wget https://go.dev/dl/$version.linux-amd64.tar.gz
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $version.linux-amd64.tar.gz
+    rm $version.linux-amd64.tar.gz
+
+    /usr/local/go/bin/go install golang.org/x/tools/gopls@latest
+fi
