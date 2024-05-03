@@ -47,3 +47,12 @@ sudo systemctl enable keyd && sudo systemctl restart keyd &&  setxkbmap -layout 
 
 To find application class use:
 $ xprop | grep "WM_CLASS(STRING)"
+
+
+# odkad imam tipkovnicu Logitech mehanicku ona ne da comp da ide u suspend
+# da bi izbacio usb uredjaje (i tipkovnicu i misa) iz onih koji bude
+cat /proc/acpi/wakeup | grep enabled
+sudo sh -c 'echo XHCI > /proc/acpi/wakeup'
+
+# da bi stavio u sleep from terminal
+systemctl suspend
