@@ -13,6 +13,11 @@
   (xterm-mouse-mode 1)
   )
 
+;; remove mapping to ace-window when window-select +number is active in init.el
+;; https://github.com/doomemacs/doomemacs/blob/9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee/modules/ui/window-select/config.el#L16
+(global-set-key [remap other-window] nil)
+(setq winum-scope 'frame-local)
+
 (map!
  ;; window navigation with super
  "s-{"          (lambda () (interactive) (other-window -1))
@@ -20,6 +25,13 @@
 
  "M-s-["        #'windmove-swap-states-left
  "M-s-]"        #'windmove-swap-states-right
+
+ "s-1"          #'winum-select-window-1
+ "s-2"          #'winum-select-window-2
+ "s-3"          #'winum-select-window-3
+ "s-4"          #'winum-select-window-4
+ "s-5"          #'winum-select-window-5
+ "s-6"          #'winum-select-window-6
 
  "M-s-o"        #'occur
 

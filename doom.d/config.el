@@ -195,10 +195,19 @@
 
 ;;(setq vertico-posframe-poshandler #'posframe-poshandler-window-center)
 ;;(setq vertico-posframe-width 128)
-(setq vertico-posframe-width 192)
-(setq vertico-posframe-height 40)
+;;(setq vertico-posframe-width 192)
+;;(setq vertico-posframe-height 40)
+;;(setq vertico-count 40)
+
+(setq vertico-posframe-width 128)
+(setq vertico-posframe-height 20)
+(setq vertico-count 19)
 ;;(setq vertico-posframe-min-height 32)
-(setq vertico-count 40)
+
+;;(setq vertico-posframe-poshandler #'posframe-poshandler-window-center)
+
+;;(setq vertico-posframe-poshandler #'posframe-poshandler-frame-top-center)
+(setq vertico-posframe-poshandler #'posframe-poshandler-frame-bottom-center)
 
 (setq vertico-posframe-parameters
       '((left-fringe . 8)
