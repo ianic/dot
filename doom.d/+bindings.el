@@ -195,3 +195,7 @@
       :map magit-mode-map
       "C-<tab>" nil
       )
+
+;; Notes
+;; M-Ret    - don't complete in vertico, use current string
+;; C-c C-e  - export search result to new buffer
