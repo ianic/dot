@@ -66,3 +66,10 @@ sudo sh -c 'echo XHCI > /proc/acpi/wakeup'
 
 # da bi stavio u sleep from terminal
 systemctl suspend
+
+
+# disable window tiling
+https://askubuntu.com/questions/1353107/how-to-disable-window-edge-tiling-and-enable-window-edge-resistance-in-ubuntu-20
+
+dconf write /org/gnome/mutter/edge-tiling false
+gnome-extensions disable tiling-assistant@ubuntu.com
