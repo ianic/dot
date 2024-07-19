@@ -72,3 +72,4 @@ alias cdds="cd ~/.config/dot/ubuntu/script"
 alias zb="zig build"
 alias zbf="zig build -Doptimize=ReleaseFast"
 alias cdz="cd ~/Code/zig"
+alias zig13=/usr/local/zig/zig-linux-x86_64-0.13.0/zig

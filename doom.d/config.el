@@ -104,6 +104,8 @@
 (setq zig-return-to-buffer-after-format t)
 (setq zig-format-show-buffer nil)
 (setq lsp-zig-zls-executable "~/.local/bin/zls")
+(add-hook! zig-mode
+  (setq zig-format-on-save t))
 
 ;; Projectile
 (after! projectile

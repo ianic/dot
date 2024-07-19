@@ -95,6 +95,8 @@
  ;;"s-F"          #'+default/search-project
  ;;"s-E"          #'treemacs-select-window   ;; TODO treemacs not active
 
+ "M-/"            #'hippie-expand
+
  ;;; remove smartparens mapping
  ;;; ref: https://github.com/doomemacs/doomemacs/blob/d509d8bea1ad27ab9b7e9ddca329f494686b336e/modules/config/default/%2Bemacs-bindings.el#L616
  ;;"C-M-a"           nil

@@ -55,3 +55,5 @@
 ;; Call doom sync -u when you change this hashs
 (unpin! zig-mode)
 (package! zig-mode :pin "a0ab9636b8b2560a4b1fa3bd83582a706b9ce190")
+
+(package! mini-frame)
