@@ -118,7 +118,7 @@
 
 ;; show which-key faster (default i 1.0 seconds)
 ;; ref: https://github.com/doomemacs/doomemacs/issues/1465
-(setq which-key-idle-delay 0.2)
+(setq which-key-idle-delay 0.5)
 
 ;; exwm window manager
 ;; (if (display-graphic-p)
@@ -217,3 +217,10 @@
 
 ;; ref: https://github.com/doomemacs/doomemacs/issues/6651
 (setq vterm-buffer-name-string "vterm %s")
+
+
+(custom-set-variables
+ '(mini-frame-show-parameters
+   '((top . 200)
+     (width . 0.25)
+     (left . 0.5))))
