@@ -163,6 +163,7 @@
       :desc "Test function"      "s" #'zig-test-single-test
       :desc "Test last function" "d" #'zig-test-run-last-test
 
+      :desc "Imenu list toggle"  "i" #'imenu-list-smart-toggle
       :desc "Rename"             "n" #'eglot-rename
       :desc "Find references"    "r" #'xref-find-references
 
@@ -188,7 +189,10 @@
 
 (map! :after vterm
       :map vterm-mode-map
+      "s-j" #'vterm-clear-scrollback
       "s-k" #'vterm-clear
+      "s-l" #'vterm-copy-mode
+      "s-c" #'vterm-copy-mode
       )
 
 ;; Disable C-tab in magit

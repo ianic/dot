@@ -140,7 +140,7 @@
 ;; Idea from: https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/
 (set-popup-rule!
   "^\\*compilation\\*" ; node dedicated org-roam buffer
-  :side 'bottom :width 0.3 :height 0.4 :ttl nil :modeline nil :quit t :select: nil
+  :side 'bottom :width 0.3 :height 0.3 :ttl nil :modeline nil :quit t :select: nil
   :actions '(display-buffer-below-selected)
   )
 
@@ -192,37 +192,64 @@
 
        ))))
 
-;; (setq default-directory "~/Code/" )
-
-
-;;(setq vertico-posframe-poshandler #'posframe-poshandler-window-center)
-;;(setq vertico-posframe-width 128)
-;;(setq vertico-posframe-width 192)
-;;(setq vertico-posframe-height 40)
-;;(setq vertico-count 40)
-
-(setq vertico-posframe-width 128)
-(setq vertico-posframe-height 20)
-(setq vertico-count 19)
-;;(setq vertico-posframe-min-height 32)
-
-;;(setq vertico-posframe-poshandler #'posframe-poshandler-window-center)
-
-;;(setq vertico-posframe-poshandler #'posframe-poshandler-frame-top-center)
-(setq vertico-posframe-poshandler #'posframe-poshandler-frame-bottom-center)
-
-(setq vertico-posframe-parameters
-      '((left-fringe . 8)
-        (right-fringe . 8)
-        (top-fringe . 8)
-        ))
+;; (setq vertico-posframe-width 128)
+;; (setq vertico-posframe-height 20)
+;; (setq vertico-count 32)
+;; (setq vertico-posframe-poshandler #'posframe-poshandler-frame-bottom-center)
+;; (setq vertico-posframe-parameters
+;;       '((left-fringe . 8)
+;;         (right-fringe . 8)
+;;         (top-fringe . 8)
+;;         ))
 
 ;; ref: https://github.com/doomemacs/doomemacs/issues/6651
 (setq vterm-buffer-name-string "vterm %s")
 
+(use-package! mini-frame
+  :init
+  ;; code here will run immediately
+  :config
+  ;; code here will run after the package is loaded
+  (custom-set-variables
+   '(mini-frame-show-parameters
+     '((top . 100)
+       (width . 0.33)
+       (left . 0.5)
+       (quit . nil)
+       )))
+  (setq mini-frame-resize-min-height 1)
+  (setq mini-frame-resize-max-height 40)
+  (setq mini-frame-resize 'resize)
+  (setq x-gtk-resize-child-frames 'resize-mode)
+  (mini-frame-mode)
+  )
 
-(custom-set-variables
- '(mini-frame-show-parameters
-   '((top . 200)
-     (width . 0.25)
-     (left . 0.5))))
+;; (setq imenu-list-auto-resize nil)
+;; (setq imenu-list-size 0.1)
+;; (setq imenu-list-position 'right)
+;; (setq imenu-list-focus-after-activation t)
+;; (set-popup-rule!
+;;   "^\\*Ilist\\*"
+;;   :side 'right :width 0.11 :ttl 0 :modeline t :quit nil :select: t
+;;   )
+
+;; Add shortcuts to isearch
+(use-package isearch
+  :ensure nil
+  :defer t
+  :bind
+  (:map isearch-mode-map
+        ("C-d" . isearch-forward-symbol-at-point)
+        ("C-l" . my-isearch-consult-line-from-isearch)
+        ))
+
+(defun my-isearch-consult-line-from-isearch ()
+  "Invoke `consult-line' from isearch."
+  (interactive)
+  (let ((query (if isearch-regexp
+                   isearch-string
+                 (regexp-quote isearch-string))))
+    (isearch-update-ring isearch-string isearch-regexp)
+    (let (search-nonincremental-instead)
+      (ignore-errors (isearch-done t t)))
+    (consult-line query)))
