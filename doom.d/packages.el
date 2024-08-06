@@ -54,9 +54,10 @@
 
 ;; Call doom sync -u when you change this hashs
 (unpin! zig-mode)
-(package! zig-mode :pin "a0ab9636b8b2560a4b1fa3bd83582a706b9ce190")
+(package! zig-mode :pin "f55e42536a3f34b81198b856595dc3a61867aa3e")
 
 (package! mini-frame)
 (package! imenu-list)
-
 (package! modus-themes)
+(package! ef-themes)
+(package! jinx)

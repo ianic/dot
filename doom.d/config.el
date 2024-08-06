@@ -32,7 +32,9 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+;;(setq doom-theme 'doom-nord)
+;;(setq doom-theme 'modus-operandi-deuteranopia)
+(setq doom-theme 'ef-elea-light)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -93,7 +95,8 @@
   )
 
 (if (eq system-type 'darwin)
-    (setq doom-font (font-spec :family "JetBrains Mono" :size 15) doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15))
+    (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
+          doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15))
   (if (string-equal (system-name) "io")
       (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 31))
     (setq doom-font (font-spec :family "JetBrainsMonoNL NFM" :size 16))
@@ -101,11 +104,11 @@
   )
 
 ;; Zig
-(setq zig-return-to-buffer-after-format t)
-(setq zig-format-show-buffer nil)
-(setq lsp-zig-zls-executable "~/.local/bin/zls")
 (add-hook! zig-mode
-  (setq zig-format-on-save t))
+           ;; zig-mode has it's own zig-format-on-save-mode
+           (apheleia-mode nil)
+           (zig-format-on-save-mode t)
+           )
 
 ;; Projectile
 (after! projectile
@@ -139,10 +142,17 @@
 ;; Display zig compilation below current window
 ;; Idea from: https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/
 (set-popup-rule!
-  "^\\*compilation\\*" ; node dedicated org-roam buffer
+  "^\\*compilation\\*" 
   :side 'bottom :width 0.3 :height 0.3 :ttl nil :modeline nil :quit t :select: nil
   :actions '(display-buffer-below-selected)
   )
+
+(set-popup-rule!
+  "^\\*\\(?:Wo\\)?Man "
+  :bottom 'right :width 0.25 :height 0.45 :ttl nil :modeline nil :quit t :select: t
+  :actions '(display-buffer-below-selected)
+  )
+
 
 ;; customize theme
 (custom-theme-set-faces! 'doom-nord-aurora
@@ -212,16 +222,19 @@
   ;; code here will run after the package is loaded
   (custom-set-variables
    '(mini-frame-show-parameters
-     '((top . 100)
+     '((top . 800)
        (width . 0.33)
        (left . 0.5)
-       (quit . nil)
        )))
-  (setq mini-frame-resize-min-height 1)
-  (setq mini-frame-resize-max-height 40)
-  (setq mini-frame-resize 'resize)
+  ;; (setq mini-frame-resize-min-height 1)
+  ;; (setq mini-frame-resize-max-height 40)
+  ;; (setq mini-frame-resize 'resize)
+  (setq vertico-count 12)
+  (setq mini-frame-detach-on-hide nil)
   (setq x-gtk-resize-child-frames 'resize-mode)
   (mini-frame-mode)
+  ;; da mi ne blica vtrem buffer kada nesto radi, originalno je bilo 27
+  (setq mini-frame-color-shift-step 5)
   )
 
 ;; (setq imenu-list-auto-resize nil)
@@ -253,3 +266,55 @@
     (let (search-nonincremental-instead)
       (ignore-errors (isearch-done t t)))
     (consult-line query)))
+
+
+(use-package! jinx
+  :defer t
+  :init
+  (add-hook 'doom-init-ui-hook #'global-jinx-mode)
+  :config
+  ;; Use my custom dictionary
+  (setq jinx-languages "en-custom")
+  ;; Extra face(s) to ignore
+  (push 'org-inline-src-block
+        (alist-get 'org-mode jinx-exclude-faces))
+  ;; Take over the relevant bindings.
+  (after! ispell
+    (global-set-key [remap ispell-word] #'jinx-correct))
+  (after! evil-commands
+    (global-set-key [remap evil-next-flyspell-error] #'jinx-next)
+    (global-set-key [remap evil-prev-flyspell-error] #'jinx-previous))
+  ;; I prefer for `point' to end up at the start of the word,
+  ;; not just after the end.
+  (advice-add 'jinx-next :after (lambda (_) (left-word))))
+
+
+(use-package! corfu
+  ;;:init
+  ;;(setq tab-always-indent 'complete)
+  :config
+  (setq corfu-preselect 'first)
+  )
+
+(map! :when (modulep! :completion corfu)
+      :after corfu
+      (:map corfu-map
+            "RET" #'corfu-insert))
+
+(setq corfu-auto-delay 0.6)
+
+
+
+
+(after! modus-themes
+  (modus-themes-with-colors
+   (custom-set-faces
+    ;; Make foreground the same as background for a uniform bar on
+    ;; Doom Emacs.
+    ;;
+    ;; Doom should not be implementing such hacks because themes
+    ;; cannot support them:
+    ;; <https://protesilaos.com/codelog/2022-08-04-doom-git-gutter-modus-themes/>.
+    `(git-gutter-fr:added ((,c :foreground ,bg-added-intense)))
+    `(git-gutter-fr:deleted ((,c :foreground ,bg-removed-intense)))
+    `(git-gutter-fr:modified ((,c :foreground ,bg-changed-intense))))))

@@ -32,4 +32,5 @@ if [[ ! -f ~/.config/systemd/user/emacs.service ]]; then
     # systemctl --user status emacs.service
 fi
 
-
+# required by jinx package
+sudo apt -y install libenchant-2-dev

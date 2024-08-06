@@ -47,7 +47,7 @@ zig build -Doptimize=ReleaseSafe
 mkdir -p ~/.local/bin
 rm ~/.local/bin/zls || true
 cp ./zig-out/bin/zls ~/.local/bin
-link ~/.config/dot/ubuntu/zls.json ~/.config/.zls.json
+link ~/.config/dot/ubuntu/zls.json ~/.config/zls.json
 # reload zls in emacs
 killall zls
 
