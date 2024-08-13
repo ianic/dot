@@ -17,7 +17,7 @@ sudo -E apt install -y curl net-tools unzip make ninja-build build-essential \
     clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev \
     libgtk-4-dev libadwaita-1-dev \
     dconf-editor \
-    tidy binaryen
+    tidy binaryen cloc
 
 if [[ ! -d ~/.wasmtime ]]; then
     echo "install wasmtime"
