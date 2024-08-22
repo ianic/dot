@@ -6,7 +6,7 @@ if [[ ! -d  ~/.build/AFLplusplus ]]; then
 
     # llvm 17
     cd ~/.build
-    yes '' | ~/.config/dot/ubuntu/llvm-update.sh 17 20
+    yes '' | ~/.config/dot/ubuntu/llvm-update.sh 18 20
 
     # afl++
     cd ~/.build

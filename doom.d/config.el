@@ -318,3 +318,9 @@
     `(git-gutter-fr:added ((,c :foreground ,bg-added-intense)))
     `(git-gutter-fr:deleted ((,c :foreground ,bg-removed-intense)))
     `(git-gutter-fr:modified ((,c :foreground ,bg-changed-intense))))))
+
+
+;; ref: https://github.com/seagle0128/doom-modeline/issues/621
+(setq flycheck-color-mode-line-face-to-color 'doom-modeline)
+(setq doom-modeline-check-simple-format t)
+(setq doom-modeline-check-icon nil)

@@ -14,7 +14,7 @@ sudo -E apt install -y curl net-tools unzip make ninja-build build-essential \
     gdb hyperfine emacs-nox libtool libtool-bin \
     qemu-user-static \
     ruby-full \
-    clang-17 lldb-17 lld-17 liblld-17 liblld-17-dev \
+    clang-18 lldb-18 lld-18 liblld-18 liblld-18-dev \
     libgtk-4-dev libadwaita-1-dev \
     dconf-editor \
     tidy binaryen cloc
