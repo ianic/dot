@@ -53,14 +53,12 @@
      "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" default))
  '(doom-nord-aurora-brighter-modeline t)
  '(doom-nord-aurora-padded-modeline t)
- (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  '(font-lock-comment-face ((t (:slant italic))))
-  '(font-lock-keyword-face ((t (:slant italic)))))
- (put 'projectile-ripgrep 'disabled nil)
- (put 'projectile-grep 'disabled nil)
- (put 'customize-group 'disabled nil)
- (put 'downcase-region 'disabled nil)
+ )
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(font-lock-comment-face ((t (:slant italic))))
+ '(font-lock-keyword-face ((t (:slant italic)))))

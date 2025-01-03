@@ -324,3 +324,7 @@
 (setq flycheck-color-mode-line-face-to-color 'doom-modeline)
 (setq doom-modeline-check-simple-format t)
 (setq doom-modeline-check-icon nil)
+
+;; transparent background
+(set-frame-parameter nil 'alpha-background 95)
+(add-to-list 'default-frame-alist '(alpha-background . 95))

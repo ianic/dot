@@ -73,3 +73,17 @@ https://askubuntu.com/questions/1353107/how-to-disable-window-edge-tiling-and-en
 
 dconf write /org/gnome/mutter/edge-tiling false
 gnome-extensions disable tiling-assistant@ubuntu.com
+
+2024-10-18
+# Na novijem kernelu (nakon 6.8) nakon suspend ne radi mi network.
+# Zavrsilo je tako da sam dodao ovaj file, da mi svaki puta restarta igc kernel module.
+# Nisam nesto sretan tim rjesenjem, al za sada drzi vodu.
+$ cat  /lib/systemd/system-sleep/network-restart
+#!/bin/sh
+
+case $1 in
+  post)
+    /usr/sbin/modprobe -r igc
+    /usr/sbin/modprobe igc
+    ;;
+esac

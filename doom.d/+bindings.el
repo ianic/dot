@@ -26,6 +26,9 @@
  "M-s-["        #'windmove-swap-states-left
  "M-s-]"        #'windmove-swap-states-right
 
+ "s-["        #'tab-line-switch-to-prev-tab
+ "s-]"        #'tab-line-switch-to-prev-tab
+
  "s-1"          #'winum-select-window-1
  "s-2"          #'winum-select-window-2
  "s-3"          #'winum-select-window-3
@@ -95,7 +98,8 @@
  ;;"s-F"          #'+default/search-project
  ;;"s-E"          #'treemacs-select-window   ;; TODO treemacs not active
 
- "M-/"            #'hippie-expand
+ "M-/"            #'dabbrev-expand
+
 
  ;;; remove smartparens mapping
  ;;; ref: https://github.com/doomemacs/doomemacs/blob/d509d8bea1ad27ab9b7e9ddca329f494686b336e/modules/config/default/%2Bemacs-bindings.el#L616

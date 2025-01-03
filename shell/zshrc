@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/ianic/.zsh/completions:"* ]]; then export FPATH="/home/ianic/.zsh/completions:$FPATH"; fi
 # If you come from bash you might have to change your $PATH.
 
 # Path to your oh-my-zsh installation.
@@ -256,3 +258,4 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]] \
    spaceship add vterm
    # add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
 fi
+. "/home/ianic/.deno/env"

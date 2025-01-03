@@ -31,6 +31,7 @@ fi
 cd ~/.build/tree-sitter/
 make
 sudo make install
+sudo ldconfig
 
 # Build emacs
 cd ~/.build/emacs
