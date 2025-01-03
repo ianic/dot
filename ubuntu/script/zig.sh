@@ -11,7 +11,11 @@ os=linux
 arch=aarch64-$os
 arch | grep x86_64 >>/dev/null && arch=x86_64-$os
 
-stable_version=0.12.0
+stable_version=0.13.0
+cd ~
+mkdir -p ~/.build
+mkdir -p ~/.local/bin
+
 stable=$(curl -s https://ziglang.org/download/index.json | jq ".\"$stable_version\".\"$arch\".tarball" -r)
 # find the latest build
 latest=$(curl -s https://ziglang.org/download/index.json | jq ".master.\"$arch\".tarball" -r)
@@ -21,33 +25,36 @@ urls=("$stable" "$latest")
 for url in "${urls[@]}"; do
     fn=$(basename $url)
     dir=${fn%.tar.xz}
-    if [[ ! -d /usr/local/zig/$dir ]]; then
+    if [[ ! -d ~/.build/zig/$dir ]]; then
         wget $url
         tar xvf $fn
-        sudo mkdir -p /usr/local/zig
-        sudo mv $dir /usr/local/zig
-        sudo rm -f /usr/local/bin/zig
-        sudo ln -s /usr/local/zig/$dir/zig /usr/local/bin/
+        mkdir -p ~/.build/zig
+        mv $dir ~/.build/zig
+
+        rm -f ~/.local/bin/zig || true
+        ln -s ~/.build/zig/$dir/zig ~/.local/bin/
+        # sudo rm -f /usr/local/bin/zig
+        # sudo ln -s ~/.build/zig/$dir/zig /usr/local/bin/
         rm -f $fn
     fi
 done
 
 # zls install from source
-build_root=~/.build
-cd ~ && mkdir -p $build_root && cd $build_root
-if [[ ! -d $build_root/zls ]]; then
+
+cd ~/.build
+if [[ ! -d ~/.build/zls ]]; then
     git clone --recurse-submodules https://github.com/zigtools/zls
     cd zls
 else
     cd zls
     git pull
 fi
-zig build -Doptimize=ReleaseSafe
+zig build -Doptimize=ReleaseFast
 
-mkdir -p ~/.local/bin
 rm ~/.local/bin/zls || true
 cp ./zig-out/bin/zls ~/.local/bin
 link ~/.config/dot/ubuntu/zls.json ~/.config/zls.json
+
 # reload zls in emacs
 killall zls
 
