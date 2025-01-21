@@ -65,7 +65,8 @@
  "C-;"          #'comment-dwim
 
  ;;"M-;"          #'+company/complete
- ;;"M-i"          #'imenu
+ "M-i"          #'+workspace/switch-right
+ "s-i"          #'+workspace/switch-right
 
  ;; copy paste
  "s-z"          #'undo-fu-only-undo

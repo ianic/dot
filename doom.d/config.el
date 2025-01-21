@@ -34,7 +34,8 @@
 ;; `load-theme' function. This is the default:
 ;;(setq doom-theme 'doom-nord)
 ;;(setq doom-theme 'modus-operandi-deuteranopia)
-(setq doom-theme 'ef-elea-light)
+;; (setq doom-theme 'ef-elea-light)
+(setq doom-theme 'ef-maris-light)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -202,40 +203,38 @@
 
        ))))
 
-;; (setq vertico-posframe-width 128)
-;; (setq vertico-posframe-height 20)
-;; (setq vertico-count 32)
+(setq vertico-posframe-width 128)
+(setq vertico-posframe-height nil)
+(setq vertico-count 20)
 ;; (setq vertico-posframe-poshandler #'posframe-poshandler-frame-bottom-center)
-;; (setq vertico-posframe-parameters
-;;       '((left-fringe . 8)
-;;         (right-fringe . 8)
-;;         (top-fringe . 8)
-;;         ))
+(setq vertico-posframe-parameters
+      '((left-fringe . 8)
+        (right-fringe . 8)
+        ))
+
+
 
 ;; ref: https://github.com/doomemacs/doomemacs/issues/6651
 (setq vterm-buffer-name-string "vterm %s")
 
-(use-package! mini-frame
-  :init
-  ;; code here will run immediately
-  :config
-  ;; code here will run after the package is loaded
-  (custom-set-variables
-   '(mini-frame-show-parameters
-     '((top . 800)
-       (width . 0.33)
-       (left . 0.5)
-       )))
-  ;; (setq mini-frame-resize-min-height 1)
-  ;; (setq mini-frame-resize-max-height 40)
-  ;; (setq mini-frame-resize 'resize)
-  (setq vertico-count 12)
-  (setq mini-frame-detach-on-hide nil)
-  (setq x-gtk-resize-child-frames 'resize-mode)
-  (mini-frame-mode)
-  ;; da mi ne blica vtrem buffer kada nesto radi, originalno je bilo 27
-  (setq mini-frame-color-shift-step 5)
-  )
+;; (use-package! mini-frame
+;;   :init
+;;   ;; code here will run immediately
+;;   :config
+;;   ;; code here will run after the package is loaded
+;;   (custom-set-variables
+;;    '(mini-frame-show-parameters
+;;      '((top . 800)
+;;        (width . 0.33)
+;;        (left . 0.5)
+;;        )))
+;;   (setq vertico-count 12)
+;;   (setq mini-frame-detach-on-hide nil)
+;;   (setq x-gtk-resize-child-frames 'resize-mode)
+;;   (mini-frame-mode)
+;;   ;; da mi ne blica vtrem buffer kada nesto radi, originalno je bilo 27
+;;   (setq mini-frame-color-shift-step 5)
+;;   )
 
 ;; (setq imenu-list-auto-resize nil)
 ;; (setq imenu-list-size 0.1)
@@ -328,3 +327,60 @@
 ;; transparent background
 (set-frame-parameter nil 'alpha-background 95)
 (add-to-list 'default-frame-alist '(alpha-background . 95))
+
+(defun to-bezkvaki ()
+  (interactive)
+  (goto-char (point-min))
+  (replace-regexp "ć" "c")
+  (goto-char (point-min))
+  (replace-regexp "č" "c")
+  (goto-char (point-min))
+  (replace-regexp "š" "s")
+  (goto-char (point-min))
+  (replace-regexp "ž" "z")
+  (goto-char (point-min))
+  (replace-regexp "đ" "dj")
+  )
+
+
+
+
+;; (use-package! perfect-margin
+;;   :config
+;;   (after! doom-modeline
+;;     (setq mode-line-right-align-edge 'right-fringe))
+;;   (after! minimap
+;;     ;; if you use (vc-gutter +pretty)
+;;     ;; and theme is causing "Invalid face attribute :foreground nil"
+;;     ;; (setq minimap-highlight-line nil)
+;;     (setq minimap-width-fraction 0.08))
+;;   (setq perfect-margin-only-set-left-margin t)
+;;   (perfect-margin-mode t)
+;;   ;; Center completion minibuffer
+;;   (add-to-list 'perfect-margin-force-regexps "*Minibuf")
+;;   (add-to-list 'perfect-margin-force-regexps "*which-key")
+;;   (add-to-list 'perfect-margin-force-regexps "*Help*")
+
+;;   (add-to-list 'perfect-margin-force-regexps " *Echo Area")
+
+;;   ;; ignore all other buffers
+;;   (setq perfect-margin-ignore-regexps '(""))
+;;   (setq perfect-margin-ignore-filters nil)
+;;   )
+
+;; (use-package! which-key
+;;   :config
+;;   ;; limit which key buffer height and width
+;;   (defun which-key-custom-popup-max-dimensions-function (ignore)
+;;     (cons 20
+;;           (min 128 (frame-width))))
+;;   (setq which-key-custom-popup-max-dimensions-function
+;;         'which-key-custom-popup-max-dimensions-function)
+;;   )
+
+
+;; (use-package! which-key-posframe
+;;   :config
+;;   (which-key-posframe-mode 1)
+;;   (setq which-key-posframe-poshandler 'posframe-poshandler-frame-center)
+;;   )

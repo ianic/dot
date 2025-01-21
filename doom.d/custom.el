@@ -4,7 +4,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("d4b608d76e3a087b124c74c2b642c933d8121b24e53d4bbd5e7327c36cc69ccc"
+   '("4c16a8be2f20a68f0b63979722676a176c4f77e2216cc8fe0ea200f597ceb22e"
+     "ea4dd126d72d30805c083421a50544e235176d9698c8c541b824b60912275ba1"
+     "ae20535e46a88faea5d65775ca5510c7385cbf334dfa7dde93c0cd22ed663ba0"
+     "d609d9aaf89d935677b04d34e4449ba3f8bbfdcaaeeaab3d21ee035f43321ff1"
+     "d4b608d76e3a087b124c74c2b642c933d8121b24e53d4bbd5e7327c36cc69ccc"
      "82f1e895a3fb1f4b99efc81e9d732c850f55653689e9492b4eb1be292b4826c3"
      "9d01a8af1bdd5c79b136dc5eb23b90d53675c3f4cb938dc15c4d8bc98d2bb86e"
      "aa688776604bbddbaba9e0c0d77e8eb5f88d94308f223d1962b6e6b902add6a0"
@@ -52,8 +56,7 @@
      "3cdd0a96236a9db4e903c01cb45c0c111eb1492313a65790adb894f9f1a33b2d"
      "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" default))
  '(doom-nord-aurora-brighter-modeline t)
- '(doom-nord-aurora-padded-modeline t)
- )
+ '(doom-nord-aurora-padded-modeline t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

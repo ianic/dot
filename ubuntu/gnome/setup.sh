@@ -12,7 +12,7 @@
 # /usr/bin/barriers --debug INFO --name hydra --disable-crypto --disable-client-cert-checking --config ~/.config/dot/ubuntu/barrier.conf
 
 # Disable usb devices from waking up from suspend
-sudo sh -c 'echo XHCI > /proc/acpi/wakeup'
+# sudo sh -c 'echo XHCI > /proc/acpi/wakeup'
 
 
 # Fix unable to resize windows after boot
