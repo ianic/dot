@@ -23,11 +23,14 @@
  "s-{"          (lambda () (interactive) (other-window -1))
  "s-}"          (lambda () (interactive) (other-window  1))
 
+ "s-["        (lambda () (interactive) (other-frame -1)) ;; #'tab-line-switch-to-prev-tab
+ "s-]"        (lambda () (interactive) (other-frame 1)) ;;#'tab-line-switch-to-prev-tab
+
  "M-s-["        #'windmove-swap-states-left
  "M-s-]"        #'windmove-swap-states-right
 
- "s-["        #'tab-line-switch-to-prev-tab
- "s-]"        #'tab-line-switch-to-prev-tab
+ ;; "M-["          #'+workspace/switch-left
+ ;; "M-]"          #'+workspace/switch-right
 
  "s-1"          #'winum-select-window-1
  "s-2"          #'winum-select-window-2
@@ -54,7 +57,7 @@
  "C-x m"        #'execute-extended-command
  "<C-m>"        #'execute-extended-command
  ;;"M-s-."        #'+lookup/definition-other-window
- "C-x C-o"      #'other-window
+ "C-x C-o"      #'ace-window
  "M-o"          #'other-window
  ;;"<C-i>"        #'other-window
  ;; "C-o"          (lambda () (interactive) (other-window  1))
@@ -65,8 +68,8 @@
  "C-;"          #'comment-dwim
 
  ;;"M-;"          #'+company/complete
- "M-i"          #'+workspace/switch-right
- "s-i"          #'+workspace/switch-right
+ ;;"M-i"          #'+workspace/switch-right
+ "s-i"          #'other-frame
 
  ;; copy paste
  "s-z"          #'undo-fu-only-undo
@@ -87,8 +90,10 @@
 
  "s-r"          #'query-replace
  "s-l"          #'consult-goto-line
- "s-t"          #'+vterm/here
+ "s-t"          #'make-frame
  "s-<return>"   #'+vterm/here
+ "s-<"          #'backward-sexp
+ "s->"          #'forward-sexp
 
  "C-c r"        #'query-replace
  "C-c l"        #'consult-goto-line
@@ -116,6 +121,7 @@
  "C-M-t"           #'transpose-sexp
  "C-M-<backspace>" #'splice-sexp
  )
+
 
 (setq doom-localleader-alt-key "C-j")
 

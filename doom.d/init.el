@@ -26,8 +26,8 @@
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;; ivy               ; a search engine for love and life
-       (vertico +icons +childframe)    ; the search engine of the future
-       ;; (vertico +icons)
+       ;; (vertico +icons +childframe)    ; the search engine of the future
+       (vertico +icons)
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -51,8 +51,8 @@
        (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe     ; fringe tildes to mark beyond EOB
        (window-select +numbers)     ; visually switch windows
-       workspaces          ; tab emulation, persistence & separate workspaces
-       ;;zen               ; distraction-free coding or writing
+       ;; workspaces           ; tab emulation, persistence & separate workspaces
+       ;; zen               ; distraction-free coding or writing
 
        :editor
        ;;(evil +everywhere); come to the dark side, we have cookies

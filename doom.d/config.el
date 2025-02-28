@@ -134,7 +134,7 @@
 ;; mode line is hidden in vterm, making it hard to see which window has focus
 ;; this disables hide in all buffers
 ;; ref: https://github.com/doomemacs/doomemacs/issues/6209
-(advice-add 'hide-mode-line-mode :around (lambda (orig &optional args) nil))
+(advice-add 'hide-mode-line-mode :around (lambda (orig &optinal args) nil))
 
 (load! "dired.el")
 
@@ -211,11 +211,6 @@
       '((left-fringe . 8)
         (right-fringe . 8)
         ))
-
-
-
-;; ref: https://github.com/doomemacs/doomemacs/issues/6651
-(setq vterm-buffer-name-string "vterm %s")
 
 ;; (use-package! mini-frame
 ;;   :init
@@ -384,3 +379,72 @@
 ;;   (which-key-posframe-mode 1)
 ;;   (setq which-key-posframe-poshandler 'posframe-poshandler-frame-center)
 ;;   )
+
+(use-package! vterm
+  :config
+
+  ;; ref: https://github.com/doomemacs/doomemacs/issues/6651
+  (setq vterm-buffer-name-string "vterm %s")
+  ;; remove M-i from vterm--self-insert-meta
+  (define-key vterm-mode-map (kbd "M-i") nil)
+  (define-key vterm-mode-map (kbd "M-]") nil)
+  )
+
+
+
+(defun my-frame-setup (frame)
+  (set-frame-position frame 1362 0)
+  (set-frame-size frame 372 95)
+
+  ;; Display zig compilation below current window
+  ;; Idea from: https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/
+  (set-popup-rule!
+    "^\\*compilation\\*"
+    :side 'bottom :width 0.3 :height 0.3 :ttl nil :modeline nil :quit t :select: nil
+    :actions '(display-buffer-below-selected)
+    )
+  (set-popup-rule!
+    "^\\*\\(?:Wo\\)?Man "
+    :bottom 'right :width 0.25 :height 0.45 :ttl nil :modeline nil :quit t :select: t
+    :actions '(display-buffer-below-selected)
+    )
+
+  )
+
+(add-hook 'after-make-frame-functions #'my-frame-setup)
+
+(setq initial-frame-alist '((left . 1362) (top . 0) (width . 372) (height . 95)))
+;; remove titlebar
+(add-to-list 'default-frame-alist '(undecorated . t))
+
+(use-package! beframe
+  :config
+  ;;(setq beframe-global-buffers ("\\*scratch\\*" "\\*Messages\\*" "\\*Backtrace\\*"))
+  (setq beframe-global-buffers ("\\*Backtrace\\*"))
+
+  ;; consult integration: https://protesilaos.com/emacs/beframe chapter 6.1
+  (defvar consult-buffer-sources)
+  (declare-function consult--buffer-state "consult")
+
+  (with-eval-after-load 'consult
+    (defface beframe-buffer
+      '((t :inherit font-lock-string-face))
+      "Face for `consult' framed buffers.")
+
+    (defun my-beframe-buffer-names-sorted (&optional frame)
+      "Return the list of buffers from `beframe-buffer-names' sorted by visibility.
+      With optional argument FRAME, return the list of buffers of FRAME."
+      (beframe-buffer-names frame :sort #'beframe-buffer-sort-visibility))
+
+    (defvar beframe-consult-source
+      `( :name     "Frame-specific buffers (current frame)"
+         :narrow   ?F
+         :category buffer
+         :face     beframe-buffer
+         :history  beframe-history
+         :items    ,#'my-beframe-buffer-names-sorted
+         :action   ,#'switch-to-buffer
+         :state    ,#'consult--buffer-state))
+
+    (add-to-list 'consult-buffer-sources 'beframe-consult-source))
+  )

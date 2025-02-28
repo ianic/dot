@@ -64,3 +64,4 @@
 
 (package! perfect-margin)
 (package! which-key-posframe)
+(package! beframe)
