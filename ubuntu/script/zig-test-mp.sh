@@ -44,15 +44,17 @@ while getopts ":pbrch" option; do
                    echo host $host for image $image exists
                fi
            done
-           exit;;
+           ;;
        b)
            cd ~/Code/zig && mkdir -p zig-out
            zig test lib/std/std.zig --zig-lib-dir lib -femit-bin=zig-out/test
-           exit;;
+           ;;
        r)
            zig_test=~/Code/zig/zig-out/test
-           log_dir=log/$(date +%Y-%m-%dT%H-%M)
+           now=$(date +%Y-%m-%dT%H-%M)
+           log_dir=log/$now
            mkdir -p $log_dir
+           cd log && rm -f latest && ln -s $now latest && cd ..
            echo using log dir $log_dir
            # run tests on all images
            for image in "${images[@]}"; do
@@ -61,7 +63,7 @@ while getopts ":pbrch" option; do
                test
                multipass stop $host
            done
-           exit;;
+           ;;
        c)
            #remove all images
            multipass ls
@@ -71,12 +73,13 @@ while getopts ":pbrch" option; do
                multipass delete $host
            done
            multipass purge
-           exit;;
+           ;;
        h)
            help_
            exit;;
        \?) # Invalid option
            echo "Error: Invalid option"
+           help_
            exit;;
    esac
 done

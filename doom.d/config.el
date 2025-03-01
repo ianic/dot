@@ -134,7 +134,7 @@
 ;; mode line is hidden in vterm, making it hard to see which window has focus
 ;; this disables hide in all buffers
 ;; ref: https://github.com/doomemacs/doomemacs/issues/6209
-(advice-add 'hide-mode-line-mode :around (lambda (orig &optinal args) nil))
+;;(advice-add 'hide-mode-line-mode :around (lambda (orig &optinal args) nil))
 
 (load! "dired.el")
 
@@ -242,7 +242,7 @@
 
 ;; Add shortcuts to isearch
 (use-package isearch
-  :ensure nil
+  ;;:ensure nil
   :defer t
   :bind
   (:map isearch-mode-map
@@ -419,8 +419,9 @@
 
 (use-package! beframe
   :config
-  ;;(setq beframe-global-buffers ("\\*scratch\\*" "\\*Messages\\*" "\\*Backtrace\\*"))
-  (setq beframe-global-buffers ("\\*Backtrace\\*"))
+
+  ;; (setq beframe-global-buffers ("\\*scratch\\*" "\\*Messages\\*" "\\*Backtrace\\*"))
+  ;; (setq beframe-global-buffers ("\\*Backtrace\\*"))
 
   ;; consult integration: https://protesilaos.com/emacs/beframe chapter 6.1
   (defvar consult-buffer-sources)

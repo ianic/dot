@@ -18,14 +18,90 @@
 (global-set-key [remap other-window] nil)
 (setq winum-scope 'frame-local)
 
+(defun my-vterm-select-or-new ()
+  "Switch to vterm window or create new"
+  (interactive)
+  (if (eq major-mode 'vterm-mode)
+      ;; if already in vterm open new
+      (+vterm/here nil)
+    ;; if in another window switch to vterm window
+    (let ((first-vterm-window (cl-find-if
+                               (lambda (window)
+                                 (with-current-buffer (window-buffer window) (eq major-mode 'vterm-mode)))
+                               (window-list))))
+      (if first-vterm-window
+          (select-window first-vterm-window)
+        ;; if there is no window with vterm open new
+        (+vterm/here nil))))
+  )
+
+(defun my-vterm-select-or-back ()
+  ""
+  (interactive)
+  (if (eq major-mode 'vterm-mode)
+      ;; if already in vterm return to previous window
+      (my-switch-to-previous-window)
+    ;; if in another window switch to vterm window
+    (select-window
+     (cl-find-if
+      (lambda (window)
+        (with-current-buffer (window-buffer window) (eq major-mode 'vterm-mode)))
+      (window-list))
+     )
+    )
+  )
+
+(defun my-switch-to-previous-window ()
+  "Switch to the previously active window."
+  (interactive)
+  (let ((win (get-mru-window t t t)))
+    (unless win (error "Last window not found"))
+    (let ((frame (window-frame win)))
+      (select-frame-set-input-focus frame)
+      (select-window win))))
+
+
+(defun my-next-buffer-same-major-mode ()
+  "Switch to the next buffer with the same major mode as the current buffer."
+  (interactive)
+  (let ((initial-buffer (current-buffer))
+        (current-mode major-mode))
+    (next-buffer)
+    (while (and (not (eq major-mode current-mode))
+                (not (eq (current-buffer) initial-buffer)))
+      (next-buffer))
+    (when (not (eq major-mode current-mode))
+      (switch-to-buffer initial-buffer)
+      (message "No other buffers with the same major mode."))))
+
+
+(defun my-previous-buffer-same-major-mode ()
+  "Switch to the previous buffer with the same major mode as the current buffer."
+  (interactive)
+  (let ((initial-buffer (current-buffer))
+        (current-mode major-mode))
+    (previous-buffer)
+    (while (and (not (eq major-mode current-mode))
+                (not (eq (current-buffer) initial-buffer)))
+      (previous-buffer))
+    (when (not (eq major-mode current-mode))
+      (switch-to-buffer initial-buffer)
+      (message "No other buffers with the same major mode."))))
+
+
 (map!
  ;; window navigation with super
  "s-{"          (lambda () (interactive) (other-window -1))
  "s-}"          (lambda () (interactive) (other-window  1))
 
- "s-["        (lambda () (interactive) (other-frame -1)) ;; #'tab-line-switch-to-prev-tab
- "s-]"        (lambda () (interactive) (other-frame 1)) ;;#'tab-line-switch-to-prev-tab
+ ;; "s-["        (lambda () (interactive) (other-frame -1)) ;; #'tab-line-switch-to-prev-tab
+ ;; "s-]"        (lambda () (interactive) (other-frame 1)) ;;#'tab-line-switch-to-prev-tab
 
+ "s-["          #'my-previous-buffer-same-major-mode
+ "s-]"          #'my-next-buffer-same-major-mode
+ "s-<return>"   #'my-vterm-select-or-back
+ "S-s-<return>" #'+vterm/here
+ 
  "M-s-["        #'windmove-swap-states-left
  "M-s-]"        #'windmove-swap-states-right
 
@@ -91,7 +167,6 @@
  "s-r"          #'query-replace
  "s-l"          #'consult-goto-line
  "s-t"          #'make-frame
- "s-<return>"   #'+vterm/here
  "s-<"          #'backward-sexp
  "s->"          #'forward-sexp
 
