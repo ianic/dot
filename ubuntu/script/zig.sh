@@ -11,7 +11,7 @@ os=linux
 arch=aarch64-$os
 arch | grep x86_64 >>/dev/null && arch=x86_64-$os
 
-stable_version=0.13.0
+stable_version=0.14.0
 cd ~
 mkdir -p ~/.build
 mkdir -p ~/.local/bin
