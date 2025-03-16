@@ -56,12 +56,15 @@
 ;; (unpin! zig-mode)
 ;; (package! zig-mode :pin "f55e42536a3f34b81198b856595dc3a61867aa3e")
 
-(package! mini-frame)
+;; (package! mini-frame)
 (package! imenu-list)
 (package! modus-themes)
 (package! ef-themes)
 (package! jinx)
 
-(package! perfect-margin)
+;; (package! perfect-margin)
 (package! which-key-posframe)
-(package! beframe)
+;; (package! beframe)
+
+;; ref: https://github.com/doomemacs/doomemacs/issues/8287
+(package! eldoc :built-in t)
