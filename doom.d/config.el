@@ -449,3 +449,11 @@
 
 ;;     (add-to-list 'consult-buffer-sources 'beframe-consult-source))
 ;;   )
+
+
+
+
+(after! vterm
+  ;;(set-popup-rule! "*doom:vterm-popup:main" :size 0.25 :vslot -4 :select t :quit nil :ttl 0 :side 'left :modeline: t)
+  (set-popup-rule! "vterm"                :size 0.25 :vslot -4 :select t :quit nil :ttl 0 :side 'left :modeline: t)
+  )

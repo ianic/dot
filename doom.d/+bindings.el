@@ -13,6 +13,8 @@
   (xterm-mouse-mode 1)
   )
 
+(load! "vterm.el")
+
 ;; remove mapping to ace-window when window-select +number is active in init.el
 ;; https://github.com/doomemacs/doomemacs/blob/9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee/modules/ui/window-select/config.el#L16
 (global-set-key [remap other-window] nil)
@@ -41,15 +43,56 @@
   (if (eq major-mode 'vterm-mode)
       ;; if already in vterm return to previous window
       (my-switch-to-previous-window)
-    ;; if in another window switch to vterm window
-    (select-window
-     (cl-find-if
-      (lambda (window)
-        (with-current-buffer (window-buffer window) (eq major-mode 'vterm-mode)))
-      (window-list))
-     )
+
+    ;; find first vterm window
+    (let ((first-vterm-window (cl-find-if
+                               (lambda (window)
+                                 (with-current-buffer (window-buffer window) (eq major-mode 'vterm-mode)))
+                               (window-list))))
+      ;; select that window or create new
+      (if first-vterm-window
+          (select-window first-vterm-window)
+        (+vterm/toggle nil)
+        )
+      )
     )
   )
+
+(defun next-buffer-with-same-mode ()
+  "Switch to the next buffer with the same major mode."
+  (interactive)
+  (let ((current-mode major-mode)
+        (buffers (buffer-list)))
+    (set-window-dedicated-p (selected-window) nil)
+    (catch 'found
+      (while buffers
+        (let ((buf (car buffers)))
+          (setq buffers (cdr buffers))
+          (when (and (not (eq buf (current-buffer)))
+                     (eq current-mode
+                         (with-current-buffer buf major-mode)))
+            (switch-to-buffer buf)
+            (throw 'found t))))
+      (message "No other buffer with the same major mode"))
+    (set-window-dedicated-p (selected-window) t)
+    )
+  )
+
+(defun previous-buffer-with-same-major-mode ()
+  "Switch to the previous buffer with the same major mode."
+  (interactive)
+  (let ((current-mode major-mode)
+        (buffers (buffer-list)))
+    (set-window-dedicated-p (selected-window) nil)
+    (catch 'found
+      (dolist (buf buffers)
+        (when (and (not (eq buf (current-buffer)))
+                   (eq current-mode (buffer-local-value 'major-mode buf)))
+          (switch-to-buffer buf)
+          (throw 'found nil)))
+      (message "No previous buffer with the same major mode found."))
+    (set-window-dedicated-p (selected-window) t)
+    ))
 
 (defun my-switch-to-previous-window ()
   "Switch to the previously active window."
@@ -64,43 +107,54 @@
 (defun my-next-buffer-same-major-mode ()
   "Switch to the next buffer with the same major mode as the current buffer."
   (interactive)
-  (let ((initial-buffer (current-buffer))
-        (current-mode major-mode))
-    (next-buffer)
-    (while (and (not (eq major-mode current-mode))
-                (not (eq (current-buffer) initial-buffer)))
-      (next-buffer))
-    (when (not (eq major-mode current-mode))
-      (switch-to-buffer initial-buffer)
-      (message "No other buffers with the same major mode."))))
-
+  (if (eq major-mode 'vterm-mode)
+      (let ((initial-buffer (current-buffer))
+            (current-mode major-mode))
+        (set-window-dedicated-p (selected-window) nil)
+        (next-buffer)
+        (while (and (not (eq major-mode current-mode))
+                    (not (eq (current-buffer) initial-buffer)))
+          (next-buffer))
+        (when (not (eq major-mode current-mode))
+          (switch-to-buffer initial-buffer)
+          (message "No other buffers with the same major mode."))
+        (set-window-dedicated-p (selected-window) t))
+    (other-window 1)))
 
 (defun my-previous-buffer-same-major-mode ()
   "Switch to the previous buffer with the same major mode as the current buffer."
   (interactive)
-  (let ((initial-buffer (current-buffer))
-        (current-mode major-mode))
-    (previous-buffer)
-    (while (and (not (eq major-mode current-mode))
-                (not (eq (current-buffer) initial-buffer)))
-      (previous-buffer))
-    (when (not (eq major-mode current-mode))
-      (switch-to-buffer initial-buffer)
-      (message "No other buffers with the same major mode."))))
+  (if (eq major-mode 'vterm-mode)
+      (let ((initial-buffer (current-buffer))
+            (current-mode major-mode))
+        (set-window-dedicated-p (selected-window) nil)
+        (previous-buffer)
+        (while (and (not (eq major-mode current-mode))
+                    (not (eq (current-buffer) initial-buffer)))
+          (previous-buffer))
+        (when (not (eq major-mode current-mode))
+          (switch-to-buffer initial-buffer)
+          (message "No other buffers with the same major mode."))
+        (set-window-dedicated-p (selected-window) t))
+    (other-window -1)))
 
 
 (map!
  ;; window navigation with super
- "s-{"          (lambda () (interactive) (other-window -1))
- "s-}"          (lambda () (interactive) (other-window  1))
+ ;; "s-{"          (lambda () (interactive) (other-window -1))
+ ;; "s-}"          (lambda () (interactive) (other-window  1))
 
  ;; "s-["        (lambda () (interactive) (other-frame -1)) ;; #'tab-line-switch-to-prev-tab
  ;; "s-]"        (lambda () (interactive) (other-frame 1)) ;;#'tab-line-switch-to-prev-tab
 
+ "s-{"          #'my-previous-buffer-same-major-mode
+ "s-}"          #'my-next-buffer-same-major-mode
+
  "s-["          #'my-previous-buffer-same-major-mode
  "s-]"          #'my-next-buffer-same-major-mode
  "s-<return>"   #'my-vterm-select-or-back
- "S-s-<return>" #'+vterm/here
+ ;;"S-s-<return>" #'+vterm/here
+ "s-t"          #'+vterm/toggle
  
  "M-s-["        #'windmove-swap-states-left
  "M-s-]"        #'windmove-swap-states-right
@@ -119,8 +173,11 @@
 
  ;; cmd-shift-{ / cmd-shift-} is mapped to control-tab / control-shift-tab system wide
  ;; so this is: s-{ s-}
- "C-<iso-lefttab>"  (lambda () (interactive) (other-window  -1))
- "C-<tab>"          (lambda () (interactive) (other-window 1))
+ ;; "C-<iso-lefttab>"  (lambda () (interactive) (other-window  -1))
+ ;; "C-<tab>"          (lambda () (interactive) (other-window 1))
+
+ "C-<iso-lefttab>"  #'my-previous-buffer-same-major-mode
+ "C-<tab>"          #'my-next-buffer-same-major-mode
 
  ;; window navigation with control
  ;; "<C-lsb>"      (lambda () (interactive) (other-window  -1))
@@ -166,7 +223,7 @@
 
  "s-r"          #'query-replace
  "s-l"          #'consult-goto-line
- "s-t"          #'make-frame
+ ;;"s-t"          #'make-frame
  "s-<"          #'backward-sexp
  "s->"          #'forward-sexp
 
