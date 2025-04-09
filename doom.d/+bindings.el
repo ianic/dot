@@ -13,7 +13,7 @@
   (xterm-mouse-mode 1)
   )
 
-(load! "vterm.el")
+;;(load! "vterm.el")
 
 ;; remove mapping to ace-window when window-select +number is active in init.el
 ;; https://github.com/doomemacs/doomemacs/blob/9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee/modules/ui/window-select/config.el#L16
@@ -22,30 +22,29 @@
 
 (map!
  ;; window navigation with super
- ;; "s-{"          (lambda () (interactive) (other-window -1))
- ;; "s-}"          (lambda () (interactive) (other-window  1))
+ "s-{"          (lambda () (interactive) (other-window -1))
+ "s-}"          (lambda () (interactive) (other-window  1))
 
- ;; "s-["        (lambda () (interactive) (other-frame -1)) ;; #'tab-line-switch-to-prev-tab
- ;; "s-]"        (lambda () (interactive) (other-frame 1)) ;;#'tab-line-switch-to-prev-tab
+ ;; "s-["        (lambda () (interactive) (other-window -1))
+ ;; "s-]"        (lambda () (interactive) (other-window 1))
 
- "s-{"          #'my-previous-buffer-same-major-mode
- "s-}"          #'my-next-window
+ ;; "s-{"          #'my-previous-window
+ ;; "s-}"          #'my-next-window
 
  "s-["          #'my-previous-window
  "s-]"          #'my-next-window
 
  ;; cmd-shift-{ / cmd-shift-} is mapped to control-tab / control-shift-tab system wide
  ;; so this is: s-{ s-}
- ;; "C-<iso-lefttab>"  (lambda () (interactive) (other-window  -1))
- ;; "C-<tab>"          (lambda () (interactive) (other-window 1))
- "C-<iso-lefttab>"  #'my-previous-window
- "C-<tab>"          #'my-next-window
+ "C-<iso-lefttab>"  (lambda () (interactive) (other-window  -1))
+ "C-<tab>"          (lambda () (interactive) (other-window 1))
+ ;; "C-<iso-lefttab>"  #'my-previous-window
+ ;; "C-<tab>"          #'my-next-window
 
-
+ "C-<return>"   #'my-vterm-select-or-back
  "s-<return>"   #'my-vterm-select-or-back
+ "s-t"          #'my-new-vterm-buffer
  ;;"S-s-<return>" #'+vterm/here
- "s-t"          #'+vterm/toggle
-
 
  "M-s-["        #'windmove-swap-states-left
  "M-s-]"        #'windmove-swap-states-right
@@ -85,7 +84,7 @@
 
  ;;"M-;"          #'+company/complete
  ;;"M-i"          #'+workspace/switch-right
- "s-i"          #'other-frame
+ ;; "s-i"          #'other-frame
 
  ;; copy paste
  "s-z"          #'undo-fu-only-undo

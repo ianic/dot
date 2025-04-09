@@ -78,6 +78,7 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+
 (load! "+bindings.el")
 
 ;; Themes
@@ -121,6 +122,7 @@
 ;; Balance windows width on split and close
 (advice-add 'split-window-right :after #'balance-windows)
 (advice-add '+workspace/close-window-or-workspace :after #'balance-windows)
+
 
 ;; show which-key faster (default i 1.0 seconds)
 ;; ref: https://github.com/doomemacs/doomemacs/issues/1465
@@ -380,21 +382,10 @@
 ;;   (setq which-key-posframe-poshandler 'posframe-poshandler-frame-center)
 ;;   )
 
-(use-package! vterm
-  :config
-
-  ;; ref: https://github.com/doomemacs/doomemacs/issues/6651
-  (setq vterm-buffer-name-string "vterm %s")
-  ;; remove M-i from vterm--self-insert-meta
-  (define-key vterm-mode-map (kbd "M-i") nil)
-  (define-key vterm-mode-map (kbd "M-]") nil)
-  )
-
-
 
 (defun my-frame-setup (frame)
-  (set-frame-position frame 1362 0)
-  (set-frame-size frame 372 95)
+  ;;(set-frame-position frame 1362 0)
+  ;;(set-frame-size frame 372 95)
 
   ;; Display zig compilation below current window
   ;; Idea from: https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/
@@ -413,9 +404,10 @@
 
 (add-hook 'after-make-frame-functions #'my-frame-setup)
 
-(setq initial-frame-alist '((left . 1362) (top . 0) (width . 372) (height . 95)))
+;; (setq initial-frame-alist '((left . 1362) (top . 0) (width . 372) (height . 95)))
+
 ;; remove titlebar
-(add-to-list 'default-frame-alist '(undecorated . t))
+;; (add-to-list 'default-frame-alist '(undecorated . t))
 
 ;; (use-package! beframe
 ;;   :config
@@ -450,10 +442,4 @@
 ;;     (add-to-list 'consult-buffer-sources 'beframe-consult-source))
 ;;   )
 
-
-
-
-(after! vterm
-  ;;(set-popup-rule! "*doom:vterm-popup:main" :size 0.25 :vslot -4 :select t :quit nil :ttl 0 :side 'left :modeline: t)
-  (set-popup-rule! "vterm"                :size 0.25 :vslot -4 :select t :quit nil :ttl 0 :side 'left :modeline: t)
-  )
+(load! "vterm.el")
