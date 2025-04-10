@@ -31,8 +31,8 @@
  ;; "s-{"          #'my-previous-window
  ;; "s-}"          #'my-next-window
 
- "s-["          #'my-previous-window
- "s-]"          #'my-next-window
+ ;;"s-["          #'my-previous-window
+ ;;"s-]"          #'my-next-window
 
  ;; cmd-shift-{ / cmd-shift-} is mapped to control-tab / control-shift-tab system wide
  ;; so this is: s-{ s-}
@@ -41,10 +41,9 @@
  ;; "C-<iso-lefttab>"  #'my-previous-window
  ;; "C-<tab>"          #'my-next-window
 
- "C-<return>"   #'my-vterm-select-or-back
- "s-<return>"   #'my-vterm-select-or-back
- "s-t"          #'my-new-vterm-buffer
- ;;"S-s-<return>" #'+vterm/here
+ "C-<return>"   #'other-frame
+ "s-<return>"   #'other-frame
+ "s-t"          #'+vterm/here
 
  "M-s-["        #'windmove-swap-states-left
  "M-s-]"        #'windmove-swap-states-right

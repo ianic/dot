@@ -64,7 +64,7 @@
 
 ;; (package! perfect-margin)
 (package! which-key-posframe)
-;; (package! beframe)
+(package! beframe)
 
 ;; ref: https://github.com/doomemacs/doomemacs/issues/8287
 (package! eldoc :built-in t)
