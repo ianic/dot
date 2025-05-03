@@ -34,8 +34,8 @@
 ;; `load-theme' function. This is the default:
 ;;(setq doom-theme 'doom-nord)
 ;;(setq doom-theme 'modus-operandi-deuteranopia)
-;; (setq doom-theme 'ef-elea-light)
-(setq doom-theme 'ef-maris-light)
+(setq doom-theme 'ef-elea-light)
+;;(setq doom-theme 'ef-maris-light)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -116,7 +116,7 @@
 (after! projectile
   (mapc (lambda (item)
           (add-to-list 'projectile-globally-ignored-directories item))
-        '("^zig-out$" "^zig-cache$")))
+        '("^zig-out$" "^zig-cache$" "^.zig-cache$" "lzma/testdata")))
 
 
 ;; Balance windows width on split and close
@@ -128,33 +128,24 @@
 ;; ref: https://github.com/doomemacs/doomemacs/issues/1465
 (setq which-key-idle-delay 0.5)
 
-;; exwm window manager
-;; (if (display-graphic-p)
-;;     (load! "exwm.el")
-;;   )
-
-;; mode line is hidden in vterm, making it hard to see which window has focus
-;; this disables hide in all buffers
-;; ref: https://github.com/doomemacs/doomemacs/issues/6209
-;;(advice-add 'hide-mode-line-mode :around (lambda (orig &optinal args) nil))
 
 (load! "dired.el")
 
 (setq isearch-allow-motion t)
 
-;; Display zig compilation below current window
-;; Idea from: https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/
-(set-popup-rule!
-  "^\\*compilation\\*" 
-  :side 'bottom :width 0.3 :height 0.3 :ttl nil :modeline nil :quit t :select: nil
-  :actions '(display-buffer-below-selected)
-  )
+;; ;; Display zig compilation below current window
+;; ;; Idea from: https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/
+;; (set-popup-rule!
+;;   "^\\*compilation\\*"
+;;   :side 'bottom :width 0.3 :height 0.3 :ttl nil :modeline nil :quit t :select: nil
+;;   :actions '(display-buffer-below-selected)
+;;   )
 
-(set-popup-rule!
-  "^\\*\\(?:Wo\\)?Man "
-  :bottom 'right :width 0.25 :height 0.45 :ttl nil :modeline nil :quit t :select: t
-  :actions '(display-buffer-below-selected)
-  )
+;; (set-popup-rule!
+;;   "^\\*\\(?:Wo\\)?Man "
+;;   :bottom 'right :width 0.25 :height 0.45 :ttl nil :modeline nil :quit t :select: t
+;;   :actions '(display-buffer-below-selected)
+;;   )
 
 
 ;; customize theme
@@ -166,7 +157,6 @@
 
 ;; Emacs 29 ships with an improved global minor mode for scrolling with a mouse or a touchpad
 (pixel-scroll-precision-mode)
-
 
 ;; reference:
 ;; https://emacsnotes.wordpress.com/2022/09/11/three-bonus-keys-c-i-c-m-and-c-for-your-gui-emacs-all-with-zero-headache/
@@ -205,42 +195,13 @@
 
        ))))
 
-(setq vertico-posframe-width 128)
-(setq vertico-posframe-height nil)
-(setq vertico-count 20)
-;; (setq vertico-posframe-poshandler #'posframe-poshandler-frame-bottom-center)
-(setq vertico-posframe-parameters
-      '((left-fringe . 8)
-        (right-fringe . 8)
-        ))
-
-;; (use-package! mini-frame
-;;   :init
-;;   ;; code here will run immediately
-;;   :config
-;;   ;; code here will run after the package is loaded
-;;   (custom-set-variables
-;;    '(mini-frame-show-parameters
-;;      '((top . 800)
-;;        (width . 0.33)
-;;        (left . 0.5)
-;;        )))
-;;   (setq vertico-count 12)
-;;   (setq mini-frame-detach-on-hide nil)
-;;   (setq x-gtk-resize-child-frames 'resize-mode)
-;;   (mini-frame-mode)
-;;   ;; da mi ne blica vtrem buffer kada nesto radi, originalno je bilo 27
-;;   (setq mini-frame-color-shift-step 5)
-;;   )
-
-;; (setq imenu-list-auto-resize nil)
-;; (setq imenu-list-size 0.1)
-;; (setq imenu-list-position 'right)
-;; (setq imenu-list-focus-after-activation t)
-;; (set-popup-rule!
-;;   "^\\*Ilist\\*"
-;;   :side 'right :width 0.11 :ttl 0 :modeline t :quit nil :select: t
-;;   )
+;; (setq vertico-posframe-width 128)
+;; (setq vertico-posframe-height nil)
+;; (setq vertico-count 20)
+;; (setq vertico-posframe-parameters
+;;       '((left-fringe . 8)
+;;         (right-fringe . 8)
+;;         ))
 
 ;; Add shortcuts to isearch
 (use-package isearch
@@ -300,8 +261,6 @@
 (setq corfu-auto-delay 0.6)
 
 
-
-
 (after! modus-themes
   (modus-themes-with-colors
    (custom-set-faces
@@ -320,6 +279,9 @@
 (setq flycheck-color-mode-line-face-to-color 'doom-modeline)
 (setq doom-modeline-check-simple-format t)
 (setq doom-modeline-check-icon nil)
+;; zato sto stalno stoji organize imports u code actions
+(setq lsp-modeline-code-actions-enable nil)
+
 
 ;; transparent background
 (set-frame-parameter nil 'alpha-background 95)
@@ -339,70 +301,25 @@
   (replace-regexp "đ" "dj")
   )
 
+;; (defun my-frame-setup (frame)
+;;   ;;(set-frame-position frame 1362 0)
+;;   ;;(set-frame-size frame 372 95)
 
-
-
-;; (use-package! perfect-margin
-;;   :config
-;;   (after! doom-modeline
-;;     (setq mode-line-right-align-edge 'right-fringe))
-;;   (after! minimap
-;;     ;; if you use (vc-gutter +pretty)
-;;     ;; and theme is causing "Invalid face attribute :foreground nil"
-;;     ;; (setq minimap-highlight-line nil)
-;;     (setq minimap-width-fraction 0.08))
-;;   (setq perfect-margin-only-set-left-margin t)
-;;   (perfect-margin-mode t)
-;;   ;; Center completion minibuffer
-;;   (add-to-list 'perfect-margin-force-regexps "*Minibuf")
-;;   (add-to-list 'perfect-margin-force-regexps "*which-key")
-;;   (add-to-list 'perfect-margin-force-regexps "*Help*")
-
-;;   (add-to-list 'perfect-margin-force-regexps " *Echo Area")
-
-;;   ;; ignore all other buffers
-;;   (setq perfect-margin-ignore-regexps '(""))
-;;   (setq perfect-margin-ignore-filters nil)
+;;   ;; Display zig compilation below current window
+;;   ;; Idea from: https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/
+;;   (set-popup-rule!
+;;     "^\\*compilation\\*"
+;;     :side 'bottom :width 0.3 :height 0.3 :ttl nil :modeline nil :quit t :select: nil
+;;     :actions '(display-buffer-below-selected)
+;;     )
+;;   (set-popup-rule!
+;;     "^\\*\\(?:Wo\\)?Man "
+;;     :bottom 'right :width 0.25 :height 0.45 :ttl nil :modeline nil :quit t :select: t
+;;     :actions '(display-buffer-below-selected)
+;;     )
 ;;   )
 
-;; (use-package! which-key
-;;   :config
-;;   ;; limit which key buffer height and width
-;;   (defun which-key-custom-popup-max-dimensions-function (ignore)
-;;     (cons 20
-;;           (min 128 (frame-width))))
-;;   (setq which-key-custom-popup-max-dimensions-function
-;;         'which-key-custom-popup-max-dimensions-function)
-;;   )
-
-
-;; (use-package! which-key-posframe
-;;   :config
-;;   (which-key-posframe-mode 1)
-;;   (setq which-key-posframe-poshandler 'posframe-poshandler-frame-center)
-;;   )
-
-
-(defun my-frame-setup (frame)
-  ;;(set-frame-position frame 1362 0)
-  ;;(set-frame-size frame 372 95)
-
-  ;; Display zig compilation below current window
-  ;; Idea from: https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/
-  (set-popup-rule!
-    "^\\*compilation\\*"
-    :side 'bottom :width 0.3 :height 0.3 :ttl nil :modeline nil :quit t :select: nil
-    :actions '(display-buffer-below-selected)
-    )
-  (set-popup-rule!
-    "^\\*\\(?:Wo\\)?Man "
-    :bottom 'right :width 0.25 :height 0.45 :ttl nil :modeline nil :quit t :select: t
-    :actions '(display-buffer-below-selected)
-    )
-
-  )
-
-(add-hook 'after-make-frame-functions #'my-frame-setup)
+;; (add-hook 'after-make-frame-functions #'my-frame-setup)
 
 ;; (setq initial-frame-alist '((left . 1362) (top . 0) (width . 372) (height . 95)))
 
@@ -442,4 +359,6 @@
     (add-to-list 'consult-buffer-sources 'beframe-consult-source))
   )
 
+(spacious-padding-mode t)
+;; (setq spacious-padding-subtle-mode-line nil)
 ;; (load! "vterm.el")

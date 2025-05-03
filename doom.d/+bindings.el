@@ -213,10 +213,15 @@
 
 (map! :after vterm
       :map vterm-mode-map
-      "s-j" #'vterm-clear-scrollback
       "s-k" #'vterm-clear
+
+      "s-j" #'vterm-clear-scrollback
       "s-l" #'vterm-copy-mode
       "s-c" #'vterm-copy-mode
+
+      "C-j k" #'vterm-clear
+      "C-j j" #'vterm-copy-mode
+      "C-j C-j" #'vterm-copy-mode
       )
 
 ;; Disable C-tab in magit

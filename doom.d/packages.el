@@ -65,6 +65,7 @@
 ;; (package! perfect-margin)
 (package! which-key-posframe)
 (package! beframe)
+(package! spacious-padding)
 
 ;; ref: https://github.com/doomemacs/doomemacs/issues/8287
 (package! eldoc :built-in t)
