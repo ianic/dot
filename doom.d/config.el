@@ -261,18 +261,18 @@
 (setq corfu-auto-delay 0.6)
 
 
-(after! modus-themes
-  (modus-themes-with-colors
-   (custom-set-faces
-    ;; Make foreground the same as background for a uniform bar on
-    ;; Doom Emacs.
-    ;;
-    ;; Doom should not be implementing such hacks because themes
-    ;; cannot support them:
-    ;; <https://protesilaos.com/codelog/2022-08-04-doom-git-gutter-modus-themes/>.
-    `(git-gutter-fr:added ((,c :foreground ,bg-added-intense)))
-    `(git-gutter-fr:deleted ((,c :foreground ,bg-removed-intense)))
-    `(git-gutter-fr:modified ((,c :foreground ,bg-changed-intense))))))
+;; (after! modus-themes
+;;   (modus-themes-with-colors
+;;    (custom-set-faces
+;;     ;; Make foreground the same as background for a uniform bar on
+;;     ;; Doom Emacs.
+;;     ;;
+;;     ;; Doom should not be implementing such hacks because themes
+;;     ;; cannot support them:
+;;     ;; <https://protesilaos.com/codelog/2022-08-04-doom-git-gutter-modus-themes/>.
+;;     `(git-gutter-fr:added ((,c :foreground ,bg-added-intense)))
+;;     `(git-gutter-fr:deleted ((,c :foreground ,bg-removed-intense)))
+;;     `(git-gutter-fr:modified ((,c :foreground ,bg-changed-intense))))))
 
 
 ;; ref: https://github.com/seagle0128/doom-modeline/issues/621
@@ -362,3 +362,7 @@
 (spacious-padding-mode t)
 ;; (setq spacious-padding-subtle-mode-line nil)
 ;; (load! "vterm.el")
+
+;; buffer fringe refresh
+;; https://github.com/doomemacs/doomemacs/blob/f5b9cce5e0a29cae13465f84491cafaf62de98e7/modules/ui/vc-gutter/config.el#L124
+;; (+vc-gutter-update-h)
