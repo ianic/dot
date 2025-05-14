@@ -45,7 +45,7 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             backupFileExtension = "backup";
-            users.ianic = import /home/ianic/.config/nixos/home.nix;
+            users.ianic = import ./home.nix;
           };
           # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
         }
