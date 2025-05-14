@@ -1,6 +1,9 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, ... }: let
+  doomPath = "${config.home.homeDirectory}/.config/dot/doom";
+in
 {
+  xdg.configFile."doom".source = config.lib.file.mkOutOfStoreSymlink doomPath;
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "ianic";
