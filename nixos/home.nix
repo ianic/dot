@@ -196,4 +196,11 @@ in
 
   # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.ghostty = {
+    enable = true;
+    settings =  {
+      theme = "GitHub-Light-High-Contrast";
+    };
+  };
 }
