@@ -123,23 +123,7 @@ in
     # ethtool
     # pciutils # lspci
     # usbutils # lsusb
-
-    gnomeExtensions.vitals
-    gnomeExtensions.gsconnect
-    gnomeExtensions.tactile
   ];
-
-  dconf = {
-    enable = true;
-    settings."org/gnome/shell" = {
-      disable-user-extensions = false;
-      enabled-extensions = with pkgs.gnomeExtensions; [
-        vitals.extensionUuid
-        gsconnect.extensionUuid
-        tactile.extensionUuid
-      ];
-    };
-  };
 
   fonts.fontconfig.enable = true;
 
