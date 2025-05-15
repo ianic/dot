@@ -15,12 +15,12 @@
     coreutils
     fd
     clang
-    # # da bi mogao buildati vterm u emacs-u
-    # # to je sada pokriveno s coreutils vjerujem
-    # gnumake
-    # cmake
-    # gcc
-    # libtool
+
+    # to build vterm in emacs
+    gnumake
+    cmake
+    #gcc
+    libtool
 
     # here is some command line tools I use frequently
     # feel free to add your own or remove some of them
