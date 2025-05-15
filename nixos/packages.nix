@@ -113,8 +113,9 @@
     enable = true;
     shellAliases = {
       nrs = "sudo nixos-rebuild switch --impure --flake /home/ianic/.config/dot/nixos#nixos";
-      d = "eza -l --icons";
+      d = "eza -l --icons always";
       ll = "ls -l";
+      cls = "clear";
       e = "emacsclient -n"; # send file to emacs
       doom = "~/.config/emacs/bin/doom";
       zb = "zig build";
