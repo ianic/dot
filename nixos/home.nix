@@ -4,6 +4,10 @@ in
 {
   xdg.configFile."doom".source = config.lib.file.mkOutOfStoreSymlink doomPath;
 
+   imports = [
+    ./gnome.nix
+  ];
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "ianic";
@@ -40,6 +44,7 @@ in
     git
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
+    emacs-gtk
 
     # doom emacs
     ripgrep
@@ -118,7 +123,23 @@ in
     # ethtool
     # pciutils # lspci
     # usbutils # lsusb
+
+    gnomeExtensions.vitals
+    gnomeExtensions.gsconnect
+    gnomeExtensions.tactile
   ];
+
+  dconf = {
+    enable = true;
+    settings."org/gnome/shell" = {
+      disable-user-extensions = false;
+      enabled-extensions = with pkgs.gnomeExtensions; [
+        vitals.extensionUuid
+        gsconnect.extensionUuid
+        tactile.extensionUuid
+      ];
+    };
+  };
 
   fonts.fontconfig.enable = true;
 

@@ -10,9 +10,12 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.useOSProber = true;
+
   boot.kernelPackages = pkgs.linuxPackages_latest; 
   # boot.kernelPackages = pkgs.linuxPackages_testing;
 
@@ -38,13 +41,10 @@
   # };
 
   # Enable the X11 windowing system.
-  # services.xserver.enable = true;
   services.xserver = {
     enable = true;
     desktopManager.gnome.enable = true;
   };
-
-  
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -88,7 +88,7 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
     wget
-    emacs
+    emacs-gtk
     ghostty
     btop    
     google-chrome
@@ -96,7 +96,7 @@
 
   services.emacs = {
     enable = true;
-    package = pkgs.emacs; # replace with emacs-gtk, or a version provided by the community overlay if desired.
+    package = pkgs.emacs-gtk; # replace with emacs-gtk, or a version provided by the community overlay if desired.
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -117,6 +117,13 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  # Required by kde connect: https://wiki.nixos.org/wiki/KDE_Connect
+  networking.firewall = rec {
+    allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    allowedUDPPortRanges = allowedTCPPortRanges;
+  };
+
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
