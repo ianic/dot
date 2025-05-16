@@ -9,6 +9,8 @@
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
     emacs-gtk
+    solaar
+    spotify
 
     # doom emacs
     ripgrep

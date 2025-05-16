@@ -90,14 +90,52 @@
     wget
     emacs-gtk
     ghostty
-    btop    
     google-chrome
+    keyd
   ];
 
   services.emacs = {
     enable = true;
     package = pkgs.emacs-gtk; # replace with emacs-gtk, or a version provided by the community overlay if desired.
   };
+
+  systemd.services.keyd = {
+    description = "key remapping daemon";
+    enable = true;
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.keyd}/bin/keyd";
+    };
+    wantedBy = [ "sysinit.target" ];
+    requires = [ "local-fs.target" ];
+    after = [ "local-fs.target" ];
+  };
+  environment.etc."keyd/default.conf".text = lib.mkForce ''
+[ids]
+046d:b361 # (MX Keys Mac Keyboard)
+
+046d:c548  #(Logitech USB Receiver Mouse)
+046d:b034  #(MX Master 3S) connected to bluetooth
+*
+
+[main]
+
+leftmeta = layer(cmd)
+
+capslock = layer(capslock_to_control)
+
+rightalt = layer(ralt)
+
+# named layer for use in app specific mapping
+[cmd:M]
+leftmouse = C-leftmouse
+
+# Tab left/right globalno
+# cmd+{} mapriam na control alternativeu
+[cmd+shift]
+[ = C-S-tab
+] = C-tab
+  '';
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -149,5 +187,6 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
 
+  hardware.logitech.wireless.enable = true;
 }
 

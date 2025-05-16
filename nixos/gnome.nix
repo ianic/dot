@@ -4,7 +4,7 @@
     gnomeExtensions.vitals
     gnomeExtensions.gsconnect
     gnomeExtensions.tactile
-    gnomeExtensions.moveclock
+    gnomeExtensions.move-clock
   ];
 
   dconf = {
@@ -16,7 +16,7 @@
         vitals.extensionUuid
         gsconnect.extensionUuid
         tactile.extensionUuid
-        moveclock.extensionUuid
+        move-clock.extensionUuid
       ];
     };
 
