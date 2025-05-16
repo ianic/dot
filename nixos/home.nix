@@ -1,8 +1,8 @@
 { config, pkgs, ... }: let
-  doomPath = "${config.home.homeDirectory}/.config/dot/doom";
+
 in
 {
-  xdg.configFile."doom".source = config.lib.file.mkOutOfStoreSymlink doomPath;
+
 
   imports = [
     ./packages.nix
@@ -26,4 +26,22 @@ in
 
   # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  xdg.configFile."doom".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/dot/doom";
+
+  # ref: https://github.com/zigtools/zls/blob/master/schema.json
+  xdg.configFile."zls.json".text = ''
+    {
+      "warn_style": true,
+      "highlight_global_var_declarations": true,
+      "include_at_in_builtins": true,
+      "enable_autofix": true,
+
+      "inlay_hints_show_parameter_name": false,
+      "inlay_hints_show_struct_literal_field_type": false,
+      "inlay_hints_show_variable_type_hints": false,
+
+      "enable_build_on_save": true
+    }
+    '';
 }

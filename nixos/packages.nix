@@ -17,6 +17,7 @@
     coreutils
     fd
     clang
+    ispell
 
     # to build vterm in emacs
     gnumake
@@ -24,24 +25,37 @@
     #gcc
     libtool
 
-    # here is some command line tools I use frequently
-    # feel free to add your own or remove some of them
-
+    # shell
+    killall
     neofetch
-    # nnn # terminal file manager
+    jq # A lightweight and flexible command-line JSON processor
+    yq-go # yaml processor https://github.com/mikefarah/yq
+    eza # A modern replacement for ‘ls’
+    fzf # A command-line fuzzy finder
+
+    btop  # replacement of htop/nmon
+    iotop # io monitoring
+    iftop # network monitoring
+
+    # system call monitoring
+    strace # system call monitoring
+    ltrace # library call monitoring
+    lsof # list open files
+
+    # system tools
+    sysstat
+    lm_sensors # for `sensors` command
+    ethtool
+    pciutils # lspci
+    usbutils # lsusb
 
     # archives
     zip
     xz
     unzip
     p7zip
-
-    # utils
-    # ripgrep # recursively searches directories for a regex pattern
-    jq # A lightweight and flexible command-line JSON processor
-    yq-go # yaml processor https://github.com/mikefarah/yq
-    eza # A modern replacement for ‘ls’
-    fzf # A command-line fuzzy finder
+    gnutar
+    zstd
 
     # # networking tools
     # mtr # A network diagnostic tool
@@ -59,9 +73,7 @@
     # which
     # tree
     # gnused
-    # gnutar
     # gawk
-    # zstd
     # gnupg
 
     # # nix related
@@ -73,22 +85,6 @@
     # # productivity
     # hugo # static site generator
     # glow # markdown previewer in terminal
-
-    # btop  # replacement of htop/nmon
-    # iotop # io monitoring
-    # iftop # network monitoring
-
-    # # system call monitoring
-    # strace # system call monitoring
-    # ltrace # library call monitoring
-    # lsof # list open files
-
-    # # system tools
-    # sysstat
-    # lm_sensors # for `sensors` command
-    # ethtool
-    # pciutils # lspci
-    # usbutils # lsusb
   ];
 
   programs.git = {
@@ -114,7 +110,7 @@
   programs.zsh = {
     enable = true;
     shellAliases = {
-      nrs = "sudo nixos-rebuild switch --impure --flake /home/ianic/.config/dot/nixos#nixos";
+      rebuild = "sudo nixos-rebuild switch --impure --flake /home/ianic/.config/dot/nixos#nixos";
       d = "eza -l --icons always";
       ll = "ls -l";
       cls = "clear";

@@ -75,3 +75,9 @@
   (interactive)
   (zig--run-cmd "test" (buffer-file-name) "--test-filter" zig-test-last-test "-O" zig-test-optimization-mode)
   )
+
+(add-hook! zig-mode
+           ;; zig-mode has it's own zig-format-on-save-mode
+           (apheleia-mode nil)
+           (zig-format-on-save-mode t)
+           )
