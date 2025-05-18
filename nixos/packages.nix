@@ -57,6 +57,8 @@
     gnutar
     zstd
 
+    websocat
+
     # # networking tools
     # mtr # A network diagnostic tool
     # iperf3
@@ -119,6 +121,7 @@
       zb = "zig build";
       zbf = "zig build -Doptimize=ReleaseFast";
       emacs-restart = "systemctl --user restart emacs";
+      system-suspend = "cat /proc/acpi/wakeup | grep enabled | grep XHCI  && sudo sh -c 'echo XHCI > /proc/acpi/wakeup' ; systemctl suspend";
     };
 
     # ... # Your zsh config
